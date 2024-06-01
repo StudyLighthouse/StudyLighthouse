@@ -29,7 +29,7 @@ const Introduction = function (){
             </nav>
             <div className="flex flex-col md:flex-row justify-between pl-6 min-h-screen">
                 <div className=" md:text-left md:w-1/2 space-y-4 intro-text ">
-                    <h1 className="text-5xl md:text-7xl font-bold ml-4">Adaptive Learning Companion</h1><br></br>
+                    <h1 className="text-5xl md:text-7xl font-bold ml-4 shine">Adaptive Learning Companion</h1><br></br>
                     <p className="text-lg md:text-2xl ml-4">Study Partner offers AI help, voice assistance, and community Q&A for personalized, hands-free learning and collaboration.</p>
                 </div>
                 <div className="intro-circle1"></div>
