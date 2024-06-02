@@ -16,7 +16,7 @@ export default function Profile() {
           </div>
         </div>
         <div className="mb-4 ml-4">
-          <p><strong>Username:</strong> <a href="#" className="text-blue-800 ml-20" >Study_Buddy</a></p>
+          <p><strong>Username:</strong> <a href="/main" className="text-blue-800 ml-20" >Study_Buddy</a></p>
           <br></br>
           <p><strong>Contact:</strong> <span className="text-blue-600 ml-24">9238***102</span></p>
           <br></br>

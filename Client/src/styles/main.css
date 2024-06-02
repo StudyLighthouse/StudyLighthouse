@@ -1,0 +1,59 @@
+/* .maincard {
+    width: 250px;
+    height: 350px;
+    border-radius: 30px;
+    background: linear-gradient(145deg, #2b2b2b, #5c5c5c) border-box,
+    linear-gradient(145deg, rgba(53, 53, 53, 0.7), rgba(141, 141, 141, 0.7)) padding-box,;
+    box-shadow:  10px 10px 40px #2e2e2e,
+             -10px -10px 40px #3f3f3fd8;
+} */
+
+.cards .maincard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    width: 250px;
+    height: 350px;
+    border-radius: 30px;
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.7), rgba(10, 10, 10, 0.7)) padding-box,
+    linear-gradient(135deg, #0039a6, rgba(59, 98, 171, 0), rgba(209, 164, 49, 0), rgba(196, 141, 0, 0.63)) border-box;
+    border: 3px solid transparent;
+    box-shadow:  10px 10px 40px #2e2e2e,
+             -10px -10px 40px #3f3f3fd8;
+    color: white;
+    cursor: pointer;
+    transition: 400ms transform, 400ms box-shadow, 400ms background-color;
+}
+
+.cards .maincard p.tip {
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.cards .maincard p.second-text {
+    font-size: 0.7em;
+}
+
+.cards .maincard:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 57, 166, 0.9);
+    border: #0039a6;
+    color: #e7e7e7;
+}
+
+.cards:hover > .maincard:not(:hover) {
+    filter: blur(10px);
+    transform: scale(0.9);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.cards .gold:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    background-color: rgba(196, 141, 0, 0.9);
+    border:  #c48d00;
+    color: #e7e7e7;
+}

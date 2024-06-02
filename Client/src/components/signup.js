@@ -1,6 +1,6 @@
 import React from "react"
 import { X } from 'lucide-react';
-import "./signup.css"
+import "../styles/signup.css"
 
 export default function Signup({onClose}){
     return(

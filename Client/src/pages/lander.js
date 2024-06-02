@@ -1,7 +1,7 @@
 import React,{useState} from "react";
-import "./lander.css"
-import Signup from "../../components/signup.js"
-import Login from "../../components/login.js"
+import "../styles/lander.css"
+import Signup from "../components/signup.js"
+import Login from "../components/login.js"
 
 // Introduction - First
 const Introduction = function (){

@@ -1,5 +1,5 @@
 import React from "react";
-import "./studycard.css";
+import "../styles/studycard.css";
 
 
 export default function ProblemsSolved() {
