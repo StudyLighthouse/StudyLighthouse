@@ -40,7 +40,7 @@ const Header = () => {
       <div className={containerClass}>
         <div className={flexClass}>
           <img src="https://placehold.co/40x40" alt="Logo" className={imageClass} />
-          <button className={buttonClass}>To-Do List</button>
+          <a href='/todolist'><button className={buttonClass}>To-Do List</button></a>
         </div>
         <div className="relative">
           <div className={flexClass}>

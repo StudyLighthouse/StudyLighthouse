@@ -7,6 +7,7 @@ import TextGpt from "./pages/textGpt.js";
 import Profile from "./pages/profile.js"
 import Editprofile from "./pages/editprofile.js";
 import Friendprofile from "./pages/friendprofile.js";
+import ToDo from "./pages/todolist.js";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/editprofile" element={<Editprofile />} />
           <Route path="/friendprofile" element={<Friendprofile />} />
+          <Route path="/todolist" element={<ToDo/>}/>
         </Routes>
       </BrowserRouter>
     </div>
