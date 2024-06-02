@@ -8,6 +8,8 @@ import Profile from "./pages/profile.js"
 import Editprofile from "./pages/editprofile.js";
 import Friendprofile from "./pages/friendprofile.js";
 import ToDo from "./pages/todolist.js";
+import SolveProblem from "./pages/solveproblem.js";
+import Show from "./pages/showsolutions.js"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 
@@ -27,6 +29,8 @@ function App() {
           <Route path="/friendprofile" element={<Friendprofile />} />
           <Route path="/todolist" element={<ToDo/>}/>
           <Route path="/studymaterials" element={<StudyMaterials/>} />
+          <Route path="/solveproblems" element={<SolveProblem/>}/>
+          <Route path="/solutions" element={<Show/>}/>
         </Routes>
       </BrowserRouter>
     </div>

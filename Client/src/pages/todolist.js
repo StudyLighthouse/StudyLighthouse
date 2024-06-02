@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import '../styles/todolist.css';
+import { useState } from 'react';
+import Header from '../components/Navbar'
 
 function ToDo() {
     const [todoInput, updateInput] = useState('');
     const [startOnInput, updateStartOnInput] = useState('');
     const [endByInput, updateEndByInput] = useState('');
     const [todoList, updateTodos] = useState([
+        { id: 1, task: 'Learn React', startOn: '9am', endBy: '12pm', addedOn: new Date().toLocaleDateString() },
+        { id: 2, task: 'Learn Angular', startOn: '1pm', endBy: '4pm', addedOn: new Date().toLocaleDateString() },
     ]);
     const [nextId, setNextId] = useState(3);
     const [isEditing, setIsEditing] = useState(null);
@@ -61,48 +63,55 @@ function ToDo() {
     }
 
     return (
-        <div className="todo-container mt-5 w-50">
-            <h3 className="text-center">Todo App using React</h3>
-            <div className="input-group">
+        <div className="justify-center items-center pt-3">
+        <Header/>
+        <div className="p-16 rounded shadow-md w-auto">
+            <h3 className="text-center"></h3>
+            <div className="flex space-x-2">
                 <input
-                    className="form-control"
+                    className="form-control flex-1 border rounded px-3 py-2"
                     onChange={(e) => updateInput(e.target.value)}
                     placeholder="Add a task"
                     type="text"
                     value={todoInput}
                 />
+                <label className='text-white font-bold'>To start on:</label>
                 <input
-                    className="form-control"
+                    className="form-control flex-1 border rounded px-3 py-2"
                     onChange={(e) => updateStartOnInput(e.target.value)}
+                    
                     placeholder="To Start On"
                     type="date"
                     value={startOnInput}
                 />
+               <label className='text-white font-bold'>To end by:</label>
+
                 <input
-                    className="form-control"
+                    className="form-control flex-1 border rounded px-3 py-2"
                     onChange={(e) => updateEndByInput(e.target.value)}
                     placeholder="To End By"
                     type="date"
                     value={endByInput}
                 />
-                <button onClick={isEditing ? updateTodo : addNewTodo} className="btn btn-primary">
+                <button onClick={isEditing ? updateTodo : addNewTodo} className="bg-blue-500 text-white px-4 py-2 rounded">
                     {isEditing ? 'Update' : 'Add'}
                 </button>
             </div>
-            <ul className="list-group mt-4">
+            <ul className="list-group mt-4 space-y-2">
                 {todoList.map((todo) => (
-                    <li key={todo.id} className="list-group-item d-flex justify-content-between align-items-center">
+                    <li key={todo.id} className="list-group-item flex justify-between items-center p-3 border rounded">
                         <div>
-                            <p>{todo.task}</p>
-                            <small>Start on: {todo.startOn} | End by: {todo.endBy} | Added on: {todo.addedOn}</small>
+                            <p className='text-white'>{todo.task}</p>
+                            <small className="text-gray-500">Start on: {todo.startOn} | End by: {todo.endBy} | Added on: {todo.addedOn}</small>
                         </div>
-                        <div>
-                            <button onClick={() => startEditing(todo)} className="btn btn-secondary btn-sm me-2">Edit</button>
-                            <button onClick={() => deleteTodo(todo.id)} className="btn btn-sm">❌</button>
+                        <div className="flex space-x-2">
+                            <button onClick={() => startEditing(todo)} className="bg-blue-500 text-white px-2 py-1 rounded">Edit</button>
+                            <button onClick={() => deleteTodo(todo.id)} className="bg-white-500 text-white px-2 py-1 rounded">❌</button>
                         </div>
                     </li>
                 ))}
             </ul>
+        </div>
         </div>
     );
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import { X } from 'lucide-react';
-import "../styles/login.css";
 
 export default function Login({onClose}){
     return(

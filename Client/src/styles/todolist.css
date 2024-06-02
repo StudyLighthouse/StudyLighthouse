@@ -1,3 +1,11 @@
+body {
+    margin: 0;
+    padding: 0; /* Ensure there's no padding as well */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
 .list-group-item{
     display: flex;
     justify-content: space-between;

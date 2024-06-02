@@ -4,7 +4,7 @@ import '../styles/main.css'
 
 export default function Main() {
     return (
-        <div className="bg-black text-white p-4 min-h-screen flex flex-col">
+        <div className="bg-black text-white pt-2 min-h-screen flex flex-col">
         <Header/>
             <div className="flex flex-row items-center justify-around h-full w-full pt-32 cards">
                 <div className='maincard blue'><p>Speech Generator</p></div>

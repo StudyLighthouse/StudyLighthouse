@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    padding: 0; /* Ensure there's no padding as well */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .max-h-screen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .solutions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50%; /* Make this half the height of the viewport */
+    width: 100%;
+    border: 1px solid white;
+    padding-bottom: 10px; /* Adjust padding to ensure no extra space at bottom */
+  }
+  
+  
