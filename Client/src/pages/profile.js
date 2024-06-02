@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../components/Navbar'
+import StudyMaterialCard from '../components/studymaterialcard.jsx';
 import ProblemsSolved from '../components/studycard';
 
 export default function Profile() {
@@ -30,6 +31,7 @@ export default function Profile() {
           <h2 className="text-xl font-bold mb-2 ml-4">Solved Problems:</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 ml-4 pt-2">
             <ProblemsSolved/>
+            <StudyMaterialCard/>
             {/* <div className="bg-zinc-800 p-4 rounded-lg">
               <p>What is the capital of Andhra Pradesh?</p>
               <p className="mt-2">Acceptance: 25 <span className="text-blue-400">👍</span></p>
