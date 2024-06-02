@@ -1,21 +1,51 @@
-body{
-    overflow-y: hidden;
+.textGptBody {
     padding: 0;
+    margin: 0;
+    overflow: hidden; /* Ensure no overflow on the TextGpt page */
 }
-.img1{
-    height:7cm;
-    left:185vh;
-    top:70vh;
-    z-index:-1;
+
+.img1 {
+    height: 7cm;
+    left: 185vh;
+    top: 70vh;
+    z-index: -1;
     opacity: 0.5;
 }
-.img2{
-    height:7cm;
-    left:24vh;
-    top:11vh;
-    z-index:-1;
+
+.img2 {
+    height: 7cm;
+    left: 24vh;
+    top: 11vh;
+    z-index: -1;
     opacity: 0.5;
 }
-.bottom{
-    z-index: 1;
+
+.textGpt {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.content {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden; /* Prevent overflow */
+}
+
+.chatComponent, .inputBar {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.chatComponent {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.inputBar {
+    padding-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
