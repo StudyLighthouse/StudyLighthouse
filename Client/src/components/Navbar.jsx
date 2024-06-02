@@ -50,9 +50,9 @@ const Header = () => {
           </div>
           {isDropdownOpen && (
             <div className={dropdownMenuClass} ref={dropdownRef}>
-              <button className={dropdownItemClass}>Profile</button>
-              <button className={dropdownItemWithBorderClass}>Settings</button>
-              <button className={dropdownItemWithBorderClass}>Logout</button>
+              <a href='/profile'><button className={dropdownItemClass}>Profile</button></a>
+              <a href='/editprofile'><button className={dropdownItemWithBorderClass}>Edit Profile</button></a>
+              <a href='/friendprofile'><button className={dropdownItemWithBorderClass}>Logout</button></a>
             </div>
           )}
         </div>
