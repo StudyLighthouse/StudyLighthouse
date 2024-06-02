@@ -7,6 +7,7 @@ import Friendprofile from "./pages/friendprofile.js";
 import Main from './pages/main.js';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TextGpt from "./pages/textGpt.js";
+import SpeechGpt from "./pages/speechGPT.js"
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/friendprofile" element={<Friendprofile />} />
           <Route path="/textgpt" element={<TextGpt />} />
           <Route path="/main" element={<Main />} />
+          <Route path="/speechgpt" element={<SpeechGpt/>}/>
         </Routes>
       </BrowserRouter>
     </div>

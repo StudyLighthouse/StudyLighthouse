@@ -1,7 +1,7 @@
-.textGptBody {
+.speechGptBody {
     padding: 0;
     margin: 0;
-    overflow: hidden; /* Ensure no overflow on the TextGpt page */
+    overflow: hidden; /* Ensure no overflow on the SpeechGpt page */
 }
 
 .img1 {
@@ -20,7 +20,7 @@
     opacity: 0.5;
 }
 
-.textGpt {
+.speechGpt {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -32,7 +32,7 @@
     overflow: hidden; /* Prevent overflow */
 }
 
-.chatComponent, .inputBar {
+.chatComponent, .micinput {
     flex-grow: 1;
     overflow: hidden;
 }
@@ -44,7 +44,7 @@
     width: 20%; /* Fixed width for sidebar */
 }
 
-.inputBar {
+.micinput {
     padding-bottom: 16px;
     display: flex;
     flex-direction: column;
