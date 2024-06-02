@@ -1,0 +1,61 @@
+.s_materialBody {
+    padding: 0;
+    margin: 0;
+    overflow: hidden; /* Ensure no overflow on the TextGpt page */
+}
+
+.img1 {
+    height: 70%;
+    right: -5%;
+    bottom: -30%;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.img2 {
+    height: 40%;
+    left: 11%;
+    top: 10%;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.s_material {
+        
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.content {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden; /* Prevent overflow */
+}
+
+.chatComponent {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.chatComponent {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.feed{
+    padding-top: 3%;
+    width:77%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+.grps{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 10%;
+}

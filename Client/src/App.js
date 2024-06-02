@@ -10,6 +10,9 @@ import Friendprofile from "./pages/friendprofile.js";
 import ToDo from "./pages/todolist.js";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+
+import StudyMaterials from "./pages/studymaterials.js";
+
 function App() {
   return (
     <div className="App">
@@ -23,6 +26,7 @@ function App() {
           <Route path="/editprofile" element={<Editprofile />} />
           <Route path="/friendprofile" element={<Friendprofile />} />
           <Route path="/todolist" element={<ToDo/>}/>
+          <Route path="/studymaterials" element={<StudyMaterials/>} />
         </Routes>
       </BrowserRouter>
     </div>
