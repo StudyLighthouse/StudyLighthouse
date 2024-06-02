@@ -14,9 +14,9 @@ const ChatComponent = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "black", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <div className="flex justify-start"> {/* Added flex and justify-start */}
-        <div className="bg-zinc-800 p-4 rounded-lg max-w-md mt-8 lg:mb-8 ml-2"> {/* Added ml-4 for left margin */}
+    <div style={{ backgroundColor: "black", display: "flex" }}>
+      <div className="flex justify-start pb-0"> {/* Added flex and justify-start */}
+        <div className="bg-zinc-800 p-4 rounded-lg max-w-md mt-1 lg:mb-0" style={{height:"540px"}}> {/* Added ml-4 for left margin */}
           <div className="mb-4">
             <label className="block text-white mb-2">Enter the name:</label>
             <input
