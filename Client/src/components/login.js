@@ -5,22 +5,27 @@ import "../styles/login.css";
 export default function Login({onClose}){
     return(
         <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
-            <div className="mt-0 flex flex-col text-white">
+            <div className=" flex flex-col text-white">
                 <button onClick={onClose} className="place-self-end"><X size={20}/></button>
-                <div className="bg-black px-20 py-10 login-div">
-                    <h1 className="text-3xl font-bold text-center mb-3">Login</h1>
-                    <form>
-                        <label>Username: </label><br></br>
-                        <input type="text" placeholder="Enter your name" className="rounded p-1"/><br/><br/>
-                        <label>Password: </label><br></br>
-                        <input type="password" placeholder="Enter password"className="rounded p-1"/><br/><br/>
-                        <center><a href="/" className="underline">Forgot Password ???</a>
-                        <button className="mt-4 flex items-center justify-center px-3 py-1 rounded-md login-submit">Submit</button><br></br>
-                        Don't have an account???<br></br>
-                        <a href="/" className="underline">SignUp</a></center>
-                    </form>
+                <div class="container">
+        <div class="heading">Login</div>
+        <form action="" class="form">
+            <input required="" class="input" type="text" name="email" id="email" placeholder="Username"/>
+            <input required="" class="input" type="password" name="password" id="password" placeholder="Password"/>
+            <span class="forgot-password"><a href="/">Forgot Password ?</a></span>
+            <input class="login-button" type="submit" value="Login"/>
+        </form>
+            <div class="social-account-container">
+                <span class="title">Or Sign in with</span>
+                <div class="social-accounts">
+                <button class="social-button google">
+                    <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/google-logo.png" alt="google-logo"/>
+                </button>
+                
                 </div>
             </div>
+            </div>
         </div>
+    </div>
     )
 }

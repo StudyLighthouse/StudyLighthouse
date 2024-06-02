@@ -5,24 +5,30 @@ import "../styles/signup.css"
 export default function Signup({onClose}){
     return(
         <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
-            <div className="mt-0 flex flex-col text-white">
+            <div className="mt-10 flex flex-col text-white">
                 <button onClick={onClose} className="place-self-end"><X size={20}/></button>
-                <div className="bg-black px-20 py-10 rounded-lg border-2 signup-div">
-                    <h1 className="text-3xl font-bold text-center mb-5">SignUp</h1>
-                    <form>
-                        <label>Name: </label><br></br>
-                        <input type="text" placeholder="Enter your name" className="rounded p-1"/><br/><br/>
-                        <label>Email: </label><br></br>
-                        <input type="email" placeholder="Enter email" className="rounded p-1"/><br/><br/>
-                        <label>Mobile Number: </label><br></br>
-                        <input type="number" placeholder="Enter number" className="rounded p-1"/><br/><br/>
-                        <label>Password: </label><br></br>
-                        <input type="password" placeholder="Enter password" className="rounded p-1"/><br/><br/>
-                        <center><a href="/" className="underline">Already have an account??</a><br></br>
-                        <button className="mt-4 px-3 py-1 rounded-md bg-white signup-submit">Submit</button></center>
-                    </form>
+                <div class="container">
+        <div class="heading">Sign Up</div>
+        <form action="" class="form">
+            <input required="" class="input" type="text" name="email" id="email" placeholder="Name"/>
+            <input required="" class="input" type="text" name="email" id="email" placeholder="Mobile Number"/>
+            <input required="" class="input" type="email" name="email" id="email" placeholder="E-mail"/>
+            <input required="" class="input" type="password" name="password" id="password" placeholder="Password"/>
+            <input required="" class="input" type="password" name="password" id="password" placeholder="Confirm Password"/>
+            <span class="forgot-password"><a href="/">Forgot Password ?</a></span>
+            <input class="login-button" type="submit" value="Sign Up"/>
+        </form>
+            <div class="social-account-container">
+                <span class="title">Or Sign up with</span>
+                <div class="social-accounts">
+                <button class="social-button google">
+                    <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/google-logo.png" alt="google-logo"/>
+                </button>
+                
                 </div>
             </div>
-        </div>
+            </div>
+            </div>
+            </div>
     )
 }
