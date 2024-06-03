@@ -14,9 +14,9 @@ const Introduction = function (){
                     <img src="https://i.ibb.co/XX4yXpv/4-removebg-preview-2.png" alt="Logo" className="h-24 w-24 mr-10"/>
                     {/* <span className="font-bold text-lg">STUDY PARTNER</span> */}
                     <div className="space-x-8 hidden md:flex">
-                        <a href="/main" className="hover:text-zinc-300">About Us</a>
-                        <a href="/speechgpt" className="hover:text-zinc-300">Features</a>
-                        <a href="/textgpt" className="hover:text-zinc-300">Contact Us</a>
+                        <a href="" className="hover:text-zinc-300">About Us</a>
+                        <a href="" className="hover:text-zinc-300">Features</a>
+                        <a href="" className="hover:text-zinc-300">Contact Us</a>
                     </div>
                 </div>
                 <div className="space-x-4">

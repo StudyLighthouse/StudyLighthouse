@@ -10,21 +10,22 @@ body {
     position: relative;
   }
   
-  .wave-group .input {
+  .wave-group .editinput {
     font-size: 16px;
     padding: 10px 10px 10px 5px;
     display: block;
     width: 200px;
     border: none;
+    color: aliceblue;
     border-bottom: 1px solid #515151;
     background: transparent;
   }
   
-  .wave-group .input:focus {
+  .wave-group .editinput:focus {
     outline: none;
   }
   
-  .wave-group .label {
+  .wave-group .editlabel {
     color: #999;
     font-size: 18px;
     font-weight: normal;
@@ -40,20 +41,20 @@ body {
     transition-delay: calc(var(--index) * .05s);
   }
   
-  .wave-group .input:focus ~ label .label-char,
-  .wave-group .input:valid ~ label .label-char {
+  .wave-group .editinput:focus ~ label .label-char,
+  .wave-group .editinput:valid ~ label .label-char {
     transform: translateY(-20px);
     font-size: 14px;
     color: #5264AE;
   }
   
-  .wave-group .bar {
+  .wave-group .editbar {
     position: relative;
     display: block;
     width: 200px;
   }
   
-  .wave-group .bar:before,.wave-group .bar:after {
+  .wave-group .editbar:before,.wave-group .editbar:after {
     content: '';
     height: 2px;
     width: 0;
@@ -65,16 +66,16 @@ body {
     -webkit-transition: 0.2s ease all;
   }
   
-  .wave-group .bar:before {
+  .wave-group .editbar:before {
     left: 50%;
   }
   
-  .wave-group .bar:after {
+  .wave-group .editbar:after {
     right: 50%;
   }
   
-  .wave-group .input:focus ~ .bar:before,
-  .wave-group .input:focus ~ .bar:after {
+  .wave-group .editinput:focus ~ .editbar:before,
+  .wave-group .editinput:focus ~ .editbar:after {
     width: 50%;
   }
   

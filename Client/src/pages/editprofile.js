@@ -51,9 +51,9 @@ export default function Editprofile() {
                     {/* <label className="block text-zinc-400 mr-2 w-2/6">New Username:</label> */}
                     <div className='w-full flex flex-row items-center gap-4'>
                         <div className="wave-group">
-                            <input required type="text" className="input" />
-                            <span className="bar"></span>
-                            <label className="label">
+                            <input required type="text" className="editinput" />
+                            <span className="editbar"></span>
+                            <label className="editlabel">
                                 <span className="label-char" style={{ "--index": 0 }}>N</span>
                                 <span className="label-char" style={{ "--index": 0 }}>e</span>
                                 <span className="label-char" style={{ "--index": 0 }}>w</span>
@@ -78,9 +78,9 @@ export default function Editprofile() {
                     {/* <label className="block text-zinc-400 mr-2 w-2/6">New GitHub URL:</label> */}
                     <div className='w-full flex flex-row items-center gap-4'>
                         <div className="wave-group">
-                            <input required type="text" className="input" />
-                            <span className="bar"></span>
-                            <label className="label">
+                            <input required type="text" className="editinput" />
+                            <span className="editbar"></span>
+                            <label className="editlabel">
                                 <span className="label-char" style={{ "--index": 0 }}>N</span>
                                 <span className="label-char" style={{ "--index": 0 }}>e</span>
                                 <span className="label-char" style={{ "--index": 0 }}>w</span>
@@ -104,9 +104,9 @@ export default function Editprofile() {
                     {/* <label className="block text-zinc-400 mr-2 w-2/6">New LinkedIn URL:</label> */}
                     <div className='w-full flex flex-row items-center gap-4'>
                         <div className="wave-group">
-                            <input required type="text" className="input" />
-                            <span className="bar"></span>
-                            <label className="label">
+                            <input required type="text" className="editinput" />
+                            <span className="editbar"></span>
+                            <label className="editlabel">
                                 <span className="label-char" style={{ "--index": 0 }}>N</span>
                                 <span className="label-char" style={{ "--index": 0 }}>e</span>
                                 <span className="label-char" style={{ "--index": 0 }}>w</span>

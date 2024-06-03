@@ -3,7 +3,7 @@ import Header from '../components/Navbar'
 
 export default function Friendprofile() {
     return (
-      <div className="bg-black text-white p-6 rounded-lg w-full h-screen flex flex-col ">
+      <div className="bg-black text-white pt-2 rounded-lg w-full h-screen flex flex-col ">
         <Header />
         <div className="w-full">
           <h2 className="text-3xl font-bold text-left mb-4 ml-6 pt-4">Study_Buddy's Profile</h2>

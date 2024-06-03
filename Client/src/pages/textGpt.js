@@ -15,8 +15,8 @@ export default function TextGpt() {
     return (
         <div className="textGpt w-full h-full pt-4 ml-0 flex flex-col">
             <Header />
-            <img className='img1 absolute' src='Text,Speech Human.png' alt="Human" />
-            <img className='img2 absolute' src='Text,Speech Robot.png' alt="Robot" />
+            {/* <img className='img1 absolute' src='Text,Speech Human.png' alt="Human" />
+            <img className='img2 absolute' src='Text,Speech Robot.png' alt="Robot" /> */}
             <div className='content flex-grow flex'>
                 <ChatComponent />
                 <InputBar />

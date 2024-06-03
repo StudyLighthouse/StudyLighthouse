@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+    padding: 0; /* Ensure there's no padding as well */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .q_feed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    overflow-y: scroll;
+    height:84vh;
+  }

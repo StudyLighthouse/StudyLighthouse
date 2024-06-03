@@ -10,10 +10,9 @@ import Friendprofile from "./pages/friendprofile.js";
 import ToDo from "./pages/todolist.js";
 import SolveProblem from "./pages/solveproblem.js";
 import Show from "./pages/showsolutions.js"
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-
-
+import Feed from "./pages/feed.js";
 import StudyMaterials from "./pages/studymaterials.js";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
@@ -21,7 +20,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<Lander />} />
-          <Route path="/main" element={<Main />} />
+          <Route exact path="/main" element={<Main />} />
           <Route path="/speechgpt" element={<SpeechGpt/>}/>
           <Route path="/textgpt" element={<TextGpt />} />
           <Route path="/profile" element={<Profile />} />
@@ -29,8 +28,9 @@ function App() {
           <Route path="/friendprofile" element={<Friendprofile />} />
           <Route path="/todolist" element={<ToDo/>}/>
           <Route path="/studymaterials" element={<StudyMaterials/>} />
-          <Route path="/solveproblems" element={<SolveProblem/>}/>
+          <Route path="/solveproblem" element={<SolveProblem/>}/>
           <Route path="/solutions" element={<Show/>}/>
+          <Route path="/questionsfeed" element={<Feed/>}/>
         </Routes>
       </BrowserRouter>
     </div>

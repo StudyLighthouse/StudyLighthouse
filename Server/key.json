@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "study-lighthouse",
+  "private_key_id": "abc59c32cf3eccbadeec2d659ea9910603290717",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDf99yrEsdzEuw1\n8rktWyITthT5TqsK7FWbWzN7UqhmqKGKuhVaZz33272qMalMLBRUqRIpkfWWj2M2\nM0dXIc87O1JbLVxQGE5kiOA0AVNVvGLvR7fFdYx8UkCC7b3oEkO5grBDAtlyn+4b\nFbYfHiDFkC6D2hLfss9usvRHtM8UiN8ji9MS4av/DJ0UXE0YS5fOxYGu9whxti29\n46RqCYrpAavPCS/hUYSctag8MNLfOBi0GBFkLRPKSutZx6V0offHPAIrpg2EzHsC\n0VkFPeDqBNCnL6Dek5G+pf3G8KGVJ5ZBL9m6wx9WARO6NbpmxA/b1PVDciIMwjNc\nrDWZi45RAgMBAAECggEAANrTMad0Eas9Mc0D+il2gTUBEj0Dv9pMTtgbo5E6kY67\n9Bm29mX9uW4SJJ3FJ8RkzPhquHQlR+5y6lxqfamEPxWAQFcVWrxnAzD3CxfEs8dw\n6LkhOUyULU7Kjn1eC85TChiWt+DBR/PWjq2n6Ok+Zoag+NGaoBYwfruJ3WKyJiHI\nRU8VQwBnd+3EHd1tMZmwGnI5Edn00sXNM5X+cF7aniVTAKFPy6VXoDRwVVyq3Fro\n1O0xzSoBxGoS43TeOOrRnV3+93t9X4+nudqrLaU+/EDL1ZJThYiqgmcVvLkWL6rA\nV5TYeLspWtWyGISqB4aA4ieh6XVZDHaCcliyunTnaQKBgQDxnQe4ejvZdyWFg57P\ny3OD2ml00OXhvjfqA5lTVfr5uFBXQeIGanaAlEMTz3NZc8kh2erc3QO/xmZzwnfx\nHZy8/Pwi7C1GKf2Dwbm4+hwou0LZWcZQJy/s5+q8fnVVybdAYwmmU8PBq8xdxevv\nbbXy34/QRfTsmVpmDoR8iIxGmQKBgQDtTdyw9mIMBGZ4R2N9h03Tl+lnPf4JrmA5\n3SUP13/NcsRecv0E6wIkWkKxSU0L4iMprseEwrhNkjEst6wlp7S5o+IjE4GgSDqF\nozL4YbGkObpUEDi7biVLeBcZDUyxPoRpfDbHN8fhstqWQ1ewbIw5OanDBrDCgIX1\nn+LRFn2weQKBgQDWI+wk18lVu2D5Dafi2ZofIaRX0ZH9Wt8pvFjXYJwZWf9y5sSS\nFSfEXCN7WmEMxi9cnkynxgc9oHVLYe92N12krsA1n4ec6Th0321hAeOVQitEgmne\nvmyelwoYWChciXSuT1jNHu6gJ0jxT6sFwQIDKZvH50jlriFN1M4dpdRV+QKBgQDc\njNcmKXeqz5QlCcRv8Ibmt3OYHseyW7zXSq+db546ZgYX+isqnPjarID7oLLY7o3b\nubN5sjf08IB/nR2DycBwIN6V1xVM0JSDi9BdhP7DMVv5sTHpEU/cOnrNL80tlnse\nRvHqae991urNaT1gnSIeNXeP6PHzc9wNE1KNHagnkQKBgAqgtuhCwtkpBS51YUpK\n/NXxsD/F6HMVCxUCHtS5iqTlz3a7YxemIHp+ARmwtKD6Y+w9nnbu4mJvU1t8iFxQ\nNTw8E6a+0FnSzHEYD0U8YmkBXAaZHHHPGPd0Z/0E3nF3zwgWJ7TNpKQnBpA/gw1t\nELmijpJplR4fcmpnp4l6iRgL\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-ghd49@study-lighthouse.iam.gserviceaccount.com",
+  "client_id": "115677345899262098074",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-ghd49%40study-lighthouse.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
