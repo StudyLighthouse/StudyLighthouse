@@ -1,315 +1,312 @@
 .quest_card {
-    width: 15cm;
-    height: 7cm;
-    background: linear-gradient(270deg, #09378c, #c48d00, #866000);
-    background-size: 800% 800%;
-    -webkit-animation: AnimationName 3s ease infinite;
-    -moz-animation: AnimationName 3s ease infinite;
-    animation: AnimationName 3s ease infinite;
-    transition: 0.4s ease-in-out;
-    border-radius: 7px;
-    cursor: pointer;
+  width: 15cm;
+  height: 7cm;
+  background: linear-gradient(270deg, #09378c, #c48d00, #866000);
+  background-size: 800% 800%;
+  -webkit-animation: AnimationName 3s ease infinite;
+  -moz-animation: AnimationName 3s ease infinite;
+  animation: AnimationName 3s ease infinite;
+  transition: 0.4s ease-in-out;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.que_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+}
+
+.fl {
+  display: flex;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+}
+
+.fl:hover .fullscreen {
+  scale: 1.2;
+}
+
+.fl:hover .fullscreen_svg {
+  fill: white;
+}
+
+.que_fullscreen {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 5px;
+  background-color: #727890;
+  margin: 1em;
+  margin-right: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s ease-in-out;
+  box-shadow: 2px 2px 6px rgba(235, 219, 219, 0.4);
+}
+
+.fullscreen_svg {
+  width: 15px;
+  height: 15px;
+  fill: rgb(177, 176, 176);
+  transition: 0.2s ease-in-out;
+}
+
+.quest_card_back {
+  width: 16cm;
+  height: 8cm;
+
+  background-color: rgba(30, 31, 38, 0.575);
+  border-radius: 7px;
+  margin-top: -7em;
+  margin-left: -1.3em;
+  transition: 0.2s ease-in-out;
+  z-index: -1;
+}
+
+.main:hover .quest_card_back {
+  margin-top: -5.8em;
+  margin-left: -0.1em;
+  background-color: rgba(44, 45, 51, 0.178);
+  scale: 1.1;
+  height: 8cm;
+  width:15cm;
+  cursor: pointer;
+}
+
+.main:hover .fl {
+  opacity: 1;
+  cursor: pointer;
+  margin-right: 0.5em;
+}
+
+.data {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1em;
+}
+
+.img {
+  width: 2.25em;
+  height: 2.25em;
+  background-color: #252525;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.text {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 0.5em;
+  font-family: Montserrat;
+  color: white;
+}
+
+.text_m {
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.text_s {
+  font-size: 0.7em;
+}
+
+.btns {
+  display: flex;
+  gap: 0.5em;
+  transition: 0.2s ease-in-out;
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5em;
+  height: 1.4em;
+  border-radius: 4px;
+  margin-top: -0.5em;
+  opacity: 0;
+  background-color: #444857;
+  transition: 0.2s ease-in-out;
+}
+
+.likes_text {
+  font-family: Montserrat;
+  font-size: 0.8em;
+  margin-left: 0.25em;
+  color: white;
+}
+
+.likes_svg {
+  width: 12px;
+  height: 12px;
+  fill: white;
+}
+
+.likes:hover {
+  background-color: #5a5f73;
+  cursor: pointer;
+}
+
+.comments {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5em;
+  height: 1.4em;
+  border-radius: 4px;
+  margin-top: -0.5em;
+  opacity: 0;
+  background-color: #444857;
+  transition: 0.24s ease-in-out;
+}
+
+.comments_text {
+  font-family: Montserrat;
+  font-size: 0.8em;
+  margin-left: 0.25em;
+  color: white;
+}
+
+.comments_svg {
+  width: 12px;
+  height: 12px;
+  fill: white;
+}
+
+.comments:hover {
+  background-color: #5a5f73;
+  cursor: pointer;
+}
+
+.views {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3em;
+  height: 1.4em;
+  border-radius: 4px;
+  margin-top: -0.5em;
+  opacity: 0;
+  background-color: #444857;
+  transition: 0.28s ease-in-out;
+}
+
+.views_text {
+  font-family: Montserrat;
+  font-size: 0.8em;
+  margin-left: 0.25em;
+  color: white;
+}
+
+.views_svg {
+  width: 12px;
+  height: 12px;
+  fill: white;
+}
+
+.views:hover {
+  background-color: #5a5f73;
+  cursor: pointer;
+}
+
+.main:hover .likes {
+  margin-top: 0.5em;
+  opacity: 1;
+}
+
+.main:hover .comments {
+  margin-top: 0.5em;
+  opacity: 1;
+}
+
+.main:hover .views {
+  margin-top: 0.5em;
+  opacity: 1;
+}
+
+/* The Main Switch */
+
+.card_content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bb {
+  padding: 0.8em;
+  width: 14em;
+  border-radius: 10px;
+  font-family: Montserrat;
+  font-size: 0.8em;
+  align-self: center;
+  outline: none;
+  font-weight: bold;
+  border: 1px solid white;
+  background-color: transparent;
+  color: white;
+  transition: 0.4s ease-in-out;
+}
+
+.bb::after {
+  opacity: 0;
+  position: absolute;
+}
+
+.bb::before {
+  font-size: 3.5em;
+  position: absolute;
+  opacity: 0;
+  left: 1.6em;
+  top: -0.36em;
+  transition: 0.4s ease-in-out;
+}
+
+.bb:hover {
+  cursor: pointer;
+  color: black;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.bb:hover::after {
+  position: relative;
+  opacity: 1;
+  font-size: 0.7em;
+}
+
+@keyframes AnimationName {
+  0% {
+    background-position: 0% 50%;
   }
-  /* body {
-    background-color: black;
-  } */
-  .que_container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 60vh;
+
+  50% {
+    background-position: 100% 50%;
   }
-  
-  .fl {
-    display: flex;
-    justify-content: flex-end;
-    opacity: 0;
-    transition: 0.2s ease-in-out;
+
+  100% {
+    background-position: 0% 50%;
   }
-  
-  .fl:hover .fullscreen {
-    scale: 1.2;
-  }
-  
-  .fl:hover .fullscreen_svg {
-    fill: white;
-  }
-  
-  .que_fullscreen {
-    width: 1.5em;
-    height: 1.5em;
-    border-radius: 5px;
-    background-color: #727890;
-    margin: 1em;
-    margin-right: 0.5em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.2s ease-in-out;
-    box-shadow: 2px 2px 6px rgba(235, 219, 219, 0.4);
-  }
-  
-  .fullscreen_svg {
-    width: 15px;
-    height: 15px;
-    fill: rgb(177, 176, 176);
-    transition: 0.2s ease-in-out;
-  }
-  
-  .quest_card_back {
-    width: 16cm;
-    height: 8cm;
-  
-    background-color: rgba(30, 31, 38, 0.575);
-    border-radius: 7px;
-    margin-top: -7em;
-    margin-left: -1.3em;
-    transition: 0.2s ease-in-out;
-    z-index: -1;
-  }
-  
-  .main:hover .quest_card_back {
-    margin-top: -5.8em;
-    margin-left: -0.1em;
-    background-color: rgba(44, 45, 51, 0.178);
-    scale: 1.1;
-    height: 8cm;
-    width:15cm;
-    cursor: pointer;
-  }
-  
-  .main:hover .fl {
-    opacity: 1;
-    cursor: pointer;
-    margin-right: 0.5em;
-  }
-  
-  .data {
-    display: flex;
-    flex-direction: row;
-    margin-top: 1em;
-  }
-  
-  .img {
-    width: 2.25em;
-    height: 2.25em;
-    background-color: #252525;
-    border-radius: 5px;
-    overflow: hidden;
-  }
-  
-  .text {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin-left: 0.5em;
-    font-family: Montserrat;
-    color: white;
-  }
-  
-  .text_m {
-    font-weight: bold;
-    font-size: 0.9em;
-  }
-  
-  .text_s {
-    font-size: 0.7em;
-  }
-  
-  .btns {
-    display: flex;
-    gap: 0.5em;
-    transition: 0.2s ease-in-out;
-  }
-  
-  .likes {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5em;
-    height: 1.4em;
-    border-radius: 4px;
-    margin-top: -0.5em;
-    opacity: 0;
-    background-color: #444857;
-    transition: 0.2s ease-in-out;
-  }
-  
-  .likes_text {
-    font-family: Montserrat;
-    font-size: 0.8em;
-    margin-left: 0.25em;
-    color: white;
-  }
-  
-  .likes_svg {
-    width: 12px;
-    height: 12px;
-    fill: white;
-  }
-  
-  .likes:hover {
-    background-color: #5a5f73;
-    cursor: pointer;
-  }
-  
-  .comments {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5em;
-    height: 1.4em;
-    border-radius: 4px;
-    margin-top: -0.5em;
-    opacity: 0;
-    background-color: #444857;
-    transition: 0.24s ease-in-out;
-  }
-  
-  .comments_text {
-    font-family: Montserrat;
-    font-size: 0.8em;
-    margin-left: 0.25em;
-    color: white;
-  }
-  
-  .comments_svg {
-    width: 12px;
-    height: 12px;
-    fill: white;
-  }
-  
-  .comments:hover {
-    background-color: #5a5f73;
-    cursor: pointer;
-  }
-  
-  .views {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 3em;
-    height: 1.4em;
-    border-radius: 4px;
-    margin-top: -0.5em;
-    opacity: 0;
-    background-color: #444857;
-    transition: 0.28s ease-in-out;
-  }
-  
-  .views_text {
-    font-family: Montserrat;
-    font-size: 0.8em;
-    margin-left: 0.25em;
-    color: white;
-  }
-  
-  .views_svg {
-    width: 12px;
-    height: 12px;
-    fill: white;
-  }
-  
-  .views:hover {
-    background-color: #5a5f73;
-    cursor: pointer;
-  }
-  
-  .main:hover .likes {
-    margin-top: 0.5em;
-    opacity: 1;
-  }
-  
-  .main:hover .comments {
-    margin-top: 0.5em;
-    opacity: 1;
-  }
-  
-  .main:hover .views {
-    margin-top: 0.5em;
-    opacity: 1;
-  }
-  
-  /* The Main Switch */
-  
-  .card_content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .bb {
-    padding: 0.8em;
-    width: 14em;
-    border-radius: 10px;
-    font-family: Montserrat;
-    font-size: 0.8em;
-    align-self: center;
-    outline: none;
-    font-weight: bold;
-    border: 1px solid white;
-    background-color: transparent;
-    color: white;
-    transition: 0.4s ease-in-out;
-  }
-  
-  .bb::after {
-    opacity: 0;
-    position: absolute;
-  }
-  
-  .bb::before {
-    font-size: 3.5em;
-    position: absolute;
-    opacity: 0;
-    left: 1.6em;
-    top: -0.36em;
-    transition: 0.4s ease-in-out;
-  }
-  
-  .bb:hover {
-    cursor: pointer;
-    color: black;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-  
-  .bb:hover::after {
-    position: relative;
-    opacity: 1;
-    font-size: 0.7em;
-  }
-  
-  @keyframes AnimationName {
-    0% {
-      background-position: 0% 50%;
-    }
-  
-    50% {
-      background-position: 100% 50%;
-    }
-  
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-  
-  button:active {
-    scale: 1.1;
-    opacity: 1;
-    color: transparent;
-    background: linear-gradient(90deg, #0039a6, #c48d00, #866000);
-    background-size: 800% 800%;
-    -webkit-animation: AnimationName 1s ease infinite;
-    -moz-animation: AnimationName 1s ease infinite;
-    animation: AnimationName 1s ease infinite;
-  }
-  
-  button:active::before {
-    color: white;
-    opacity: 1;
-  }
+}
+
+button:active {
+  scale: 1.1;
+  opacity: 1;
+  color: transparent;
+  background: linear-gradient(90deg, #0039a6, #c48d00, #866000);
+  background-size: 800% 800%;
+  -webkit-animation: AnimationName 1s ease infinite;
+  -moz-animation: AnimationName 1s ease infinite;
+  animation: AnimationName 1s ease infinite;
+}
+
+button:active::before {
+  color: white;
+  opacity: 1;
+}

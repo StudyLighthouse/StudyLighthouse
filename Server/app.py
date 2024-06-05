@@ -7,10 +7,15 @@ from firebase_admin import credentials, auth as admin_auth
 import firebase_config  # Import the firebase configuration
 from flask_cors import CORS
 from flask_cors import cross_origin
+import uuid 
 from authlib.integrations.flask_client import OAuth
+from flask_socketio import SocketIO, emit
 
 app = Flask(__name__, static_folder='../Client/build', static_url_path='/')
-CORS(app, resources={r"/*": {"origins": "*"}})  # Enable CORS
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)  # Enable CORS
+
+# Initialize SocketIO
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Initialize Firestore DB
 db = firebase_config.db
@@ -37,7 +42,7 @@ appConf = {
     "OAUTH2_CLIENT_ID": "122422954486-ot8o5nrf0qhqv1be71g1hacfvpqhl8bp.apps.googleusercontent.com",
     "OAUTH2_CLIENT_SECRET": "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",
     "OAUTH2_META_URL": "https://accounts.google.com/.well-known/openid-configuration",
-    "FLASK_SECRET": "your_secret_key",
+    "FLASK_SECRET": "study@light@house",
     "FLASK_PORT": 3000
 }
 
@@ -73,8 +78,6 @@ def signup():
     password = data.get('password')
     confirm_password = data.get('confirmPassword')
 
-    print('Received signup data:', data)  # Log the received data
-
     if password != confirm_password:
         return jsonify({"message": "Passwords do not match"}), 400
 
@@ -84,7 +87,6 @@ def signup():
         db.collection('users').document(user['localId']).set(user_data)
         return jsonify({"message": "Account created successfully"}), 201
     except Exception as e:
-        print('Error creating user:', str(e))  # Log the error
         return jsonify({"message": str(e)}), 400
 
 @app.route('/signin', methods=['POST'])
@@ -100,11 +102,11 @@ def signin():
         user_data = db.collection('users').document(uid).get().to_dict()
 
         session['user'] = user_data
-        response = jsonify({"message": "Sign in successful"})
+        response = jsonify({"message": "Sign in successful", "user": user_data})
         response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
         return response, 200
     except Exception as e:
-        print('Error signing in:', str(e))  # Log the error
         return jsonify({"message": "Invalid email or password"}), 401
 
 @app.route('/signin/google')
@@ -120,7 +122,6 @@ def authorized_google():
     user_info = oauth.myApp.parse_id_token(token, nonce=nonce)
     email = user_info['email']
     name = user_info['name']
-    print(email,name)
 
     # Check if user exists in Firestore, if not create a new user
     users_ref = db.collection('users')
@@ -150,10 +151,10 @@ def logout():
 def post_question():
     data = request.get_json()
     question_text = data.get('question')
-    user = session.get('user')
+    user = data.get('user')  # Get user data from the request body
 
-    # Check if the user is authenticated
-    if user:
+    # Check if the user data exists and contains necessary information
+    if user and 'name' in user and 'email' and 'uid' in user:
         question_data = {
             'username': user.get('name'),
             'email': user.get('email'),
@@ -161,15 +162,20 @@ def post_question():
             'timestamp': firestore.SERVER_TIMESTAMP,
             'likes': 0
         }
-        question_ref = db.collection('questions').add(question_data)
+        question_id = str(uuid.uuid4())  # Generate a unique ID for the question
+        question_ref = db.collection('questions').document(question_id)  # Use the generated ID
+        question_ref.set(question_data)  # Set the question data
 
         # Add the question to the user's posted questions
-        user_ref = db.collection('users').document(user.get('id'))
-        user_ref.collection('posted_questions').document(question_ref.id).set(question_data)
+        user_ref = db.collection('users').document(user.get('uid'))
+        user_ref.collection('posted_questions').document(question_id).set(question_data)
+
+        # Emit the new question event to all connected clients
+        socketio.emit('new_question', question_data)
 
         return jsonify({"message": "Question posted successfully"}), 201
     else:
-        return jsonify({"message": "User not authenticated"}), 401
+        return jsonify({"message": "User data missing or incomplete"}), 400
 
 @app.route('/get_questions', methods=['GET'])
 def get_questions():
@@ -179,7 +185,8 @@ def get_questions():
         question_data = question.to_dict()
         question_data['id'] = question.id
         questions.append(question_data)
+    print(questions)
     return jsonify(questions), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app, debug=True)

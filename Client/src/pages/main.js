@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Navbar';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useNavigate } from 'react-router-dom';
 import '../styles/main.css';
+import { useSession } from '../contexts/SessionContext';
 
 export default function Main() {
-    const navigate = useNavigate(); // Initialize the navigate function
+    const navigate = useNavigate();
+    const { user, loading } = useSession();
+
+    useEffect(() => {
+        if (!loading && !user) {
+            navigate('/signin');
+        }
+    }, [loading, user, navigate]);
 
     const handleNavigation = (route) => {
-        navigate(route); // Navigate to the specified route
+        navigate(route);
     };
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="bg-black text-white pt-2 min-h-screen flex flex-col">

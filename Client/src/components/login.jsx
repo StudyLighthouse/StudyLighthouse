@@ -1,14 +1,17 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+import { useSession } from '../contexts/SessionContext';
 import { X } from 'lucide-react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook
 
 export default function Login({ onClose }) {
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
+    const { setUser } = useSession();
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     });
+    const [error, setError] = useState("");
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,46 +24,53 @@ export default function Login({ onClose }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:5000/signin', formData);
-            console.log(response.data);
+            const response = await axios.post('http://127.0.0.1:5000/signin', formData, { withCredentials: true });
             if (response.status === 200) {
-                // Close the login component
+                setUser(response.data.user); // Set the user data and persist it in session storage
                 onClose();
-                // Redirect to the main page
                 navigate('/main');
-                // Optionally, you can show a success message
                 alert("Logged in successfully!");
             } else {
-                // Handle other response statuses if needed
-                console.error('Error logging in:', response.data.message);
+                setError(response.data.message || 'Error logging in');
             }
         } catch (error) {
-            console.error('Error submitting form', error);
+            setError(error.response?.data?.message || 'Error submitting form');
         }
     };
 
-    const handleGoogleSignin = () => {
-        window.location.href = 'http://127.0.0.1:5000/signin/google';  // Redirects to the Google sign-in route on the backend
-    };
-    
     return (
         <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
-            <div className="mt-10 flex flex-col text-white">
-                <button onClick={onClose} className="place-self-end"><X size={20} /></button>
+            <div className="mt-10 flex flex-col text-white bg-gray-800 p-6 rounded-lg">
+                <button onClick={onClose} className="self-end"><X size={20} /></button>
                 <div className="container">
-                    <div className="heading">Login</div>
+                    <div className="heading text-2xl mb-4">Login</div>
+                    {error && <div className="text-red-500 mb-4">{error}</div>}
                     <form onSubmit={handleSubmit} className="form">
-                        <input required className="input" type="email" name="email" placeholder="E-mail" onChange={handleChange} value={formData.email} />
-                        <input required className="input" type="password" name="password" placeholder="Password" onChange={handleChange} value={formData.password} />
-                        <span className="forgot-password"><a href="/">Forgot Password?</a></span>
-                        <input className="login-button" type="submit" value="Login" />
+                        <input
+                            required
+                            className="input p-2 mb-2 rounded"
+                            type="email"
+                            name="email"
+                            placeholder="E-mail"
+                            onChange={handleChange}
+                            value={formData.email}
+                        />
+                        <input
+                            required
+                            className="input p-2 mb-2 rounded"
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            onChange={handleChange}
+                            value={formData.password}
+                        />
+                        <span className="forgot-password block mb-2"><a href="/" className="text-blue-400">Forgot Password?</a></span>
+                        <input className="login-button p-2 bg-blue-500 rounded cursor-pointer" type="submit" value="Login" />
                     </form>
-                    <div className="social-account-container">
-                        <span className="title">Or Sign in with</span>
+                    <div className="social-account-container mt-4">
+                        <span className="title block mb-2">Or Sign in with</span>
                         <div className="social-accounts">
-                            <button className="social-button google" onClick={handleGoogleSignin}>
-                                <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/google-logo.png" alt="google-logo" />
-                            </button>
+                            {/* Implement Google Sign-In button if needed */}
                         </div>
                     </div>
                 </div>
