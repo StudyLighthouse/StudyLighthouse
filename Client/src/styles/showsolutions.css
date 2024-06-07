@@ -6,12 +6,6 @@ body {
     flex-direction: column;
   }
   
-  .max-h-screen {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  
   .solutions {
     display: flex;
     align-items: center;
@@ -22,4 +16,32 @@ body {
     padding-bottom: 10px; /* Adjust padding to ensure no extra space at bottom */
   }
   
+  .likes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    width:  4em;
+    height: 2em;
+    border-radius: 4px;
+    background-color: #444857;
+    /* transition: 0.2s ease-in-out; */
+  }
   
+  .likes_text {
+    font-family: Montserrat;
+    font-size: 0.8em;
+    margin-left: 0.25em;
+    color: white;
+  }
+  
+  .likes_svg {
+    width: 0.7em;
+    height: 0.7em;
+    fill: white;
+  }
+  
+  .likes:hover {
+    background-color: #5a5f73;
+    cursor: pointer;
+  }

@@ -1,13 +1,85 @@
-import React from "react";
-import "../styles/solveproblem.css";
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 import Header from "../components/Navbar";
-import Question from "../components/question";
+import { useSession } from "../contexts/SessionContext";
+import "../styles/solveproblem.css";
 
-export default function SolveProblem() {
+const SolveProblem = () => {
+  const { user, loading } = useSession();
+  const { state } = useLocation();
+  const { questionDetails } = state;
+  const [solution, setSolution] = useState("");
+  const [file, setFile] = useState(null);
+  const [error, setError] = useState("");
+
+  const handleTextSolutionSubmit = async () => {
+    if (!solution) {
+      alert("Please provide a solution.");
+      return;
+    }
+
+    if (!user) {
+      alert("Please log in to post your doubt.");
+      return;
+    }
+
+    try {
+      await axios.post(
+        "http://127.0.0.1:5000/post_solution",
+        {
+          questionId: questionDetails.question_id,
+          solution,
+          user: user,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      alert("Solution posted successfully.");
+    } catch (error) {
+      console.error("Error posting solution:", error);
+      setError("Failed to post solution.");
+    }
+  };
+
+  const handleFileSolutionSubmit = async (event) => {
+    event.preventDefault();
+    
+    if (!user) {
+        alert("Please log in to post your doubt.");
+        return;
+    }
+    console.log(questionDetails.question_id)
+    const formData = new FormData();
+    formData.append('user', JSON.stringify(user)); // Assuming `user` is available in the context
+    formData.append('questionId', questionDetails.question_id); // Assuming `questionId` is available in the context
+    formData.append('file', file); // Assuming `file` is available in the context
+
+    try {
+        axios.post('http://127.0.0.1:5000/post_file_solution', formData, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        // console.log('File uploaded successfully', response.data);
+        alert("File uploaded successfully.");
+    } catch (error) {
+        console.error('Error uploading file:', error);
+        setError("Failed to upload file.");
+    }
+};
+
+
   return (
     <div className="max-h-screen border m-0 flex flex-col">
       <Header />
-      <Question />
+      <div className="h-1/2 w-full">
+        <div className="h-full w-full" style={{ border: "2px solid white" }}>
+          <h4 className="text-white">{questionDetails.question}</h4>
+        </div>
+      </div>
       <div className="posting flex-grow flex items-end justify-center w-full">
         <div className="textArea flex-grow-0">
           <div className="input-form w-full">
@@ -18,9 +90,14 @@ export default function SolveProblem() {
               required
               rows="10"
               cols="80"
+              value={solution}
+              onChange={(e) => setSolution(e.target.value)}
             />
             <label className="textUser">Click Here</label>
           </div>
+          <button onClick={handleTextSolutionSubmit} className="submit-button">
+            Submit Text Solution
+          </button>
         </div>
         <p className="or-text">or</p>
         <div className="fileUpload flex-grow-0">
@@ -34,11 +111,19 @@ export default function SolveProblem() {
                 <p>or</p>
                 <span className="browse-button">Browse file</span>
               </div>
-              <input id="file" type="file" />
+              <input id="file" type="file" onChange={(e) => setFile(e.target.files[0])} />
+              {file && (
+                <div>
+                  <p>{file.name}</p>
+                  <button className="upload-button" type="submit" onClick={handleFileSolutionSubmit}>Upload</button>
+                </div>
+              )}
             </label>
           </form>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default SolveProblem;

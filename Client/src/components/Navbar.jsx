@@ -52,6 +52,7 @@ const Header = () => {
             <div className={dropdownMenuClass} ref={dropdownRef}>
               <a href='/profile'><button className={dropdownItemClass}>Profile</button></a>
               <a href='/editprofile'><button className={dropdownItemWithBorderClass}>Edit Profile</button></a>
+              <a href='/studymaterials'><button className={dropdownItemWithBorderClass}>Study Materials</button></a>
               <a href='/friendprofile'><button className={dropdownItemWithBorderClass}>Logout</button></a>
             </div>
           )}

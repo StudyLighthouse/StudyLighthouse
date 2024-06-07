@@ -10,81 +10,34 @@
   border-radius: 7px;
   cursor: pointer;
 }
+
 .que_container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 60vh;
-}
-
-.fl {
-  display: flex;
-  justify-content: flex-end;
-  opacity: 0;
-  transition: 0.2s ease-in-out;
-}
-
-.fl:hover .fullscreen {
-  scale: 1.2;
-}
-
-.fl:hover .fullscreen_svg {
-  fill: white;
-}
-
-.que_fullscreen {
-  width: 1.5em;
-  height: 1.5em;
-  border-radius: 5px;
-  background-color: #727890;
-  margin: 1em;
-  margin-right: 0.5em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.2s ease-in-out;
-  box-shadow: 2px 2px 6px rgba(235, 219, 219, 0.4);
-}
-
-.fullscreen_svg {
-  width: 15px;
-  height: 15px;
-  fill: rgb(177, 176, 176);
-  transition: 0.2s ease-in-out;
+  width: 100%;
 }
 
 .quest_card_back {
-  width: 16cm;
-  height: 8cm;
-
-  background-color: rgba(30, 31, 38, 0.575);
+  width: 38em;
+  height: 19em;
+  background-color: rgba(30, 31, 38, 0.1);
   border-radius: 7px;
-  margin-top: -7em;
+  margin-top: -17.7em;
   margin-left: -1.3em;
   transition: 0.2s ease-in-out;
   z-index: -1;
 }
 
 .main:hover .quest_card_back {
-  margin-top: -5.8em;
-  margin-left: -0.1em;
-  background-color: rgba(44, 45, 51, 0.178);
+  margin-top: -16.7em;
+  margin-left: -0.3em;
+  background-color: rgba(44, 45, 51, 0.4);
   scale: 1.1;
-  height: 8cm;
-  width:15cm;
+  height: 21em;
+  width: 36em;
   cursor: pointer;
-}
-
-.main:hover .fl {
-  opacity: 1;
-  cursor: pointer;
-  margin-right: 0.5em;
-}
-
-.data {
-  display: flex;
-  flex-direction: row;
-  margin-top: 1em;
 }
 
 .img {
@@ -106,124 +59,44 @@
 
 .text_m {
   font-weight: bold;
-  font-size: 0.9em;
+  font-size: 1.3em;
 }
 
-.text_s {
-  font-size: 0.7em;
+.username_text{
+  font-size: 1em;
+  margin-left: 2em;
+  opacity: 0;
+}
+
+.timestamp {
+  display: flex;
+  margin-right: 1.6em;
+  justify-content: center;
+  opacity: 0;
 }
 
 .btns {
   display: flex;
-  gap: 0.5em;
-  transition: 0.2s ease-in-out;
-}
-
-.likes {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5em;
-  height: 1.4em;
-  border-radius: 4px;
-  margin-top: -0.5em;
-  opacity: 0;
-  background-color: #444857;
-  transition: 0.2s ease-in-out;
-}
-
-.likes_text {
-  font-family: Montserrat;
-  font-size: 0.8em;
-  margin-left: 0.25em;
-  color: white;
-}
-
-.likes_svg {
-  width: 12px;
-  height: 12px;
-  fill: white;
-}
-
-.likes:hover {
-  background-color: #5a5f73;
-  cursor: pointer;
-}
-
-.comments {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5em;
-  height: 1.4em;
-  border-radius: 4px;
-  margin-top: -0.5em;
-  opacity: 0;
-  background-color: #444857;
-  transition: 0.24s ease-in-out;
-}
-
-.comments_text {
-  font-family: Montserrat;
-  font-size: 0.8em;
-  margin-left: 0.25em;
-  color: white;
-}
-
-.comments_svg {
-  width: 12px;
-  height: 12px;
-  fill: white;
-}
-
-.comments:hover {
-  background-color: #5a5f73;
-  cursor: pointer;
-}
-
-.views {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 3em;
-  height: 1.4em;
-  border-radius: 4px;
-  margin-top: -0.5em;
-  opacity: 0;
-  background-color: #444857;
-  transition: 0.28s ease-in-out;
-}
-
-.views_text {
-  font-family: Montserrat;
-  font-size: 0.8em;
-  margin-left: 0.25em;
-  color: white;
-}
-
-.views_svg {
-  width: 12px;
-  height: 12px;
-  fill: white;
-}
-
-.views:hover {
-  background-color: #5a5f73;
-  cursor: pointer;
+  justify-content: space-between;
+  /* transition: 0.2s ease-in-out; */
 }
 
 .main:hover .likes {
-  margin-top: 0.5em;
+  margin-top: 0.8em;
+  margin-left: 2em;
+  background-color: red;
   opacity: 1;
 }
 
-.main:hover .comments {
-  margin-top: 0.5em;
+.main:hover .username_text {
+  margin-left: 2em;
+  color: azure;
   opacity: 1;
 }
 
-.main:hover .views {
-  margin-top: 0.5em;
+.main:hover .timestamp {
+  margin-right: 1.6em;
+  color: azure;
   opacity: 1;
 }
 
@@ -240,45 +113,33 @@
   width: 14em;
   border-radius: 10px;
   font-family: Montserrat;
+  margin-top: 0.4em;
+  margin-right: 2em;
   font-size: 0.8em;
+  opacity: 0;
   align-self: center;
   outline: none;
   font-weight: bold;
   border: 1px solid white;
   background-color: transparent;
   color: white;
-  transition: 0.4s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
-.bb::after {
-  opacity: 0;
-  position: absolute;
-}
-
-.bb::before {
-  font-size: 3.5em;
-  position: absolute;
-  opacity: 0;
-  left: 1.6em;
-  top: -0.36em;
-  transition: 0.4s ease-in-out;
-}
-
-.bb:hover {
+.main:hover .bb {
   cursor: pointer;
   color: black;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 15px;
+  margin-top: 0.4em;
+  margin-right: 2em;
+  width: 14em;
+  opacity: 1;
+  font-size: 0.7em;
+  background: rgba(255, 255, 255, 0.849);
+  border-radius: 10px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.bb:hover::after {
-  position: relative;
-  opacity: 1;
-  font-size: 0.7em;
 }
 
 @keyframes AnimationName {

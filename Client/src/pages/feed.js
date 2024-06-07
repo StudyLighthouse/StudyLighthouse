@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import CardComponent from "../components/questioncard";
+import Header from '../components/Navbar';
 import axios from "axios";
 import io from "socket.io-client";
 import "../styles/feed.css";
 
 const Feed = () => {
   const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    document.body.classList.add('textGptBody');
+    return () => {
+        document.body.classList.remove('textGptBody');
+    };
+}, []);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -38,15 +46,19 @@ const Feed = () => {
   console.log("Questions:", questions);
 
   return (
+    <div className="mainfeed">
+      <Header />
     <div
       className="q_feed bg-black justify-between flex flex-col"
-      style={{ width: "40%", height: "100vh", border: "none" }}
+      style={{ height: "100vh", border: "none" }}
     >
+      
       <div>
         {questions.map((question, index) => (
           <CardComponent key={index} question={question} />
         ))}
       </div>
+    </div>
     </div>
   );
 };

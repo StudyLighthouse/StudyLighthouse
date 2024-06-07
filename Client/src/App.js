@@ -30,8 +30,8 @@ function App() {
             <Route path="/friendprofile" element={<ProtectedRoute><Friendprofile /></ProtectedRoute>} />
             <Route path="/todolist" element={<ProtectedRoute><ToDo /></ProtectedRoute>} />
             <Route path="/studymaterials" element={<ProtectedRoute><StudyMaterials /></ProtectedRoute>} />
-            <Route path="/solveproblem" element={<ProtectedRoute><SolveProblem /></ProtectedRoute>} />
-            <Route path="/solutions" element={<ProtectedRoute><Show /></ProtectedRoute>} />
+            <Route path="/solveproblem/:id" element={<ProtectedRoute><SolveProblem /></ProtectedRoute>} />
+            <Route path="/solutions/:id" element={<ProtectedRoute><Show /></ProtectedRoute>} />
             <Route path="/questionsfeed" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
           </Routes>
         </div>
