@@ -29,6 +29,7 @@ const SolveProblem = () => {
         "http://127.0.0.1:5000/post_solution",
         {
           questionId: questionDetails.question_id,
+          UID: questionDetails.uid,
           solution,
           user: user,
         },

@@ -1,5 +1,6 @@
 import os
 import json  # Add this import
+import cohere
 from flask import Flask, request, redirect, url_for, session, jsonify, send_from_directory
 import pyrebase
 from firebase_admin import firestore
@@ -12,6 +13,7 @@ from authlib.integrations.flask_client import OAuth
 from flask_socketio import SocketIO, emit
 from firebase_admin import storage
 from werkzeug.utils import secure_filename
+co = cohere.Client('4aYW0bLEV3UQvVuFwgqma9mNuS61i7uECkTWsBp1')
 
 app = Flask(__name__, static_folder='../Client/build', static_url_path='/')
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)  # Enable CORS
@@ -113,7 +115,7 @@ def signin():
     except Exception as e:
         return jsonify({"message": "Invalid email or password"}), 401
 
-@app.route('/signin/google')
+@app.route('/signin/google', methods=['GET'])
 @cross_origin(origin='http://localhost:3000', headers=['Content-Type', 'Authorization'])
 def signin_google():
     redirect_uri = url_for('authorized_google', _external=True)
@@ -138,13 +140,17 @@ def authorized_google():
         break
 
     if not user:
-        user_data = {'name': name, 'email': email}
+        user_data = {'name': name, 'email': email,'uid': str(uuid.uuid4())}
         db.collection('users').add(user_data)
         user = user_data
 
     session['user'] = user
-    # Redirect the user to the frontend route
-    return redirect("http://localhost:3000/main")
+
+    # Redirect to React app with user data as query parameters
+    response = redirect(f"http://localhost:3000/google-redirect?name={user['name']}&email={user['email']}&uid={user['uid']}")
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    return response
 
 @app.route('/logout')
 def logout():
@@ -162,6 +168,7 @@ def post_question():
         question_data = {
             'question_id': str(uuid.uuid4()),  # Generate a unique ID for the question
             'username': user.get('name'),
+            'uid':user.get('uid'),
             'email': user.get('email'),
             'question': question_text,
             'timestamp': firestore.SERVER_TIMESTAMP,
@@ -190,6 +197,71 @@ def get_questions():
         questions.append(question_data)
     print(questions)
     return jsonify(questions), 200
+@app.route('/api/cohorequest', methods=['POST'])
+def handle_cohorequest():
+    text = request.json.get('text', '')  # Access the text data from the request JSON payload
+    print(f"Received text: {text}")
+
+    if not text:
+        return jsonify({'error': 'No text provided'}), 400
+
+    # Call the cohere API and get the response
+    response = co.chat(message=f"Generate a clear and concise response for: {text}")
+    response_text = response.text  # Adjusted based on the cohere API response structure
+    print(f"LLM Response: {response_text}")
+    return jsonify({'response_text': response_text})
+
+@app.route('/save_chat',methods=['POST'])
+def save_chat():
+    data = request.get_json()
+    name=data.get('name')
+    chat_msgs = data.get('chat')
+    user = data.get('user')
+    chat_id=str(uuid.uuid4())
+    if user and 'uid' in user:
+        db.collection('users').document(user.get('uid')).collection('chat_history').document(chat_id).set({'name':name,'chat_msgs':chat_msgs,'timestamp': firestore.SERVER_TIMESTAMP,'uid':chat_id})
+        return jsonify({'message':"Chat saved successfully",'status':1}),200
+    else:
+        return jsonify({'message':"Chat saved unsuccessfull",'status':0}),404
+    
+@app.route('/get_saved_chats',methods=['POST'])
+def get_saved_chats():
+    data=request.get_json()
+    user=data.get('cred')
+    if user and 'uid' in user:
+        docs=db.collection('users').document(user.get('uid')).collection('chat_history').order_by('timestamp', direction=firestore.Query.DESCENDING).stream()
+        chats=[]
+        for doc in docs:
+            chat=doc.to_dict()
+            chats.append(chat)
+        return jsonify(chats),200
+    else:
+        return jsonify({'message':"invalid credentials"}),404
+
+@app.route('/get_chat_messages',methods=['POST'])
+def get_chat_messages():
+    data = request.get_json()
+    user = data.get('cred')
+    chat_id = data.get('id')
+    
+    if user and 'uid' in user:
+        print(chat_id)
+        try:
+            print(f"Fetching chat messages for chat ID: {chat_id}")
+            doc = db.collection('users').document(user.get('uid')).collection('chat_history').document(chat_id).get()
+            # print(doc)
+            if doc.exists:
+                # print(f"Chat document found: {doc.to_dict()}")
+                return jsonify(doc.to_dict().get('chat_msgs')), 200
+            else:
+                print("Chat document not found")
+                return jsonify({'message': "Chat not found"}), 404
+        except Exception as e:
+            print(f"Exception occurred: {e}")
+            return jsonify({'message': "Error fetching chat messages"}), 500
+    else:
+        print("Invalid credentials or chat ID")
+        return jsonify({'message': "Invalid credentials or chat ID"}), 400
 
 @app.route('/get_question/<question_id>', methods=['GET'])
 def get_question(question_id):
@@ -207,6 +279,7 @@ def get_question(question_id):
 def post_solution():
     data = request.get_json()
     question_id = data.get('questionId')
+    UID = data.get('UID')
     solution_text = data.get('solution')
     user = data.get('user')
     print(question_id)
@@ -228,6 +301,10 @@ def post_solution():
 
         user_ref = db.collection('users').document(user.get('uid'))
         user_ref.collection('solutions').document(solution_data['solution_id']).set(solution_data)
+
+        solution_user_ref = db.collection('users').document(UID)
+        solution_user_ref.collection('posted_questions').document(question_id).collection('solutions').document(solution_data['solution_id']).set(solution_data)
+
         return jsonify({"message": "Solution posted successfully"}), 201
     except Exception as e:
         return jsonify({"message": str(e)}), 500
@@ -301,6 +378,7 @@ def like_solution():
     data = request.get_json()
     solution_id = data.get('solutionId')
     question_id = data.get('questionId')
+    print(question_id,solution_id)
 
     try:
         # Check if the user has already liked the solution
@@ -311,10 +389,12 @@ def like_solution():
 
         solution_ref = db.collection('questions').document(question_id).collection('solutions').document(solution_id)
         solution = solution_ref.get().to_dict()
+        print(solution)
 
         user_ref = db.collection('users').document(user_id).collection('posted_questions').document(question_id).collection('solutions').document(solution_id)
         user_ref_solution = user_ref.get().to_dict()
         # Check if the user has already liked the solution
+        print(user_ref_solution)
         liked_users = solution.get('liked_users', [])
         liked_users_in_users = user_ref_solution.get('liked_users', [])
         if user_id in liked_users and user_id in liked_users_in_users:
@@ -341,6 +421,7 @@ def like_solution():
             return jsonify({"message": "Solution liked successfully", "likes": likes_count}), 200
 
     except Exception as e:
+        print(e)
         return jsonify({"message": str(e)}), 500
     
 @app.route('/post_study_material', methods=['POST'])

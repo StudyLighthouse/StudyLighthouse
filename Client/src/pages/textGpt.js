@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from "react";
 import '../styles/textGpt.css';
 import Header from '../components/Navbar';
 import ChatComponent from '../components/sidebar';
@@ -9,11 +9,28 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 export default function TextGpt() {
     const { user, loading } = useSession(); // Get user and loading state from session context
     const navigate = useNavigate(); // Initialize the navigate function
+    const [messages, setMessages] = useState([]);
+
+    const fetchMessages = () => {
+        const storedMessages = [];
+        for (let i = 0; i < sessionStorage.length; i++) {
+            const key = sessionStorage.key(i);
+            if (key.startsWith("message_")) {
+                const message = JSON.parse(sessionStorage.getItem(key));
+                storedMessages.push(message);
+            }
+        }
+        setMessages(storedMessages);
+    };
 
     useEffect(() => {
-        document.body.classList.add('textGptBody');
+        fetchMessages();
+    }, []);
+
+    useEffect(() => {
+        document.body.classList.add("textGptBody");
         return () => {
-            document.body.classList.remove('textGptBody');
+          document.body.classList.remove("textGptBody");
         };
     }, []);
 
@@ -29,12 +46,28 @@ export default function TextGpt() {
 
     return (
         <div className="textGpt w-full h-full pt-4 ml-0 flex flex-col">
-            <Header />
-            {/* <img className='img1 absolute' src='Text,Speech Human.png' alt="Human" />
-            <img className='img2 absolute' src='Text,Speech Robot.png' alt="Robot" /> */}
-            <div className='content flex-grow flex'>
-                <ChatComponent />
-                <InputBar />
+            <Header setMessages={setMessages}/>
+            <img className="img1 absolute" src="Text,Speech Human.png" alt="Human" />
+            <img className="img2 absolute" src="Text,Speech Robot.png" alt="Robot" />
+            <div className="content flex-grow flex">
+                <ChatComponent onChatSaved={fetchMessages} onChatSelected={setMessages} /> {/* Pass onChatSaved and onChatSelected callbacks */}
+                <div className="communication w-4/5 pb-2">
+                    <div className="user_bot w-full h-auto">
+                        {messages.map((msg, index) => (
+                            <div key={index}>
+                                <div className="usr h-1/5 p-4">
+                                    <h3 className="text-white">{msg.usr}</h3>
+                                </div>
+                                <div className="bot h-1/5 p-4">
+                                    <h3 className="text-white">{msg.res}</h3>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="text_inn w-full flex flex-grow">
+                        <InputBar setMessages={setMessages} /> {/* Pass setMessages as a prop */}
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -31,8 +31,7 @@ const CardComponent = ({ question }) => {
     }
   };
 
-  const handleSolutionsClick = async (e) => {
-    e.stopPropagation();
+  const handleSolutionsClick = async () => {
   
     if (!user) {
       alert("Please log in to view solutions.");
@@ -41,6 +40,22 @@ const CardComponent = ({ question }) => {
   
     try {
       navigate(`/solutions/${question.id}`); // Navigate to the solutions page with the question ID
+    } catch (error) {
+      console.error("Error navigating to solutions page:", error);
+      setError("Failed to navigate to solutions page.");
+    }
+  };
+
+  const handleFriendProfile = async (e) => {
+    e.stopPropagation();
+  
+    if (!user) {
+      alert("Please log in to view solutions.");
+      return;
+    }
+  
+    try {
+      navigate(`/friendprofile/${question.uid}`); // Navigate to the solutions page with the question ID
     } catch (error) {
       console.error("Error navigating to solutions page:", error);
       setError("Failed to navigate to solutions page.");
@@ -62,18 +77,18 @@ const CardComponent = ({ question }) => {
   return (
     <div>
       <div className="que_container">
-        <div className="main" onClick={handleCardClick}>
-          <div className="quest_card">
-            <div className="card_content h-full">
+        <div className="main">
+          <div className="quest_card"  onClick={handleCardClick}>
+            <div className="card_content h-full" >
               <p className="text_m">{question.question}</p>
             </div>
             <div className="quest_card_back"></div>
           </div>
-          <div className="btns">
-            <div>
-              <div className="username_text">{question.username}</div>
+          <div className="btns" >
+            <div onClick={handleFriendProfile} className="bb">
+              <button className="username_text text-black" >{question.username}</button>
             </div>
-            <div>
+            <div> 
               <div className="timestamp">{formattedDate}</div>
               <center><button onClick={handleSolutionsClick} className="bb">Solutions</button></center>
             </div>

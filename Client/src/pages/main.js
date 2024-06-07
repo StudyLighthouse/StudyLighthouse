@@ -7,7 +7,7 @@ import { useSession } from '../contexts/SessionContext';
 export default function Main() {
     const navigate = useNavigate();
     const { user, loading } = useSession();
-
+    console.log(user)
     useEffect(() => {
         if (!loading && !user) {
             navigate('/signin');

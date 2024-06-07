@@ -44,9 +44,31 @@
     width: 20%; /* Fixed width for sidebar */
 }
 
-.inputBar {
+/* .inputBar {
     padding-bottom: 16px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+} */
+.user_bot{
+    overflow-y: auto;
+    
 }
+.user_bot{
+    height:85%;
+    
+}
+.bot{
+   
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.usr{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+

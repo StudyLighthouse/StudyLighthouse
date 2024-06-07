@@ -20,6 +20,11 @@ export default function Login({ onClose }) {
             [name]: value
         });
     };
+    const handleGoogleSignin = async (e) => {
+        e.preventDefault();
+        window.location.href = 'http://127.0.0.1:5000/signin/google';
+    };
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -70,7 +75,9 @@ export default function Login({ onClose }) {
                     <div className="social-account-container mt-4">
                         <span className="title block mb-2">Or Sign in with</span>
                         <div className="social-accounts">
-                            {/* Implement Google Sign-In button if needed */}
+                        <button className="social-button google" onClick={handleGoogleSignin}>
+                                <img width="24" height="24" src="https://img.icons8.com/material-sharp/24/google-logo.png" alt="google-logo" />
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -35,7 +35,7 @@ const Show = () => {
 
   const handleLikeSolution = async (questionId, solutionId) => {
     try {
-      await axios.post("http://127.0.0.1:5000/like_solution", { questionId, solutionId, userId: user.uid });
+      await axios.post("http://127.0.0.1:5000/like_solution", { questionId, solutionId, userId: question.uid });
       // Fetch updated solutions after liking
       const solutionsResponse = await axios.get(`http://127.0.0.1:5000/get_solutions/${questionId}`);
       setSolutions(solutionsResponse.data);

@@ -54,10 +54,10 @@ export default function Signup({ onClose }) {
         }
     };
 
-    const handleGoogleSignin = () => {
-        window.location.href = 'http://127.0.0.1:5000/signin/google';  // Redirects to the Google sign-in route on the backend
+    const handleGoogleSignin = async (e) => {
+        e.preventDefault();
+        window.location.href = 'http://127.0.0.1:5000/signin/google';
     };
-
     return (
         <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
             <div className="mt-10 flex flex-col text-white">

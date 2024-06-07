@@ -63,6 +63,7 @@
 }
 
 .username_text{
+  margin-top: 0.5em;
   font-size: 1em;
   margin-left: 2em;
   opacity: 0;
@@ -89,6 +90,7 @@
 }
 
 .main:hover .username_text {
+  margin-top: 0.5em;
   margin-left: 2em;
   color: azure;
   opacity: 1;
