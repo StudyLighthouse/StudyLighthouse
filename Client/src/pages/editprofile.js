@@ -63,7 +63,7 @@ export default function Editprofile() {
             </div>
             <div className="mb-4 flex flex-row w-1/2 justify-between">
               <label className="block text-zinc-400">Contact:</label>
-              <span className="text-blue-400">{user.mobile}</span>
+              <span className="text-blue-400">{user.newContact}</span>
             </div>
             <div className="mb-4 flex flex-row w-1/2 justify-between">
               <label className="block text-zinc-400">E-Mail:</label>

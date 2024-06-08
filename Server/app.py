@@ -119,7 +119,7 @@ def signup():
 
     try:
         user = auth.create_user_with_email_and_password(email, password)
-        user_data = {'name': name, 'mobile': number, 'email': email, 'uid': user['localId']}
+        user_data = {'name': name, 'newContact': number, 'email': email, 'uid': user['localId']}
         db.collection('users').document(user['localId']).set(user_data)
         return jsonify({"message": "Account created successfully"}), 201
     except Exception as e:
@@ -592,6 +592,8 @@ def update_profile(field):
             update_field = 'name' if field == 'newUsername' else field
             user_ref.update({update_field: data[field]})
             user_data[update_field] = data[field]
+        
+
 
         return jsonify({"message": "Profile updated successfully", "user": user_data}), 200
     except Exception as e:
