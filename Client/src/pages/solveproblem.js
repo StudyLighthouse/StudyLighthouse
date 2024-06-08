@@ -29,6 +29,7 @@ const SolveProblem = () => {
         "http://127.0.0.1:5000/post_solution",
         {
           questionId: questionDetails.question_id,
+          question: questionDetails.question,
           UID: questionDetails.uid,
           solution,
           user: user,
@@ -54,7 +55,8 @@ const SolveProblem = () => {
     console.log(questionDetails.question_id)
     const formData = new FormData();
     formData.append('user', JSON.stringify(user)); // Assuming `user` is available in the context
-    formData.append('questionId', questionDetails.question_id); // Assuming `questionId` is available in the context
+    formData.append('questionId', questionDetails.question_id);
+    formData.append('question', questionDetails.question); // Assuming `questionId` is available in the context
     formData.append('file', file); // Assuming `file` is available in the context
 
     try {

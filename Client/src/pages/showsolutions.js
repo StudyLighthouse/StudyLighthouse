@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 import Header from "../components/Navbar";
 import axios from "axios";
 import { useSession } from "../contexts/SessionContext";
@@ -7,6 +8,7 @@ import "../styles/showsolutions.css"
 
 const Show = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { user, loading: sessionLoading } = useSession(); 
   const [question, setQuestion] = useState(null);
   const [solutions, setSolutions] = useState([]);
@@ -44,6 +46,22 @@ const Show = () => {
       // Handle error
     }
   };
+
+  const handleFriendProfile = async (user_id) => {
+    // e.stopPropagation();
+  
+    if (!user) {
+      alert("Please log in to view solutions.");
+      return;
+    }
+  
+    try {
+      navigate(`/friendprofile/${user_id}`); // Navigate to the solutions page with the question ID
+    } catch (error) {
+      console.error("Error navigating to solutions page:", error);
+      setError("Failed to navigate to solutions page.");
+    }
+  };
   
 
   if (sessionLoading || componentLoading) {
@@ -68,7 +86,7 @@ const Show = () => {
             ) : (
               <p className="text-white">{solution.solution}</p> // Render text solution if there's no file URL
             )}
-            <p className="text-white">Posted by: {solution.username}</p>
+            <p className="text-white" onClick={() => handleFriendProfile(solution.userId)}>Posted by: {solution.username}</p>
             <div className="likes" onClick={() => handleLikeSolution(id, solution.id)}>
               <svg viewBox="-2 0 105 92" className="likes_svg">
                 <path d="M85.24 2.67C72.29-3.08 55.75 2.67 50 14.9 44.25 2 27-3.8 14.76 2.67 1.1 9.14-5.37 25 5.42 44.38 13.33 58 27 68.11 50 86.81 73.73 68.11 87.39 58 94.58 44.38c10.79-18.7 4.32-35.24-9.34-41.71Z"></path>

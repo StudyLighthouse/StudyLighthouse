@@ -1,7 +1,7 @@
 import os
 import json  # Add this import
 import cohere
-from flask import Flask, request, redirect, url_for, session, jsonify, send_from_directory
+from flask import Flask, request, redirect, url_for, session, jsonify, send_from_directory, current_app
 import pyrebase
 from firebase_admin import firestore
 import firebase_admin
@@ -141,7 +141,7 @@ def authorized_google():
 
     if not user:
         user_data = {'name': name, 'email': email,'uid': str(uuid.uuid4())}
-        db.collection('users').add(user_data)
+        db.collection('users').document(user_data['uid']).set(user_data)
         user = user_data
 
     session['user'] = user
@@ -279,6 +279,7 @@ def get_question(question_id):
 def post_solution():
     data = request.get_json()
     question_id = data.get('questionId')
+    question = data.get('question')
     UID = data.get('UID')
     solution_text = data.get('solution')
     user = data.get('user')
@@ -290,6 +291,8 @@ def post_solution():
         solution_data = {
             'solution_id': str(uuid.uuid4()),
             'solution': solution_text,
+            'question': question,
+            'questionId': question_id,
             'username': user['name'],
             'userId': user['uid'],
             'timestamp': firestore.SERVER_TIMESTAMP,
@@ -319,6 +322,7 @@ def post_file_solution():
 
         user = json.loads(user_json)
         question_id = request.form.get('questionId')
+        question = request.form.get('question')
         file = request.files.get('file')
         print(question_id)
 
@@ -341,6 +345,8 @@ def post_file_solution():
 
         solution_data = {
             'solution_id': str(uuid.uuid4()),
+            'question': question,
+            'questionId': question_id,
             'file_url': file_url,
             'filename': file.filename,
             'username': user['name'],
@@ -504,7 +510,90 @@ def get_study_materials():
         return jsonify(study_materials), 200
     except Exception as e:
         return jsonify({"message": str(e)}), 500
+    
+@app.route('/update_profile/<field>', methods=['POST'])
+def update_profile(field):
+    data = request.form
+    user = json.loads(data.get('user'))
+    profile_image = request.files.get('profileImage')
 
+    try:
+        user_ref = db.collection('users').document(user.get('uid'))
+        user_data = user_ref.get().to_dict()
+
+        if not user_data:
+            return jsonify({"message": "User not found"}), 404
+
+        if field == 'profileImage' and profile_image:
+            file_id = str(uuid.uuid4())
+            file_extension = os.path.splitext(profile_image.filename)[1]
+            file_path = f"profiles/{file_id}{file_extension}"
+
+            storage_client = storage.bucket('study-lighthouse.appspot.com')
+            blob = storage_client.blob(file_path)
+            blob.upload_from_file(profile_image)
+
+            profile_image_url = blob.public_url
+            user_ref.update({'profileImage': profile_image_url})
+            user_data['profileImage'] = profile_image_url
+            return jsonify({"message": "Profile image updated successfully", "user": user_data}), 200
+
+        if field in data:
+            # Map newUsername to name in Firestore
+            update_field = 'name' if field == 'newUsername' else field
+            user_ref.update({update_field: data[field]})
+            user_data[update_field] = data[field]
+
+        return jsonify({"message": "Profile updated successfully", "user": user_data}), 200
+    except Exception as e:
+        return jsonify({"message": str(e)}), 500
+    
+@app.route('/user_details', methods=['GET'])
+def get_user_details():
+    user_id = request.args.get('user_id')
+    user_ref = db.collection('users').document(user_id)
+    user_data = user_ref.get().to_dict()
+    print(user_data)
+
+    if not user_data:
+        return jsonify({"message": "User not found"}), 404
+
+    # Fetch user's posted solutions
+    solutions_ref = user_ref.collection('solutions')
+    user_solutions = [doc.to_dict() for doc in solutions_ref.stream()]
+
+    # Calculate user's level based on solutions with at least 10 likes
+    total_solutions_above_10_likes = sum(1 for solution in user_solutions if solution.get('likes', 0) >= 10)
+    level = total_solutions_above_10_likes// 4 + 1  # Assuming each 10 likes increase the level by 1
+
+    # Add user's level and posted solutions to user data
+    user_data['level'] = level
+    user_data['posted_solutions'] = user_solutions
+
+    return jsonify({"user": user_data}), 200
+
+@app.route('/others_details', methods=['GET'])
+def get_others_details():
+    user_id = request.args.get('user_id')
+    user_ref = db.collection('users').document(user_id)
+    user_data = user_ref.get().to_dict()
+    print(user_data)
+
+    if not user_data:
+        return jsonify({"message": "User not found"}), 404
+
+    # Fetch user's posted solutions
+    solutions_ref = user_ref.collection('solutions')
+    user_solutions = [doc.to_dict() for doc in solutions_ref.stream()]
+
+    # Calculate user's level based on solutions with at least 10 likes
+    total_solutions_above_10_likes = sum(1 for solution in user_solutions if solution.get('likes', 0) >= 10)
+    level = total_solutions_above_10_likes// 4 + 1  # Assuming each 10 likes increase the level by 1
+
+    # Add user's level and posted solutions to user data
+    user_data['level'] = level
+    user_data['posted_solutions'] = user_solutions
+    return jsonify({"user": user_data}), 200
 
 @socketio.on('connect')
 def handle_connect():
