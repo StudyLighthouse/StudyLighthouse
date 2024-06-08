@@ -29,9 +29,10 @@ export const SessionProvider = ({ children }) => {
 
     const signOut = () => {
         setUser(null);
-        sessionStorage.removeItem('user');
+        sessionStorage.clear(); // Clear sessionStorage
         console.log("User signed out. User data removed from session storage.");
     };
+    
 
     const updateUserField = (field, value) => {
         setUser((prevUser) => {
