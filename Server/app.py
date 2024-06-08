@@ -9,6 +9,9 @@ from firebase_admin import credentials, auth as admin_auth
 import firebase_config  # Import the firebase configuration
 from flask_cors import CORS, cross_origin
 import uuid 
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from authlib.integrations.flask_client import OAuth
 from flask_socketio import SocketIO, emit
 from firebase_admin import storage
@@ -64,6 +67,33 @@ oauth.register("myApp",
                    "scope": "openid email profile",
                }
                )
+
+def send_email(subject,receiver_emails, body):
+    # Email settings
+    smtp_server = 'smtp.gmail.com'
+    smtp_port = 587
+    sender_email = 'manikantaswamynanduri75@gmail.com'
+    password = 'cukc fpyu gxhb sxdd'
+    
+    # Create message
+    message = MIMEMultipart()
+    message['From'] = sender_email
+    message['Subject'] = subject
+    message.attach(MIMEText(body, 'plain'))
+    
+    # Send email
+    try:
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(sender_email, password)
+        text = message.as_string()
+        server.sendmail(sender_email, receiver_emails, text)
+        print('Email sent successfully')
+    except Exception as e:
+        print(f'Error: {e}')
+    finally:
+        server.quit()
+
 
 @app.route('/')
 def index():
@@ -152,6 +182,21 @@ def authorized_google():
     response.headers.add('Access-Control-Allow-Credentials', 'true')
     return response
 
+@app.route('/forgot_password', methods=['POST'])
+def forgot_password():
+    email = request.get_json().get('email')
+    print(email)
+    try:
+        user = firebase_admin.auth.get_user_by_email(email)
+        if user:
+            auth.send_password_reset_email(email)
+            return jsonify({"message": "Password reset link sent to your email"}), 200
+        else:
+            return jsonify({"message": "User not found please signup"}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({"message": str(e)}), 400
+
 @app.route('/logout')
 def logout():
     session.pop('user', None)
@@ -182,7 +227,9 @@ def post_question():
 
         # Emit the new question event to all connected clients
         socketio.emit('new_question', question_data)
-
+        users = db.collection('users').stream()
+        recipients = [u.get('email') for u in users if u.get('email') and u.get('email')!=user.get('email')]
+        send_email("New question alert",recipients, f"You got a new Qustion to solve from your competitors")        
         return jsonify({"message": "Question posted successfully"}), 201
     else:
         return jsonify({"error": "Invalid user data"}), 400
@@ -307,7 +354,7 @@ def post_solution():
 
         solution_user_ref = db.collection('users').document(UID)
         solution_user_ref.collection('posted_questions').document(question_id).collection('solutions').document(solution_data['solution_id']).set(solution_data)
-
+        send_email(f"New solution for your Question ",solution_user_ref.get().to_dict().get('email'),f'Your Question with ref {question_id} got new solution \n please chick it out')
         return jsonify({"message": "Solution posted successfully"}), 201
     except Exception as e:
         return jsonify({"message": str(e)}), 500
@@ -323,6 +370,7 @@ def post_file_solution():
         user = json.loads(user_json)
         question_id = request.form.get('questionId')
         question = request.form.get('question')
+        UID=request.form.get('UID')
         file = request.files.get('file')
         print(question_id)
 
@@ -357,10 +405,11 @@ def post_file_solution():
         
         question_ref = db.collection('questions').document(question_id)
         question_ref.collection('solutions').document(solution_data['solution_id']).set(solution_data)
-
+        solution_user_ref = db.collection('users').document(UID)
+        solution_user_ref.collection('posted_questions').document(question_id).collection('solutions').document(solution_data['solution_id']).set(solution_data)
         user_ref = db.collection('users').document(user.get('uid'))
         user_ref.collection('posted_questions').document(question_id).collection('solutions').document(solution_data['solution_id']).set(solution_data)
-
+        send_email(f"New solution for your Question ",solution_user_ref.get().to_dict().get('email'),f'Your Question with ref {question_id} got new solution \n please chick it out')
         return jsonify({"message": "File uploaded successfully"}), 201
     except Exception as e:
         print(f"Error in post_file_solution: {str(e)}")
@@ -497,7 +546,7 @@ def post_study_material():
     except Exception as e:
         return jsonify({"message": str(e)}), 500
     
-# Add this route to your backend
+
 
 @app.route('/get_study_materials', methods=['GET'])
 def get_study_materials():
@@ -594,6 +643,70 @@ def get_others_details():
     user_data['level'] = level
     user_data['posted_solutions'] = user_solutions
     return jsonify({"user": user_data}), 200
+
+@app.route('/add_todo',methods=['POST'])
+def add_todo():
+    data = request.get_json()
+    user = data.get('cred')
+    todo=data.get('todo')
+    print(user,todo)
+    task_id=str(uuid.uuid4())
+    if user and 'uid' in user:
+        doc={
+        'task':todo['task'],
+        'start_date':todo['startOn'],
+        'end_date':todo['endBy'],
+        'id':task_id,
+        'timestamp': firestore.SERVER_TIMESTAMP
+        }
+        db.collection('users').document(user.get('uid')).collection('toDos').document(task_id).set(doc)
+        return jsonify({'message':"Task added succesfully"}),202
+    else:
+        return jsonify({'message':'invalid user credentials'}),404
+
+@app.route('/get_todos',methods=['POST'])
+def get_todos():
+    data = request.get_json()
+    user = data.get('cred')
+    if user and 'uid' in user:
+        docs= db.collection('users').document(user.get('uid')).collection('toDos').order_by('timestamp', direction=firestore.Query.DESCENDING).stream()
+        todos=[]
+        for doc in docs:
+            task=doc.to_dict()
+            todos.append(task)
+        return jsonify(todos),200
+    else:
+        return jsonify({'message':"invalid credentials"}),404
+
+@app.route('/update_todo', methods=['POST'])
+def update_todo():
+    data = request.get_json()
+    user = data.get('cred')
+    todo_id = data.get('id')
+    updated_todo = data.get('todo')
+    
+    if user and 'uid' in user:
+        doc_ref = db.collection('users').document(user.get('uid')).collection('toDos').document(todo_id)
+        doc_ref.update({
+            'task': updated_todo['task'],
+            'start_date': updated_todo['startOn'],
+            'end_date': updated_todo['endBy']
+        })
+        return jsonify({'message': "Task updated successfully"}), 200
+    else:
+        return jsonify({'message': 'Invalid user credentials'}), 404
+
+@app.route('/delete_todo', methods=['POST'])
+def delete_todo():
+    data = request.get_json()
+    user = data.get('cred')
+    todo_id = data.get('id')
+    
+    if user and 'uid' in user:
+        db.collection('users').document(user.get('uid')).collection('toDos').document(todo_id).delete()
+        return jsonify({'message': "Task deleted successfully"}), 200
+    else:
+        return jsonify({'message': 'Invalid user credentials'}), 404
 
 @socketio.on('connect')
 def handle_connect():

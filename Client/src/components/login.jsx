@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import { useSession } from '../contexts/SessionContext';
 import { X } from 'lucide-react';
 
@@ -24,7 +24,10 @@ export default function Login({ onClose }) {
         e.preventDefault();
         window.location.href = 'http://127.0.0.1:5000/signin/google';
     };
-    
+    const handleForgotPassword = (e) => {
+        e.preventDefault();
+        navigate('/forgetpassword');
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -69,7 +72,9 @@ export default function Login({ onClose }) {
                             onChange={handleChange}
                             value={formData.password}
                         />
-                        <span className="forgot-password block mb-2"><a href="/" className="text-blue-400">Forgot Password?</a></span>
+                        <span className="forgot-password block mb-2"><a href="/" className="text-blue-400" onClick={handleForgotPassword}>
+                                Forgot Password?
+                            </a></span>
                         <input className="login-button p-2 bg-blue-500 rounded cursor-pointer" type="submit" value="Login" />
                     </form>
                     <div className="social-account-container mt-4">

@@ -58,7 +58,7 @@ const SolveProblem = () => {
     formData.append('questionId', questionDetails.question_id);
     formData.append('question', questionDetails.question); // Assuming `questionId` is available in the context
     formData.append('file', file); // Assuming `file` is available in the context
-
+    formData.append('UID',questionDetails.uid)
     try {
         axios.post('http://127.0.0.1:5000/post_file_solution', formData, {
             withCredentials: true,

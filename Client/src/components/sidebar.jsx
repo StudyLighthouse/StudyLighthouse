@@ -100,6 +100,30 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => { // Accept onChatSel
     setChatName('');
   };
 
+  const handleNewChat = () => {
+    if (sessionStorage.length > 1) {
+      const confirmNewChat = window.confirm("Do you want to start a new chat without saving the current one?");
+      if (confirmNewChat) {
+        // Clear session storage
+        const keysToRemove = [];
+        for (let i = 0; i < sessionStorage.length; i++) {
+          const key = sessionStorage.key(i);
+          if (key.startsWith("message_")) {
+            keysToRemove.push(key);
+          }
+        }
+        keysToRemove.forEach((key) => {
+          sessionStorage.removeItem(key);
+        });
+
+        // Update parent component's messages state
+        onChatSelected([]);
+      }
+    } else {
+      onChatSelected([]); // No messages to clear, just reset messages state
+    }
+  };
+
   const handlePostDoubtToBackend = async () => {
     try {
       // Check if the user is logged in
@@ -138,6 +162,7 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => { // Accept onChatSel
       style={{ width: "20%" }}
     >
       <div className="bg-zinc-800 p-4 flex-grow overflow-y-auto">
+        <button onClick={handleNewChat}>New Chat</button>
         <div className="mb-4">
           <label className="block text-white mb-2">
             Enter the name to Your chat:
