@@ -44,7 +44,12 @@ const InputBar = ({ setMessages }) => {
         const response = await axios.post('http://127.0.0.1:5000/api/cohorequest', { text });
         console.log('Response from backend:', response.data);
 
-        const newUserMessage = { "usr": text, "res": response.data["response_text"] };
+        const newUserMessage = {
+          "usr": text,
+          "response_parts": response.data.response_parts
+      };
+
+        // const newUserMessage = { "usr": text, "res": response.data["response_text"] };
 
         // Update sessionStorage
         const nextIndex = sessionStorage.length-1;

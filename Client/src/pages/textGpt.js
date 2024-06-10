@@ -5,6 +5,8 @@ import ChatComponent from '../components/sidebar';
 import InputBar from '../components/promptInput';
 import { useSession } from '../contexts/SessionContext'; // Import useSession hook
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css';
 
 export default function TextGpt() {
     const { user, loading } = useSession(); // Get user and loading state from session context
@@ -52,15 +54,21 @@ export default function TextGpt() {
             <div className="content flex-grow flex">
                 <ChatComponent onChatSaved={fetchMessages} onChatSelected={setMessages} /> {/* Pass onChatSaved and onChatSelected callbacks */}
                 <div className="communication w-4/5 pb-2">
-                    <div className="user_bot w-full h-auto">
+                <div className="user_bot w-full">
                         {messages.map((msg, index) => (
                             <div key={index}>
                                 <div className="usr h-1/5 p-4">
-                                    <h3 className="text-white">{msg.usr}</h3>
+                                    <h3 className="text-black">{msg.usr}</h3>
                                 </div>
-                                <div className="bot h-1/5 p-4">
-                                    <h3 className="text-white">{msg.res}</h3>
-                                </div>
+                                {msg.response_parts.map((part, idx) => (
+                                    part.is_code ? (
+                                        <pre key={idx}>
+                                            <code dangerouslySetInnerHTML={{ __html: hljs.highlightAuto(part.text).value }} />
+                                        </pre>
+                                    ) : (
+                                        <p key={idx}>{part.text}</p>
+                                    )
+                                ))}
                             </div>
                         ))}
                     </div>

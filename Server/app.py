@@ -1,7 +1,9 @@
 import os
 import json  # Add this import
 import cohere
-from flask import Flask, request, redirect, url_for, session, jsonify, send_from_directory, current_app
+import re
+import pyttsx3
+from flask import Flask, request, redirect, url_for, session, jsonify, send_from_directory, current_app, send_file
 import pyrebase
 from firebase_admin import firestore
 import firebase_admin
@@ -244,19 +246,87 @@ def get_questions():
         questions.append(question_data)
     print(questions)
     return jsonify(questions), 200
+
+def identify_code_snippets(response_text):
+    # Regex pattern to identify code snippets
+    code_pattern = re.compile(r'```(.*?)```', re.DOTALL)
+    
+    # Regex pattern to identify numbered points like 1. text
+    numbered_points_pattern = re.compile(r'(\b\d+\.)\s(.*?)\n', re.DOTALL)
+
+    parts = []
+    last_pos = 0
+
+    # Find code snippets
+    for match in code_pattern.finditer(response_text):
+        start, end = match.span()
+        if last_pos < start:
+            parts.append({"text": response_text[last_pos:start], "is_code": False})
+        parts.append({"text": match.group(1).strip(), "is_code": True})
+        last_pos = end
+    
+    # Find numbered points
+    for match in numbered_points_pattern.finditer(response_text):
+        start, end = match.span()
+        if last_pos < start:
+            parts.append({"text": response_text[last_pos:start], "is_code": False})
+        parts.append({"text": match.group(1) + match.group(2).strip(), "is_code": False})
+        last_pos = end
+
+    if last_pos < len(response_text):
+        parts.append({"text": response_text[last_pos:], "is_code": False})
+
+    return parts
+
 @app.route('/api/cohorequest', methods=['POST'])
 def handle_cohorequest():
-    text = request.json.get('text', '')  # Access the text data from the request JSON payload
-    print(f"Received text: {text}")
+    data = request.json
+    text = data.get('text', '')
+    index = data.get('index')  # Get the index from the request
 
     if not text:
         return jsonify({'error': 'No text provided'}), 400
 
-    # Call the cohere API and get the response
-    response = co.chat(message=f"Generate a clear and concise response for: {text}")
-    response_text = response.text  # Adjusted based on the cohere API response structure
-    print(f"LLM Response: {response_text}")
-    return jsonify({'response_text': response_text})
+    response = co.generate(
+        model='command',
+        prompt=text,
+        max_tokens=500,
+        temperature=0.5
+    )
+    response_text = response.generations[0].text.strip()
+    parts = identify_code_snippets(response_text)
+
+    audio_filename = f'output_{index}.mp3'  # Use the index for naming the audio file
+
+    tts_engine = pyttsx3.init()
+    tts_engine.save_to_file(response_text, audio_filename)
+    tts_engine.runAndWait()
+
+    return jsonify({
+        'response_text': response_text,
+        'response_parts': parts,
+        'audio': audio_filename
+    })
+
+
+@app.route('/audio/<filename>', methods=['GET'])
+def get_audio(filename):
+    return send_file(filename, as_attachment=True)
+
+
+# @app.route('/api/cohorequest', methods=['POST'])
+# def handle_cohorequest():
+#     text = request.json.get('text', '')  # Access the text data from the request JSON payload
+#     print(f"Received text: {text}")
+
+#     if not text:
+#         return jsonify({'error': 'No text provided'}), 400
+
+#     # Call the cohere API and get the response
+#     response = co.chat(message=f"Generate a clear and concise response for: {text}")
+#     response_text = response.text  # Adjusted based on the cohere API response structure
+#     print(f"LLM Response: {response_text}")
+#     return jsonify({'response_text': response_text})
 
 @app.route('/save_chat',methods=['POST'])
 def save_chat():

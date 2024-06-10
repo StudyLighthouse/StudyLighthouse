@@ -11,6 +11,7 @@
     "autoprefixer": "^10.4.19",
     "axios": "^1.7.2",
     "firebase": "^10.12.2",
+    "highlight.js": "^11.9.0",
     "lucide-react": "^0.381.0",
     "postcss": "^8.4.38",
     "react": "^18.3.1",
@@ -46,5 +47,4 @@
       "last 1 safari version"
     ]
   }
-
 }

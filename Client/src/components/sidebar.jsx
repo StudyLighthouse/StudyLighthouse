@@ -56,8 +56,8 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => { // Accept onChatSel
       } else {
         // Fetch messages from session storage
         const storedMessages = [];
-        var i = 0;
-        while (i < sessionStorage.length - 1) {
+        var i = 1;
+        while (i < sessionStorage.length) {
           const message = JSON.parse(sessionStorage.getItem(`message_${i}`));
           storedMessages.push(message);
           i++;
