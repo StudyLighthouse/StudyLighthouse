@@ -12,19 +12,18 @@ const activeButtonClasses =
   "w-full mb-2 bg-600 text-white rounded border border-white";
 const hoverActiveButtonClasses = "hover:bg-black active:bg-black";
 
-const ChatComponent = ({ onChatSaved, onChatSelected }) => { // Accept onChatSelected prop
-  const { user, loading } = useSession(); // Get user and loading state from session context
+const ChatComponent = ({ onChatSaved, onChatSelected }) => {
+  const { user, loading } = useSession();
   const [doubt, setDoubt] = useState("");
-  const [chatName, setChatName] = useState(""); // Add state for chat name
+  const [chatName, setChatName] = useState("");
   const [savedChats, setSavedChats] = useState([]);
-
-  console.log(user);
+  const [imageUploaded, setImageUploaded] = useState(false);
+  const [file, setFile] = useState(null);
 
   const fetchSavedChats = async () => {
     try {
       const response = await axios.post("http://127.0.0.1:5000/get_saved_chats", { 'cred': user });
       const chats = response.data;
-      console.log(chats);
       setSavedChats(chats);
     } catch (e) {
       console.log(`error: ${e}`);
@@ -34,11 +33,9 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => { // Accept onChatSel
 
   const fetchChatMessages = async (chatId) => {
     try {
-      console.log(chatId)
       const response = await axios.post("http://127.0.0.1:5000/get_chat_messages", {'id': chatId ,'cred':user });
       const messages = response.data;
-      console.log(messages);
-      onChatSelected(messages); // Call the onChatSelected callback with fetched messages
+      onChatSelected(messages);
     } catch (e) {
       console.log(`error: ${e}`);
       alert("Error fetching chat messages");
@@ -54,29 +51,25 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => { // Accept onChatSel
       if (chatName === "") {
         alert("please provide the name");
       } else {
-        // Fetch messages from session storage
         const storedMessages = [];
         var i = 0;
         while (i < sessionStorage.length-1) {
           const message = JSON.parse(sessionStorage.getItem(`message_${i}`));
-          console.log('message',message)
           storedMessages.push(message);
           i++;
         }
-        console.log("chats",storedMessages)
         const response = await axios.post(
           "http://127.0.0.1:5000/save_chat",
           {
             name: chatName,
             chat: storedMessages,
-            user: user, // Include user data in the request body
+            user: user,
           },
           {
-            withCredentials: true, // Include cookies in the request
+            withCredentials: true,
           }
         );
         if (response.data.status === 1) {
-          // Gather keys to remove first
           const keysToRemove = [];
           for (let i = 0; i < sessionStorage.length; i++) {
             const key = sessionStorage.key(i);
@@ -84,15 +77,12 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => { // Accept onChatSel
               keysToRemove.push(key);
             }
           }
-          // Remove the gathered keys
           keysToRemove.forEach((key) => {
             sessionStorage.removeItem(key);
           });
           fetchSavedChats();
           onChatSaved(); 
-          // Notify parent component that chat was saved
         }
-        
         alert(response.data.message);
       }
     } catch (e) {
@@ -106,7 +96,6 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => { // Accept onChatSel
     if (sessionStorage.length > 1) {
       const confirmNewChat = window.confirm("Do you want to start a new chat without saving the current one?");
       if (confirmNewChat) {
-        // Clear session storage
         const keysToRemove = [];
         for (let i = 0; i < sessionStorage.length; i++) {
           const key = sessionStorage.key(i);
@@ -117,40 +106,49 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => { // Accept onChatSel
         keysToRemove.forEach((key) => {
           sessionStorage.removeItem(key);
         });
-
-        // Update parent component's messages state
         onChatSelected([]);
       }
     } else {
-      onChatSelected([]); // No messages to clear, just reset messages state
+      onChatSelected([]);
     }
   };
 
-  const handlePostDoubtToBackend = async () => {
+  const handlePostDoubtToBackend = async (e) => {
+    e.preventDefault();
     try {
-      // Check if the user is logged in
       if (!user) {
         alert("Please log in to post your doubt.");
         return;
       }
 
       console.log(`Posting doubt to backend: ${doubt}`);
+      const formData = new FormData();
+      formData.append('user', JSON.stringify(user)); // Assuming `user` is available in the context
+      formData.append('question', doubt); // Assuming `questionId` is available in the context
+      formData.append('image', file); // Assuming `file` is available in the context
       const response = await axios.post(
-        "http://127.0.0.1:5000/post_question",
+        "http://127.0.0.1:5000/post_question", formData,
         {
-          question: doubt,
-          user: user, // Include user data in the request body
-        },
-        {
-          withCredentials: true, // Include cookies in the request
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         }
       );
       console.log("Response from backend:", response.data.message);
-      alert(response.data.message); // Show success message
-      setDoubt(""); // Clear the input after posting
+      alert(response.data.message);
+      setDoubt("");
     } catch (error) {
       console.error("Error posting doubt to backend:", error);
       alert("Error posting doubt. Please try again.");
+    }
+  };
+
+  const handleFileUpload = (file) => {
+    if (file) {
+      setImageUploaded(true);
+      setFile(file);
+      // Perform upload logic here if needed
     }
   };
 
@@ -197,6 +195,18 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => { // Accept onChatSel
         <div className="outer">
           <h3 className="text-white mb-4">Post your DOUBT</h3>
           <div className="messageBox">
+            <div className="fileUploadWrapper">
+              <label htmlFor="file">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 337 337">
+                  <circle strokeWidth="20" stroke="#6c6c6c" fill="none" r="158.5" cy="168.5" cx="168.5"></circle>
+                  <path strokeLinecap="round" strokeWidth="25" stroke="#6c6c6c" d="M167.759 79V259"></path>
+                  <path strokeLinecap="round" strokeWidth="25" stroke="#6c6c6c" d="M79 167.138H259"></path>
+                </svg>
+                <span className="tooltip">Add an image</span>
+              </label>
+              <input type="file" id="file" name="file" accept="image/*" onChange={(e) => handleFileUpload(e.target.files[0])} />
+              {imageUploaded && <p className="text-white">Image uploaded successfully!</p>}
+            </div>
             <input
               required
               placeholder="Write here..."
@@ -207,7 +217,10 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => { // Accept onChatSel
               className={inputClasses}
             />
             <button id="sendButton" onClick={handlePostDoubtToBackend}>
-              <span>POST</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 664 663">
+                <path fill="none" d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"></path>
+                <path strokeLinejoin="round" strokeLinecap="round" strokeWidth="33.67" stroke="#6c6c6c" d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"></path>
+              </svg>
             </button>
           </div>
         </div>

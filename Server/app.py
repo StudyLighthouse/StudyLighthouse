@@ -205,21 +205,76 @@ def logout():
     return redirect(url_for('index'))
 
 @app.route('/post_question', methods=['POST'])
+@cross_origin(origin='http://localhost:3000', headers=['Content-Type', 'Authorization'], supports_credentials=True)
 def post_question():
-    data = request.get_json()
-    question_text = data.get('question')
-    user = data.get('user')  # Get user data from the request body
+    try:
+        user_json = request.form.get('user')
+        if not user_json:
+            return jsonify({"message": "User not authenticated"}), 401
 
-    # Check if the user data exists and contains necessary information
-    if user and 'name' in user and 'email' in user and 'uid' in user:
-        question_data = {
-            'question_id': str(uuid.uuid4()),  # Generate a unique ID for the question
-            'username': user.get('name'),
-            'uid':user.get('uid'),
-            'email': user.get('email'),
-            'question': question_text,
-            'timestamp': firestore.SERVER_TIMESTAMP,
-        }
+        user = json.loads(user_json)
+        question = request.form.get('question')
+        file = request.files.get('image')
+
+        if file and question:  # If both file and text question are provided
+            file_id = str(uuid.uuid4())
+            file_extension = os.path.splitext(file.filename)[1]
+            file_path = f"doubts/{file_id}{file_extension}"  # Correct folder path
+
+            # Initialize Firebase Storage
+            storage_client = storage.bucket('study-lighthouse.appspot.com')  # Specify the bucket name
+
+            # Upload the file to Firebase Storage
+            blob = storage_client.blob(file_path)
+            blob.upload_from_file(file)
+
+            # Get the public URL of the uploaded file
+            file_url = blob.public_url
+            question_data = {
+                'question_id': str(uuid.uuid4()),
+                'question': question,
+                'file_url': file_url,
+                'filename': file.filename,
+                'username': user['name'],
+                'uid': user['uid'],
+                'timestamp': firestore.SERVER_TIMESTAMP,
+            }
+        elif file:  # If only a file is provided
+            file_id = str(uuid.uuid4())
+            file_extension = os.path.splitext(file.filename)[1]
+            file_path = f"doubts/{file_id}{file_extension}"  # Correct folder path
+
+            # Initialize Firebase Storage
+            storage_client = storage.bucket('study-lighthouse.appspot.com')  # Specify the bucket name
+
+            # Upload the file to Firebase Storage
+            blob = storage_client.blob(file_path)
+            blob.upload_from_file(file)
+
+            # Get the public URL of the uploaded file
+            file_url = blob.public_url
+            question_data = {
+                'question_id': str(uuid.uuid4()),
+                'question': "",
+                'file_url': file_url,
+                'filename': file.filename,
+                'username': user['name'],
+                'uid': user['uid'],
+                'timestamp': firestore.SERVER_TIMESTAMP,
+            }
+        elif question:  # If only a text question is provided
+            question_data = {
+                'question_id': str(uuid.uuid4()),
+                'question': question,
+                'file_url': None,
+                'filename': "",
+                'username': user['name'],
+                'uid': user['uid'],
+                'timestamp': firestore.SERVER_TIMESTAMP,
+            }
+        else:
+            return jsonify({"message": "Neither question nor file provided"}), 400
+        
         question_ref = db.collection('questions').document(question_data['question_id'])  # Use the generated ID
         question_ref.set(question_data)  # Set the question data
 
@@ -227,14 +282,45 @@ def post_question():
         user_ref = db.collection('users').document(user.get('uid'))
         user_ref.collection('posted_questions').document(question_data['question_id']).set(question_data)
 
-        # Emit the new question event to all connected clients
         socketio.emit('new_question', question_data)
         users = db.collection('users').stream()
         recipients = [u.get('email') for u in users if u.get('email') and u.get('email')!=user.get('email')]
-        send_email("New question alert",recipients, f"You got a new Qustion to solve from {question_data['username']}\nQuestion:\n{question_data['question']}")        
+        send_email("New question alert",recipients, f"You got a new Qustion to solve from {question_data['username']}\nQuestion:\n{question_data['question']}")
         return jsonify({"message": "Question posted successfully"}), 201
-    else:
-        return jsonify({"error": "Invalid user data"}), 400
+    except Exception as e:
+        print(f"Error in post_question: {str(e)}")
+        return jsonify({"message": str(e)}), 500
+
+
+    # data = request.get_json()
+    # question_text = data.get('question')
+    # user = data.get('user')  # Get user data from the request body
+
+    # # Check if the user data exists and contains necessary information
+    # if user and 'name' in user and 'email' in user and 'uid' in user:
+    #     question_data = {
+    #         'question_id': str(uuid.uuid4()),  # Generate a unique ID for the question
+    #         'username': user.get('name'),
+    #         'uid':user.get('uid'),
+    #         'email': user.get('email'),
+    #         'question': question_text,
+    #         'timestamp': firestore.SERVER_TIMESTAMP,
+    #     }
+    #     question_ref = db.collection('questions').document(question_data['question_id'])  # Use the generated ID
+    #     question_ref.set(question_data)  # Set the question data
+
+    #     # Add the question to the user's posted questions
+    #     user_ref = db.collection('users').document(user.get('uid'))
+    #     user_ref.collection('posted_questions').document(question_data['question_id']).set(question_data)
+
+    #     # Emit the new question event to all connected clients
+    #     socketio.emit('new_question', question_data)
+    #     users = db.collection('users').stream()
+    #     recipients = [u.get('email') for u in users if u.get('email') and u.get('email')!=user.get('email')]
+    #     send_email("New question alert",recipients, f"You got a new Qustion to solve from {question_data['username']}\nQuestion:\n{question_data['question']}")        
+    #     return jsonify({"message": "Question posted successfully"}), 201
+    # else:
+    #     return jsonify({"error": "Invalid user data"}), 400
 
 @app.route('/get_questions', methods=['GET'])
 def get_questions():

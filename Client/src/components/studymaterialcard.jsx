@@ -1,7 +1,8 @@
 import React from 'react';
 import '../styles/studymaterialcard.css';
 
-const StudyMaterialCard = ({ filename, fileUrl }) => {
+const StudyMaterialCard = ({ filename, fileUrl, material_name }) => {
+    console.log(material_name,"in card")
 	const handleDownload = () => {
 		console.log(fileUrl)
 		// Use anchor tag to trigger file download
@@ -15,7 +16,7 @@ const StudyMaterialCard = ({ filename, fileUrl }) => {
 	<div className='maindiv'>
     <div className="materialcard">
         <div className="text">
-            <span>{filename}</span>
+            <span>{ material_name }</span>
         </div>
         <div className="icons">
             <a className="btn" onClick={handleDownload}>

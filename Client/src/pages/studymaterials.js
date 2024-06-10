@@ -1,4 +1,3 @@
-// StudyMaterials.js
 import React, { useState, useEffect } from "react";
 import "../styles/studymaterials.css";
 import Header from "../components/Navbar";
@@ -12,6 +11,7 @@ export default function StudyMaterials() {
   const [materialName, setMaterialName] = useState("");
   const [error, setError] = useState("");
   const [studyMaterials, setStudyMaterials] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchStudyMaterials();
@@ -71,13 +71,27 @@ export default function StudyMaterials() {
     }
   };
 
+  // Filter study materials based on search term
+  const filteredStudyMaterials = studyMaterials.filter(material =>
+    material.material_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="s_material w-full h-full pt-4 ml-0 flex flex-col">
       <Header />
+
+      {/* Search bar */}
+      <input
+        type="text"
+        placeholder="Search by material name"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+
       {/* Study materials content */}
       <div className="study-materials">
-        {studyMaterials.map((material, index) => (
-          <StudyMaterialCard key={index} filename={material.filename} fileUrl={material.file_url} />
+        {filteredStudyMaterials.map((material, index) => (
+          <StudyMaterialCard key={index} filename={material.filename} fileUrl={material.file_url} material_name={material.material_name}/>
         ))}
       </div>
 
