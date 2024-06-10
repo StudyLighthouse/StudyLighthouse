@@ -22,6 +22,7 @@ export default function SpeechGpt() {
 
     const [messages, setMessages] = useState([]);
     const [audioUrl, setAudioUrl] = useState('');
+    const [file,setFile]=useState('');
 
     const fetchMessages = () => {
         const storedMessages = [];
@@ -49,15 +50,33 @@ export default function SpeechGpt() {
         if (messages.length > 0) {
             const lastMessage = messages[messages.length - 1];
             if (lastMessage.audio) {
+                setFile(`${lastMessage.audio}`)
                 setAudioUrl(`http://127.0.0.1:5000/audio/${lastMessage.audio}`);
             }
         }
     }, [messages]);
-
+const delete_audio=async ()=>{
+    try {
+        const response=await axios.post(`http://127.0.0.1:5000/delete_audio/${file}`)
+        console.log(response.data.message)
+    } catch (error) {
+        console.log('error',error)
+    }
+}
+const play_audio=async ()=>{
+    try {
+        const audio = new Audio(audioUrl);
+        await audio.play();
+        await delete_audio();
+        
+       } catch (error) {
+         console.log('error',error)
+       }
+}
     useEffect(() => {
         if (audioUrl) {
-            const audio = new Audio(audioUrl);
-            audio.play();
+           play_audio();
+           
         }
     }, [audioUrl]);
 
@@ -88,10 +107,13 @@ export default function SpeechGpt() {
                                         ) : (
                                             <p>
                                                 {part.text}
-                                                {part.audio && <audio src={`http://127.0.0.1:5000/audio/${part.audio}`} autoPlay />}
+                                                {part.audio && <audio src={`http://127.0.0.1:5000/audio/${part.audio}`} autoPlay/>}  
                                             </p>
-                                        )}
+                                        )
+                                        }
+                                        
                                     </React.Fragment>
+                                    
                                 ))}
                             </div>
                         ))}

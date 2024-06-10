@@ -56,12 +56,14 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => { // Accept onChatSel
       } else {
         // Fetch messages from session storage
         const storedMessages = [];
-        var i = 1;
-        while (i < sessionStorage.length) {
+        var i = 0;
+        while (i < sessionStorage.length-1) {
           const message = JSON.parse(sessionStorage.getItem(`message_${i}`));
+          console.log('message',message)
           storedMessages.push(message);
           i++;
         }
+        console.log("chats",storedMessages)
         const response = await axios.post(
           "http://127.0.0.1:5000/save_chat",
           {

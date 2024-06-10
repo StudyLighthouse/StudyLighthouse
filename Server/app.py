@@ -231,7 +231,7 @@ def post_question():
         socketio.emit('new_question', question_data)
         users = db.collection('users').stream()
         recipients = [u.get('email') for u in users if u.get('email') and u.get('email')!=user.get('email')]
-        send_email("New question alert",recipients, f"You got a new Qustion to solve from your competitors")        
+        send_email("New question alert",recipients, f"You got a new Qustion to solve from {question_data['username']}\nQuestion:\n{question_data['question']}")        
         return jsonify({"message": "Question posted successfully"}), 201
     else:
         return jsonify({"error": "Invalid user data"}), 400
@@ -313,7 +313,14 @@ def handle_cohorequest():
 def get_audio(filename):
     return send_file(filename, as_attachment=True)
 
-
+@app.route('/delete_audio/<filename>',methods=['POST'])
+def delete_audio(filename):
+    try:
+        os.remove(filename)
+        return jsonify({'message':'succesful delete'}),200
+    except Exception as e:
+        print(e)
+    return jsonify({'message':'no file'}),405
 # @app.route('/api/cohorequest', methods=['POST'])
 # def handle_cohorequest():
 #     text = request.json.get('text', '')  # Access the text data from the request JSON payload
@@ -424,7 +431,8 @@ def post_solution():
 
         solution_user_ref = db.collection('users').document(UID)
         solution_user_ref.collection('posted_questions').document(question_id).collection('solutions').document(solution_data['solution_id']).set(solution_data)
-        send_email(f"New solution for your Question ",solution_user_ref.get().to_dict().get('email'),f'Your Question with ref {question_id} got new solution \n please chick it out')
+        
+        send_email(f"New solution for your Question ",solution_user_ref.get().to_dict().get('email'),f'Your Question \n{question} \ngot new solution \nplease chick it out')
         return jsonify({"message": "Solution posted successfully"}), 201
     except Exception as e:
         return jsonify({"message": str(e)}), 500
