@@ -6,74 +6,46 @@ import { useSession } from "../contexts/SessionContext";
 import "../styles/solveproblem.css";
 
 const SolveProblem = () => {
-  const { user, loading } = useSession();
+  const { user } = useSession();
   const { state } = useLocation();
   const { questionDetails } = state;
-  const [solution, setSolution] = useState("");
+  const [solutionText, setSolutionText] = useState("");
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
 
-  const handleTextSolutionSubmit = async () => {
-    if (!solution) {
-      alert("Please provide a solution.");
-      return;
-    }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     if (!user) {
-      alert("Please log in to post your doubt.");
+      alert("Please log in to post your solution.");
       return;
     }
 
     try {
-      await axios.post(
-        "http://127.0.0.1:5000/post_solution",
-        {
-          questionId: questionDetails.question_id,
-          question: questionDetails.question,
-          UID: questionDetails.uid,
-          solution,
-          user: user,
+      const formData = new FormData();
+      formData.append('user', JSON.stringify(user));
+      formData.append('questionId', questionDetails.question_id);
+      formData.append('question', questionDetails.question);
+      formData.append('UID', questionDetails.uid);
+      console.log(questionDetails.uid)
+      formData.append('solution', solutionText);
+      if (file) {
+        formData.append('file', file);
+      }
+
+      await axios.post('http://127.0.0.1:5000/post_solution', formData, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'multipart/form-data',
         },
-        {
-          withCredentials: true,
-        }
-      );
+      });
+
       alert("Solution posted successfully.");
     } catch (error) {
       console.error("Error posting solution:", error);
       setError("Failed to post solution.");
     }
   };
-
-  const handleFileSolutionSubmit = async (event) => {
-    event.preventDefault();
-    
-    if (!user) {
-        alert("Please log in to post your doubt.");
-        return;
-    }
-    console.log(questionDetails.question_id)
-    const formData = new FormData();
-    formData.append('user', JSON.stringify(user)); // Assuming `user` is available in the context
-    formData.append('questionId', questionDetails.question_id);
-    formData.append('question', questionDetails.question); // Assuming `questionId` is available in the context
-    formData.append('file', file); // Assuming `file` is available in the context
-    formData.append('UID',questionDetails.uid)
-    try {
-        axios.post('http://127.0.0.1:5000/post_file_solution', formData, {
-            withCredentials: true,
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        // console.log('File uploaded successfully', response.data);
-        alert("File uploaded successfully.");
-    } catch (error) {
-        console.error('Error uploading file:', error);
-        setError("Failed to upload file.");
-    }
-};
-
 
   return (
     <div className="max-h-screen border m-0 flex flex-col">
@@ -93,18 +65,15 @@ const SolveProblem = () => {
               required
               rows="10"
               cols="80"
-              value={solution}
-              onChange={(e) => setSolution(e.target.value)}
+              value={solutionText}
+              onChange={(e) => setSolutionText(e.target.value)}
             />
             <label className="textUser">Click Here</label>
           </div>
-          <button onClick={handleTextSolutionSubmit} className="submit-button">
-            Submit Text Solution
-          </button>
         </div>
         <p className="or-text">or</p>
         <div className="fileUpload flex-grow-0">
-          <form className="file-upload-form">
+          <form className="file-upload-form" onSubmit={handleSubmit}>
             <label htmlFor="file" className="file-upload-label">
               <div className="file-upload-design">
                 <svg viewBox="0 0 640 512" height="1em">
@@ -114,14 +83,14 @@ const SolveProblem = () => {
                 <p>or</p>
                 <span className="browse-button">Browse file</span>
               </div>
-              <input id="file" type="file" onChange={(e) => setFile(e.target.files[0])} />
-              {file && (
-                <div>
-                  <p>{file.name}</p>
-                  <button className="upload-button" type="submit" onClick={handleFileSolutionSubmit}>Upload</button>
-                </div>
-              )}
+              <input
+                id="file"
+                type="file"
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+              {file && <p>{file.name}</p>}
             </label>
+            <button className="submit-button" type="submit">Submit Solution</button>
           </form>
         </div>
       </div>

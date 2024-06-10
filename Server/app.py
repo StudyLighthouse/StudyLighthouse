@@ -486,99 +486,97 @@ def get_question(question_id):
         return jsonify({"message": str(e)}), 500
 
 @app.route('/post_solution', methods=['POST'])
-def post_solution():
-    data = request.get_json()
-    question_id = data.get('questionId')
-    question = data.get('question')
-    UID = data.get('UID')
-    solution_text = data.get('solution')
-    user = data.get('user')
-    print(question_id)
-    if not user:
-        return jsonify({"message": "User not authenticated"}), 401
-
-    try:
-        solution_data = {
-            'solution_id': str(uuid.uuid4()),
-            'solution': solution_text,
-            'question': question,
-            'questionId': question_id,
-            'username': user['name'],
-            'userId': user['uid'],
-            'timestamp': firestore.SERVER_TIMESTAMP,
-            'likes': 0
-        }
-        # Save solution in question document
-        question_ref = db.collection('questions').document(question_id)
-        question_ref.collection('solutions').document(solution_data['solution_id']).set(solution_data)
-
-        user_ref = db.collection('users').document(user.get('uid'))
-        user_ref.collection('solutions').document(solution_data['solution_id']).set(solution_data)
-
-        solution_user_ref = db.collection('users').document(UID)
-        solution_user_ref.collection('posted_questions').document(question_id).collection('solutions').document(solution_data['solution_id']).set(solution_data)
-        
-        send_email(f"New solution for your Question ",solution_user_ref.get().to_dict().get('email'),f'Your Question \n{question} \ngot new solution \nplease chick it out')
-        return jsonify({"message": "Solution posted successfully"}), 201
-    except Exception as e:
-        return jsonify({"message": str(e)}), 500
-
-@app.route('/post_file_solution', methods=['POST'])
 @cross_origin(origin='http://localhost:3000', headers=['Content-Type', 'Authorization'], supports_credentials=True)
-def post_file_solution():
+def post_solution():
     try:
-        user_json = request.form.get('user')
+        data = request.form.to_dict()
+        user_json = data.get('user')
         if not user_json:
             return jsonify({"message": "User not authenticated"}), 401
 
         user = json.loads(user_json)
-        question_id = request.form.get('questionId')
-        question = request.form.get('question')
-        UID=request.form.get('UID')
+        question_id = data.get('questionId')
+        
+        question = data.get('question')
+        UID = data.get('UID')
+        solution_text = data.get('solution')
+        
         file = request.files.get('file')
-        print(question_id)
-
-        if not file:
-            return jsonify({"message": "No file provided"}), 400
-
-        file_id = str(uuid.uuid4())
-        file_extension = os.path.splitext(file.filename)[1]
-        file_path = f"solutions/{file_id}{file_extension}"  # Correct folder path
-
-        # Initialize Firebase Storage
-        storage_client = storage.bucket('study-lighthouse.appspot.com')  # Specify the bucket name
-
-        # Upload the file to Firebase Storage
-        blob = storage_client.blob(file_path)
-        blob.upload_from_file(file)
-
-        # Get the public URL of the uploaded file
-        file_url = blob.public_url
+        print(1)
+        if not solution_text and not file:
+            return jsonify({"message": "No solution provided"}), 400
 
         solution_data = {
             'solution_id': str(uuid.uuid4()),
             'question': question,
             'questionId': question_id,
-            'file_url': file_url,
-            'filename': file.filename,
             'username': user['name'],
             'userId': user['uid'],
             'timestamp': firestore.SERVER_TIMESTAMP,
             'likes': 0
         }
-        
+
+        if solution_text and file:
+            solution_data['solution'] = solution_text
+            file_id = str(uuid.uuid4())
+            file_extension = os.path.splitext(file.filename)[1]
+            file_path = f"solutions/{file_id}{file_extension}"  # Correct folder path
+
+            # Initialize Firebase Storage
+            storage_client = storage.bucket('study-lighthouse.appspot.com')  # Specify the bucket name
+
+            # Upload the file to Firebase Storage
+            blob = storage_client.blob(file_path)
+            blob.upload_from_file(file)
+
+            # Get the public URL of the uploaded file
+            file_url = blob.public_url
+
+            solution_data['file_url'] = file_url
+            solution_data['filename'] = file.filename
+        elif file:
+            file_id = str(uuid.uuid4())
+            file_extension = os.path.splitext(file.filename)[1]
+            file_path = f"solutions/{file_id}{file_extension}"  # Correct folder path
+
+            # Initialize Firebase Storage
+            storage_client = storage.bucket('study-lighthouse.appspot.com')  # Specify the bucket name
+
+            # Upload the file to Firebase Storage
+            blob = storage_client.blob(file_path)
+            blob.upload_from_file(file)
+
+            # Get the public URL of the uploaded file
+            file_url = blob.public_url
+            solution_data['solution'] = ''
+
+            solution_data['file_url'] = file_url
+            solution_data['filename'] = file.filename
+        elif solution_text:
+            solution_data['solution'] = solution_text
+            solution_data['file_url'] = ''
+            solution_data['filename'] = ''
+        # Save solution data into Firestore
         question_ref = db.collection('questions').document(question_id)
         question_ref.collection('solutions').document(solution_data['solution_id']).set(solution_data)
-        solution_user_ref = db.collection('users').document(UID)
-        solution_user_ref.collection('posted_questions').document(question_id).collection('solutions').document(solution_data['solution_id']).set(solution_data)
+
+        # Save solution data into user's document
         user_ref = db.collection('users').document(user.get('uid'))
-        user_ref.collection('posted_questions').document(question_id).collection('solutions').document(solution_data['solution_id']).set(solution_data)
-        send_email(f"New solution for your Question ",solution_user_ref.get().to_dict().get('email'),f'Your Question with ref {question_id} got new solution \n please chick it out')
-        return jsonify({"message": "File uploaded successfully"}), 201
+        user_ref.collection('solutions').document(solution_data['solution_id']).set(solution_data)
+
+        # Save solution data into the user who posted the question's document
+        solution_user_ref = db.collection('users').document(UID)
+        print(UID)
+        solution_user_ref.collection('posted_questions').document(question_id).collection('solutions').document(solution_data['solution_id']).set(solution_data)
+        print(solution_user_ref.get().to_dict())
+        # Send email notification
+        send_email(f"New solution for your Question ", solution_user_ref.get().to_dict()['email'], f'Your Question \n{question} \ngot a new solution \n please check it out')
+
+        return jsonify({"message": "Solution posted successfully"}), 201
     except Exception as e:
-        print(f"Error in post_file_solution: {str(e)}")
+        print(f"Error in post_solution: {str(e)}")
         return jsonify({"message": str(e)}), 500
-    
+
 @app.route('/get_solutions/<question_id>', methods=['GET'])
 def get_solutions(question_id):
     try:
