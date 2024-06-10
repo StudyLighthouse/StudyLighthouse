@@ -37,7 +37,7 @@ const Show = () => {
 
   const handleLikeSolution = async (questionId, solutionId) => {
     try {
-      await axios.post("http://127.0.0.1:5000/like_solution", { questionId, solutionId, userId: question.uid });
+      await axios.post("http://127.0.0.1:5000/like_solution", { questionId, solutionId, userId: user.uid });
       // Fetch updated solutions after liking
       const solutionsResponse = await axios.get(`http://127.0.0.1:5000/get_solutions/${questionId}`);
       setSolutions(solutionsResponse.data);
@@ -48,8 +48,6 @@ const Show = () => {
   };
 
   const handleFriendProfile = async (user_id) => {
-    // e.stopPropagation();
-  
     if (!user) {
       alert("Please log in to view solutions.");
       return;
@@ -77,17 +75,36 @@ const Show = () => {
       <Header />
       <div>
         {/* Render question details here */}
-        <h2 className="text-white">{question.question}</h2>
+        {question.file_url && question.question && ( // Check if question has both text and file URL (image)
+          <div>
+            <img src={question.file_url} alt="Question" style={{ maxWidth: "100%" }} />
+            <h2 className="text-white">{question.question}</h2>
+          </div>
+        )}
+        {question.file_url && !question.question && ( // Check if question has only file URL (image)
+          <img src={question.file_url} alt="Question" style={{ maxWidth: "100%" }} />
+        )}
+        {!question.file_url && question.question && ( // Check if question has only text
+          <h2 className="text-white">{question.question}</h2>
+        )}
+        
         {/* Render solutions here */}
         {solutions.map((solution) => (
-          <div key={solution.id}>
-            {solution.file_url ? ( // Check if solution has a file URL (image)
+          <div key={solution.solution_id}>
+            {solution.file_url && solution.solution && ( // Check if solution has both text and file URL (image)
+              <div>
+                <img src={solution.file_url} alt="Solution" style={{ maxWidth: "100%" }} />
+                <p className="text-white">{solution.solution}</p>
+              </div>
+            )}
+            {solution.file_url && !solution.solution && ( // Check if solution has only file URL (image)
               <img src={solution.file_url} alt="Solution" style={{ maxWidth: "100%" }} />
-            ) : (
-              <p className="text-white">{solution.solution}</p> // Render text solution if there's no file URL
+            )}
+            {!solution.file_url && solution.solution && ( // Check if solution has only text
+              <p className="text-white">{solution.solution}</p>
             )}
             <p className="text-white" onClick={() => handleFriendProfile(solution.userId)}>Posted by: {solution.username}</p>
-            <div className="likes" onClick={() => handleLikeSolution(id, solution.id)}>
+            <div className="likes" onClick={() => handleLikeSolution(id, solution.solution_id)}>
               <svg viewBox="-2 0 105 92" className="likes_svg">
                 <path d="M85.24 2.67C72.29-3.08 55.75 2.67 50 14.9 44.25 2 27-3.8 14.76 2.67 1.1 9.14-5.37 25 5.42 44.38 13.33 58 27 68.11 50 86.81 73.73 68.11 87.39 58 94.58 44.38c10.79-18.7 4.32-35.24-9.34-41.71Z"></path>
               </svg>

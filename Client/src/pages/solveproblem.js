@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/Navbar";
@@ -12,7 +12,9 @@ const SolveProblem = () => {
   const [solutionText, setSolutionText] = useState("");
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
-
+  const [question, setQuestion] = useState(null);
+ 
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -52,7 +54,18 @@ const SolveProblem = () => {
       <Header />
       <div className="h-1/2 w-full">
         <div className="h-full w-full" style={{ border: "2px solid white" }}>
-          <h4 className="text-white">{questionDetails.question}</h4>
+        {questionDetails.file_url && questionDetails.question && ( // Check if question has both text and file URL (image)
+          <div>
+            <img src={questionDetails.file_url} alt="Question" style={{ maxWidth: "100%" }} />
+            <h2 className="text-white">{questionDetails.question}</h2>
+          </div>
+        )}
+        {questionDetails.file_url && !questionDetails.question && ( // Check if question has only file URL (image)
+          <img src={question.file_url} alt="Question" style={{ maxWidth: "100%" }} />
+        )}
+        {!questionDetails.file_url && questionDetails.question && ( // Check if question has only text
+          <h2 className="text-white">{questionDetails.question}</h2>
+        )}
         </div>
       </div>
       <div className="posting flex-grow flex items-end justify-center w-full">
