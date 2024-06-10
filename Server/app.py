@@ -333,8 +333,34 @@ def identify_code_snippets(response_text):
 
     return parts
 
-@app.route('/api/cohorequest', methods=['POST'])
+@app.route('/api/cohorequest_text', methods=['POST'])
 def handle_cohorequest():
+    data = request.json
+    text = data.get('text', '')
+    index = data.get('index')  # Get the index from the request
+
+    if not text:
+        return jsonify({'error': 'No text provided'}), 400
+
+    response = co.generate(
+        model='command',
+        prompt=text,
+        max_tokens=500,
+        temperature=0.5
+    )
+    response_text = response.generations[0].text.strip()
+    parts = identify_code_snippets(response_text)
+
+    
+
+    return jsonify({
+        'response_text': response_text,
+        'response_parts': parts
+        
+    })
+
+@app.route('/api/cohorequest_audio', methods=['POST'])
+def handle_cohorequest_audio():
     data = request.json
     text = data.get('text', '')
     index = data.get('index')  # Get the index from the request

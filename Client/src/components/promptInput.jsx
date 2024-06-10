@@ -41,7 +41,7 @@ const InputBar = ({ setMessages }) => {
     } else {
       try {
         console.log(text);
-        const response = await axios.post('http://127.0.0.1:5000/api/cohorequest', { text });
+        const response = await axios.post('http://127.0.0.1:5000/api/cohorequest_text', { text });
         console.log('Response from backend:', response.data);
 
         const newUserMessage = {

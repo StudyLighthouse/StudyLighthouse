@@ -26,7 +26,7 @@ const SpeechToTextToSpeech = ({ setMessages }) => {
     const handleSendToBackend = async (text) => {
         try {
             const nextIndex = sessionStorage.length;
-            const response = await axios.post('http://127.0.0.1:5000/api/cohorequest', { text, index: nextIndex });
+            const response = await axios.post('http://127.0.0.1:5000/api/cohorequest_audio', { text, index: nextIndex });
             const newUserMessage = {
                 usr: text,
                 response_parts: response.data.response_parts,
