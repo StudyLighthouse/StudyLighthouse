@@ -16,6 +16,7 @@ import GoogleRedirectHandler from './components/googleredirecthandler'; // Impor
 import ProtectedRoute from './components/protectedRoute';
 import { SessionProvider } from './contexts/SessionContext';
 import ForgotPassword from './pages/forgetPassword';
+import ShowSolved from './pages/solvedproblems';
 
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
             <Route path="/questionsfeed" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
             <Route path="/google-redirect" element={<GoogleRedirectHandler />} /> {/* Add the GoogleRedirectHandler route */}
             <Route path="/forgetpassword" element={<ForgotPassword />} />
-            
+            <Route path="/solved/:solutionId/:userId" element={<ProtectedRoute><ShowSolved/></ProtectedRoute>} />
           </Routes>
         </div>
       </Router>

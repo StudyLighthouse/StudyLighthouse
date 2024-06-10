@@ -66,6 +66,8 @@ const Friendprofile = () => {
                 userData.posted_solutions.map((problem) => (
                   <ProblemsSolved
                     key={problem.solution_id}
+                    userId={id}
+                    solutionId={problem.solution_id}
                     question={problem.question}
                     solution={problem.solution}
                     likes={problem.likes}

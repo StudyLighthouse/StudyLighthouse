@@ -291,37 +291,6 @@ def post_question():
         print(f"Error in post_question: {str(e)}")
         return jsonify({"message": str(e)}), 500
 
-
-    # data = request.get_json()
-    # question_text = data.get('question')
-    # user = data.get('user')  # Get user data from the request body
-
-    # # Check if the user data exists and contains necessary information
-    # if user and 'name' in user and 'email' in user and 'uid' in user:
-    #     question_data = {
-    #         'question_id': str(uuid.uuid4()),  # Generate a unique ID for the question
-    #         'username': user.get('name'),
-    #         'uid':user.get('uid'),
-    #         'email': user.get('email'),
-    #         'question': question_text,
-    #         'timestamp': firestore.SERVER_TIMESTAMP,
-    #     }
-    #     question_ref = db.collection('questions').document(question_data['question_id'])  # Use the generated ID
-    #     question_ref.set(question_data)  # Set the question data
-
-    #     # Add the question to the user's posted questions
-    #     user_ref = db.collection('users').document(user.get('uid'))
-    #     user_ref.collection('posted_questions').document(question_data['question_id']).set(question_data)
-
-    #     # Emit the new question event to all connected clients
-    #     socketio.emit('new_question', question_data)
-    #     users = db.collection('users').stream()
-    #     recipients = [u.get('email') for u in users if u.get('email') and u.get('email')!=user.get('email')]
-    #     send_email("New question alert",recipients, f"You got a new Qustion to solve from {question_data['username']}\nQuestion:\n{question_data['question']}")        
-    #     return jsonify({"message": "Question posted successfully"}), 201
-    # else:
-    #     return jsonify({"error": "Invalid user data"}), 400
-
 @app.route('/get_questions', methods=['GET'])
 def get_questions():
     questions_ref = db.collection('questions').order_by('timestamp', direction=firestore.Query.DESCENDING).stream()
@@ -871,6 +840,31 @@ def delete_todo():
         return jsonify({'message': "Task deleted successfully"}), 200
     else:
         return jsonify({'message': 'Invalid user credentials'}), 404
+    
+@app.route('/get_solution', methods=['GET'])
+def get_solution():
+    user_id = request.args.get('user_id')
+    solution_id = request.args.get('solution_id')
+
+    try:
+        solution_ref = db.collection('users').document(user_id).collection('solutions').document(solution_id).get()
+        solution_data = solution_ref.to_dict()
+
+        if solution_data:
+            question_id = solution_data.get('questionId')
+            question_ref = db.collection('questions').document(question_id).get()
+            question_data = question_ref.to_dict()
+            print(solution_data, question_data)
+            return jsonify({
+                'solution': solution_data,
+                'question': question_data
+            })
+        else:
+            return jsonify({'error': 'Solution not found'}), 404
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
 @socketio.on('connect')
 def handle_connect():

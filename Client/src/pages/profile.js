@@ -14,7 +14,6 @@ export default function Profile() {
         const response = await axios.get(`http://127.0.0.1:5000/user_details?user_id=${user.uid}`, {
           withCredentials: true,
         });
-        console.log(response.data.user)
         setUserData(response.data.user);
       } catch (error) {
         console.error("Error fetching user details:", error);
@@ -22,18 +21,15 @@ export default function Profile() {
     };
 
     fetchUserDetails();
-  }, [user.id]);
+  }, [user.uid]);
 
   // Function to render stars based on the user's level
-  // Function to render stars based on the user's level
-const renderStars = (level) => {
-  // Cap the level at 5
-  const cappedLevel = Math.min(level, 5);
-  const filledStars = "★".repeat(cappedLevel); // Filled stars
-  const emptyStars = "☆".repeat(5 - cappedLevel); // Empty stars
-  return filledStars + emptyStars;
-};
-
+  const renderStars = (level) => {
+    const cappedLevel = Math.min(level, 5);
+    const filledStars = "★".repeat(cappedLevel);
+    const emptyStars = "☆".repeat(5 - cappedLevel);
+    return filledStars + emptyStars;
+  };
 
   return (
     <div className="bg-black text-white p-4 min-h-screen flex flex-col">
@@ -45,7 +41,6 @@ const renderStars = (level) => {
             <img className="w-16 h-16 rounded-full" src={userData.profileImage || "https://placehold.co/100x100"} alt="Profile Image" />
             <div className="ml-0">
               <div className="flex items-center">
-                {/* Display user's level as stars */}
                 <span className="text-yellow-400 ml-4 text-xl">
                   {renderStars(userData.level)}
                 </span>
@@ -70,6 +65,8 @@ const renderStars = (level) => {
                 userData.posted_solutions.map((problem) => (
                   <ProblemsSolved
                     key={problem.solution_id}
+                    userId={user.uid}
+                    solutionId={problem.solution_id}
                     question={problem.question}
                     solution={problem.solution}
                     likes={problem.likes}

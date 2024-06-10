@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/Navbar";
@@ -12,8 +12,6 @@ const SolveProblem = () => {
   const [solutionText, setSolutionText] = useState("");
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
-  const [question, setQuestion] = useState(null);
- 
   
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -43,6 +41,8 @@ const SolveProblem = () => {
       });
 
       alert("Solution posted successfully.");
+      setSolutionText(""); // Clear the text area
+      setFile(null); // Clear the file input
     } catch (error) {
       console.error("Error posting solution:", error);
       setError("Failed to post solution.");
@@ -54,21 +54,22 @@ const SolveProblem = () => {
       <Header />
       <div className="h-1/2 w-full">
         <div className="h-full w-full" style={{ border: "2px solid white" }}>
-        {questionDetails.file_url && questionDetails.question && ( // Check if question has both text and file URL (image)
-          <div>
+          {questionDetails.file_url && questionDetails.question && ( // Check if question has both text and file URL (image)
+            <div>
+              <img src={questionDetails.file_url} alt="Question" style={{ maxWidth: "100%" }} />
+              <h2 className="text-white">{questionDetails.question}</h2>
+            </div>
+          )}
+          {questionDetails.file_url && !questionDetails.question && ( // Check if question has only file URL (image)
             <img src={questionDetails.file_url} alt="Question" style={{ maxWidth: "100%" }} />
+          )}
+          {!questionDetails.file_url && questionDetails.question && ( // Check if question has only text
             <h2 className="text-white">{questionDetails.question}</h2>
-          </div>
-        )}
-        {questionDetails.file_url && !questionDetails.question && ( // Check if question has only file URL (image)
-          <img src={question.file_url} alt="Question" style={{ maxWidth: "100%" }} />
-        )}
-        {!questionDetails.file_url && questionDetails.question && ( // Check if question has only text
-          <h2 className="text-white">{questionDetails.question}</h2>
-        )}
+          )}
         </div>
       </div>
       <div className="posting flex-grow flex items-end justify-center w-full">
+        {/* <form className="file-upload-form" onSubmit={handleSubmit}> */}
         <div className="textArea flex-grow-0">
           <div className="input-form w-full">
             <textarea
@@ -86,7 +87,7 @@ const SolveProblem = () => {
         </div>
         <p className="or-text">or</p>
         <div className="fileUpload flex-grow-0">
-          <form className="file-upload-form" onSubmit={handleSubmit}>
+          <div className="file-upload-form">
             <label htmlFor="file" className="file-upload-label">
               <div className="file-upload-design">
                 <svg viewBox="0 0 640 512" height="1em">
@@ -103,9 +104,10 @@ const SolveProblem = () => {
               />
               {file && <p>{file.name}</p>}
             </label>
-            <button className="submit-button" type="submit">Submit Solution</button>
-          </form>
+            <button className="submit-button" type="submit" onClick={handleSubmit}>Submit Solution</button>
+          </div>
         </div>
+        {/* </form> */}
       </div>
     </div>
   );

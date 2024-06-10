@@ -21,7 +21,6 @@ const CardComponent = ({ question }) => {
         withCredentials: true,
       });
       const questionDetails = response.data;
-      console.log(response.data)
 
       // Navigate to the solve page with question details
       navigate(`/solveproblem/${question.id}`, { state: { questionDetails } });
@@ -32,12 +31,11 @@ const CardComponent = ({ question }) => {
   };
 
   const handleSolutionsClick = async () => {
-  
     if (!user) {
       alert("Please log in to view solutions.");
       return;
     }
-  
+
     try {
       navigate(`/solutions/${question.id}`); // Navigate to the solutions page with the question ID
     } catch (error) {
@@ -48,12 +46,12 @@ const CardComponent = ({ question }) => {
 
   const handleFriendProfile = async (e) => {
     e.stopPropagation();
-  
+
     if (!user) {
       alert("Please log in to view solutions.");
       return;
     }
-  
+
     try {
       navigate(`/friendprofile/${question.uid}`); // Navigate to the solutions page with the question ID
     } catch (error) {
@@ -61,7 +59,7 @@ const CardComponent = ({ question }) => {
       setError("Failed to navigate to solutions page.");
     }
   };
-  
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -78,19 +76,28 @@ const CardComponent = ({ question }) => {
     <div>
       <div className="que_container">
         <div className="main">
-          <div className="quest_card"  onClick={handleCardClick}>
-            <div className="card_content h-full" >
-              <p className="text_m">{question.question}</p>
+          <div className="quest_card" onClick={handleCardClick}>
+            <div className="card_content h-full">
+              {question.question ? (
+                <p className="text_m">{question.question}</p>
+              ) : (
+                <div className="click_to_show">Click to show the question</div>
+              )}
             </div>
-            <div className="quest_card_back"></div>
+              <div className="quest_card_back">
+              </div>
           </div>
-          <div className="btns" >
+          <div className="btns">
             <div onClick={handleFriendProfile} className="bb">
-              <button className="username_text text-black" >{question.username}</button>
+              <button className="username_text text-black">{question.username}</button>
             </div>
-            <div> 
+            <div>
               <div className="timestamp">{formattedDate}</div>
-              <center><button onClick={handleSolutionsClick} className="bb">Solutions</button></center>
+              <center>
+                <button onClick={handleSolutionsClick} className="bb">
+                  Solutions
+                </button>
+              </center>
             </div>
           </div>
         </div>
