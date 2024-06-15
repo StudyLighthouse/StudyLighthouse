@@ -12,6 +12,7 @@ export default function TextGpt() {
     const { user, loading } = useSession(); // Get user and loading state from session context
     const navigate = useNavigate(); // Initialize the navigate function
     const [messages, setMessages] = useState([]);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const fetchMessages = () => {
         const storedMessages = [];
@@ -46,14 +47,22 @@ export default function TextGpt() {
         return <div>Loading...</div>; // Show loading state while session is being validated
     }
 
+
+    const handleMenuToggle = () => {
+        setIsMenuOpen(!isMenuOpen);
+        // Update the height of the right section after a small delay to ensure DOM is updated
+      };
+
     return (
-        <div className="textGpt w-full h-full pt-4 ml-0 flex flex-col">
-            <Header setMessages={setMessages}/>
+        <div className="textGpt w-full h-screen pt-4 ml-0 flex flex-col">
+            <Header setMessages={setMessages} onMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} currentPage="textGpt"/>
             <img className="img1 absolute" src="Text,Speech Human.png" alt="Human" />
             <img className="img2 absolute" src="Text,Speech Robot.png" alt="Robot" />
-            <div className="content flex-grow flex">
+            <div className="content flex-grow flex h-full">
+                <div className={`h-full w-1/5 flex flex-shrink sidebar-container ${isMenuOpen ? "open" : ""}`}>
                 <ChatComponent onChatSaved={fetchMessages} onChatSelected={setMessages} /> {/* Pass onChatSaved and onChatSelected callbacks */}
-                <div className="communication w-4/5 pb-2">
+                </div>
+                <div className={`communication w-full h-full pb-2 ${isMenuOpen ? "shifted" : ""}`}>
                 <div className="user_bot w-full">
                         {messages.map((msg, index) => (
                             <div key={index}>
@@ -72,7 +81,7 @@ export default function TextGpt() {
                             </div>
                         ))}
                     </div>
-                    <div className="text_inn w-full flex flex-grow">
+                    <div className="text_inn w-full flex flex-">
                         <InputBar setMessages={setMessages} /> {/* Pass setMessages as a prop */}
                     </div>
                 </div>

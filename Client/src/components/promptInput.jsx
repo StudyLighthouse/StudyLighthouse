@@ -67,7 +67,7 @@ const InputBar = ({ setMessages }) => {
   return (
     <div
       className="inputBar flex flex-col justify-end pb-4 overflow-hidden"
-      style={{ width: "80%" }}
+      // style={{ width: "80%" }}
     >
       <div className="flex items-center bg-zinc-800 rounded-full p-2 mt-0 ml-10 w-11/12">
         <input

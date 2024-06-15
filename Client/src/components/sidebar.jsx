@@ -4,12 +4,12 @@ import { useSession } from "../contexts/SessionContext";
 import "../styles/sidebar.css";
 
 const inputClasses =
-  "w-full p-2 mb-2 bg-zinc-800 text-white rounded border border-white";
+  "w-[100%] p-2 mb-2 bg-zinc-800 text-white rounded border border-white";
 const buttonClasses = "w-full mb-2 bg-600 text-white rounded";
 const thickBorderButtonClasses =
-  "w-full mb-2 bg-black text-white rounded border-4 border-black";
+  "w-[40%]  mb-2 bg-gray-800 rounded-xl text-white text-xs rounded p-2 border-4 border-black";
 const activeButtonClasses =
-  "w-full mb-2 bg-600 text-white rounded border border-white";
+  "w-[90%] mb-2 bg-600 text-white rounded border border-white";
 const hoverActiveButtonClasses = "hover:bg-black active:bg-black";
 
 const ChatComponent = ({ onChatSaved, onChatSelected }) => {
@@ -123,9 +123,9 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
 
       console.log(`Posting doubt to backend: ${doubt}`);
       const formData = new FormData();
-      formData.append('user', JSON.stringify(user)); // Assuming `user` is available in the context
-      formData.append('question', doubt); // Assuming `questionId` is available in the context
-      formData.append('image', file); // Assuming `file` is available in the context
+      formData.append('user', JSON.stringify(user)); // Assuming user is available in the context
+      formData.append('question', doubt); // Assuming questionId is available in the context
+      formData.append('image', file); // Assuming file is available in the context
       const response = await axios.post(
         "http://127.0.0.1:5000/post_question", formData,
         {
@@ -148,6 +148,7 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
     if (file) {
       setImageUploaded(true);
       setFile(file);
+      alert("Image uploaded successfully!");
       // Perform upload logic here if needed
     }
   };
@@ -158,28 +159,27 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
 
   return (
     <div
-      className="chatComponent bg-black justify-between flex flex-col"
-      style={{ width: "20%" }}
+      className="chatComponent bg-black flex flex-col items-center justify-center w-full h-full"
     >
-      <div className="bg-zinc-800 p-4 flex-grow overflow-y-auto">
-        <button onClick={handleNewChat}>New Chat</button>
-        <div className="mb-4">
+      <div className="bg-black p-4 text-white flex flex-shrink-0 flex-col justify-center items-center">
+        <button className="w-full flex flex-shrink justify-end pr-2 -mt-3" onClick={handleNewChat}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" class="icon-xl-heavy"><path d="M15.673 3.913a3.121 3.121 0 1 1 4.414 4.414l-5.937 5.937a5 5 0 0 1-2.828 1.415l-2.18.31a1 1 0 0 1-1.132-1.13l.311-2.18A5 5 0 0 1 9.736 9.85zm3 1.414a1.12 1.12 0 0 0-1.586 0l-5.937 5.937a3 3 0 0 0-.849 1.697l-.123.86.86-.122a3 3 0 0 0 1.698-.849l5.937-5.937a1.12 1.12 0 0 0 0-1.586M11 4A1 1 0 0 1 10 5c-.998 0-1.702.008-2.253.06-.54.052-.862.141-1.109.267a3 3 0 0 0-1.311 1.311c-.134.263-.226.611-.276 1.216C5.001 8.471 5 9.264 5 10.4v3.2c0 1.137 0 1.929.051 2.546.05.605.142.953.276 1.216a3 3 0 0 0 1.311 1.311c.263.134.611.226 1.216.276.617.05 1.41.051 2.546.051h3.2c1.137 0 1.929 0 2.546-.051.605-.05.953-.142 1.216-.276a3 3 0 0 0 1.311-1.311c.126-.247.215-.569.266-1.108.053-.552.06-1.256.06-2.255a1 1 0 1 1 2 .002c0 .978-.006 1.78-.069 2.442-.064.673-.192 1.27-.475 1.827a5 5 0 0 1-2.185 2.185c-.592.302-1.232.428-1.961.487C15.6 21 14.727 21 13.643 21h-3.286c-1.084 0-1.958 0-2.666-.058-.728-.06-1.369-.185-1.96-.487a5 5 0 0 1-2.186-2.185c-.302-.592-.428-1.233-.487-1.961C3 15.6 3 14.727 3 13.643v-3.286c0-1.084 0-1.958.058-2.666.06-.729.185-1.369.487-1.961A5 5 0 0 1 5.73 3.545c.556-.284 1.154-.411 1.827-.475C8.22 3.007 9.021 3 10 3A1 1 0 0 1 11 4"></path></svg></button>
+        <div className=" bg-black flex flex-col mb-4 pt-7">
           <label className="block text-white mb-2">
-            Enter the name to Your chat:
+            Save chat as:
           </label>
           <input
             type="text"
-            placeholder="Enter a name to save the chat as"
+            placeholder="Save chat as..."
             value={chatName}
             onChange={(e) => setChatName(e.target.value)}
             className={inputClasses}
           />
-          <button className={thickBorderButtonClasses} onClick={saveChat}>
+          <center><button className={thickBorderButtonClasses} onClick={saveChat}>
             SAVE
-          </button>
+          </button></center>
         </div>
-        <h2 className="block text-white mb-2">Chat History:</h2>
-        <div className="mb-4 overflow-y-auto flex flex-col align-middle" style={{ height: "35vh" }}>
+        <h2 className="block text-white mb-2 w-4/5">Chat History:</h2>
+        <div className=" bg-gray-800 mb-4 overflow-y-auto flex flex-col align-middle w-4/5" style={{ height: "35vh" }}>
           {savedChats.map((c, index) => (
             <div key={index} className="w-full border-white mb-1">
               <form onSubmit={(e) => {
@@ -187,13 +187,13 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
                 fetchChatMessages(e.target.elements[0].value); // Fetch chat messages
               }}>
                 <input type="hidden" value={c['uid']} />
-                <button type="submit" className="h-10 text-white w-full" style={{ border: "1px solid black" }}>{c['name']}</button>
+                <button type="submit" className="h-10 text-white w-[100%]" style={{ border: "1px solid black" }}>{c['name']}</button>
               </form>
             </div>
           ))}
         </div>
-        <div className="outer">
-          <h3 className="text-white mb-4">Post your DOUBT</h3>
+        <div className=" bg-black flex flex-col justify-center items-center p-2 w-full">
+          <h3 className="text-white font-bold m-1">Post your DOUBT</h3>
           <div className="messageBox">
             <div className="fileUploadWrapper">
               <label htmlFor="file">
@@ -205,7 +205,8 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
                 <span className="tooltip">Add an image</span>
               </label>
               <input type="file" id="file" name="file" accept="image/*" onChange={(e) => handleFileUpload(e.target.files[0])} />
-              {imageUploaded && <p className="text-white">Image uploaded successfully!</p>}
+              {/* {imageUploaded && alert("Image uploal̥ded successfully")} */}
+              
             </div>
             <input
               required
@@ -214,7 +215,7 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
               value={doubt}
               onChange={(e) => setDoubt(e.target.value)}
               id="messageInput"
-              className={inputClasses}
+              // className={inputClasses}
             />
             <button id="sendButton" onClick={handlePostDoubtToBackend}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 664 663">

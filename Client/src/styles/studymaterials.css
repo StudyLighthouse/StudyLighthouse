@@ -1,61 +1,97 @@
-.s_materialBody {
-    padding: 0;
-    margin: 0;
-    overflow: hidden; /* Ensure no overflow on the TextGpt page */
-}
-
-.img1 {
-    height: 70%;
-    right: -5%;
-    bottom: -30%;
-    z-index: -1;
-    opacity: 0.5;
-}
-
-.img2 {
-    height: 40%;
-    left: 11%;
-    top: 10%;
-    z-index: -1;
-    opacity: 0.5;
-}
-
 .s_material {
-        
     display: flex;
     flex-direction: column;
     height: 100vh;
-}
-
-.content {
-    display: flex;
-    flex-grow: 1;
-    overflow: hidden; /* Prevent overflow */
-}
-
-.chatComponent {
-    flex-grow: 1;
+  }
+  
+  .studyMaterialsContent {
+    display: grid;
+    grid-template-columns: 1fr 3fr; /* Adjust the ratio as needed */
+    height: calc(100vh - 60px); /* Assuming header height is 60px */
     overflow: hidden;
-}
-
-.chatComponent {
+    position: relative;
+  }
+  
+  .menu-toggle {
+    display: none;
+    /* position: absolute;
+    top: 15px;
+    left: 15px;
+    background: none;
+    border: none; */
+    font-size: 1rem;
+    cursor: pointer;
+    /* z-index: 1010; */
+  }
+  
+  .left-section {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-}
-
-.feed{
-    padding-top: 3%;
-    width:77%;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    transition: transform 0.3s ease, height 0.3s ease; /* Add height transition */
+    z-index: 1000; /* Ensure left-section stays below navbar */
+  }
+  
+  .search-bar,
+  .file-upload input,
+  .material-name input,
+  .postMaterialButton {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .file-upload input {
+    padding: 5px;
+  }
+  
+  .right-section {
+    padding: 20px;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+  }
+  
+  .study-materials {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    flex-grow: 1;
-    overflow-y: scroll;
-}
-.grps{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-bottom: 10%;
-}
+  }
+  
+  .error {
+    color: red;
+    margin-bottom: 10px;
+  }
+  
+  /* Responsive Design */
+  
+  @media (max-width: 768px) {
+    .content {
+      grid-template-columns: 1fr;
+    }
+  
+    .menu-toggle {
+      display: block;
+    }
+  
+    .left-section {
+      position: fixed;
+      /* top: 0; */
+      left: 0;
+      height: 100%; /* Full height when open */
+      width: 250px;
+      background: #fff;
+      transform: translateX(-100%);
+      z-index: 1000;
+      border-right: 1px solid #ddd;
+    }
+  
+    .left-section.open {
+      transform: translateX(0);
+    }
+  
+    .right-section.shifted {
+      transform: translateX(250px);
+    }
+  }

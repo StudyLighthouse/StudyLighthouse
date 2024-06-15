@@ -12,6 +12,7 @@ import axios from 'axios';
 export default function SpeechGpt() {
     const { user, loading } = useSession();
     const navigate = useNavigate();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
         document.body.classList.add('speechGptBody');
@@ -84,14 +85,21 @@ const play_audio=async ()=>{
         return <div>Loading...</div>;
     }
 
+    const handleMenuToggle = () => {
+        setIsMenuOpen(!isMenuOpen);
+        // Update the height of the right section after a small delay to ensure DOM is updated
+      };
+
     return (
-        <div className="textGpt w-full h-full pt-4 ml-0 flex flex-col">
-            <Header setMessages={setMessages} />
+        <div className="textGpt w-full h-screen pt-4 ml-0 flex flex-col">
+            <Header setMessages={setMessages} onMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} currentPage="textGpt"/>
             <img className="img1 absolute" src="Text,Speech Human.png" alt="Human" />
             <img className="img2 absolute" src="Text,Speech Robot.png" alt="Robot" />
-            <div className="content flex-grow flex">
+            <div className="content flex-grow flex h-full">
+            <div className={`h-full w-1/5 flex flex-shrink sidebar-container ${isMenuOpen ? "open" : ""}`}>
                 <ChatComponent onChatSaved={fetchMessages} onChatSelected={setMessages} />
-                <div className="communication w-4/5 pb-2">
+                </div>
+                <div className={`communication w-full h-full pb-2 ${isMenuOpen ? "shifted" : ""}`}>
                     <div className="user_bot w-full">
                         {messages.map((msg, index) => (
                             <div key={index}>

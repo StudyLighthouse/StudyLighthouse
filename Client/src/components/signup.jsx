@@ -59,7 +59,7 @@ export default function Signup({ onClose }) {
         window.location.href = 'http://127.0.0.1:5000/signin/google';
     };
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
+        <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center m-0">
             <div className="mt-10 flex flex-col text-white">
                 <button onClick={onClose} className="place-self-end"><X size={20} /></button>
                 <div className="container">

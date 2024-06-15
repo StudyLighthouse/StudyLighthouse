@@ -5,7 +5,7 @@
     /* box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 30px 30px -20px; */
     box-shadow: rgba(51, 67, 68, 0.8784313725) 0px 30px 30px -20px;
     background: linear-gradient(0deg, rgb(0,0,0) 0%, rgb(11, 8, 4) 100% ) padding-box, 
-            linear-gradient(135deg, #0039a6, rgba(59, 98, 171, 0), rgba(209, 164, 49, 0), rgba(196, 141, 0, 0.5)) border-box;
+            linear-gradient(135deg, #0039a6, rgba(59, 98, 171, 0), rgba(209, 164, 49, 0), rgb(196, 141, 0)) border-box;
     border: 3px solid transparent;
     border-radius: 10px;
     /* padding: 20px 30px; */

@@ -21,18 +21,6 @@
     opacity: 0.5;
 }
 
-.textGpt {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-}
-
-.content {
-    display: flex;
-    flex-grow: 1;
-    overflow: hidden; /* Prevent overflow */
-}
-
 .chatComponent, .inputBar {
     flex-grow: 1;
     overflow: hidden;
@@ -42,7 +30,6 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    width: 20%; /* Fixed width for sidebar */
 }
 
 /* .inputBar {
@@ -73,3 +60,36 @@
     align-items: center;
 }
 
+/* .text_inn {
+    padding-bottom: 5%;
+} */
+
+
+/* sidebar.css */
+.sidebar-container {
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar-container.open {
+    transform: translateX(0);
+}
+
+@media (max-width: 768px) {
+    .sidebar-container {
+        position: fixed;
+        left: 0;
+        width: 30%;
+        height: 100%;
+        background-color: black;
+        z-index: 10;
+        transform: translateX(-100%);
+    }
+
+    .sidebar-container.open {
+        transform: translateX(0);
+    }
+
+    .communication.shifted {
+        display: none;
+    }
+}

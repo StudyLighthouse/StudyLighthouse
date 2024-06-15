@@ -48,7 +48,7 @@ export default function Login({ onClose }) {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
-            <div className="mt-10 flex flex-col text-white bg-gray-800 p-6 rounded-lg">
+            <div className="mt-10 flex flex-col text-white p-6 rounded-lg">
                 <button onClick={onClose} className="self-end"><X size={20} /></button>
                 <div className="container">
                     <div className="heading text-2xl mb-4">Login</div>
