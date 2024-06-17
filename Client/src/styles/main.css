@@ -1,10 +1,10 @@
 body {
     margin: 0;
-    padding: 0; /* Ensure there's no padding as well */
+    padding: 0;
     height: 100vh;
     display: flex;
     flex-direction: column;
-  }
+}
 
 .cards .maincard {
     display: flex;
@@ -12,14 +12,14 @@ body {
     justify-content: center;
     flex-direction: column;
     text-align: center;
-    width: 250px;
-    height: 350px;
+    /* width: 250px;
+    height: 350px; */
     border-radius: 30px;
     background: linear-gradient(145deg, rgba(0, 0, 0, 0.7), rgba(10, 10, 10, 0.7)) padding-box,
-    linear-gradient(135deg, #0039a6, rgba(59, 98, 171, 0), rgba(209, 164, 49, 0), rgba(196, 141, 0, 0.63)) border-box;
+                linear-gradient(135deg, #0039a6, rgba(59, 98, 171, 0), rgba(209, 164, 49, 0), rgba(196, 141, 0, 0.63)) border-box;
     border: 3px solid transparent;
-    box-shadow:  10px 10px 40px #2e2e2e,
-             -10px -10px 40px #3f3f3fd8;
+    box-shadow: 5px 5px 30px #2e2e2e,
+                -5px -5px 30px #3f3f3fd8;
     color: white;
     cursor: pointer;
     transition: 400ms transform, 400ms box-shadow, 400ms background-color;
@@ -43,7 +43,6 @@ body {
 }
 
 .cards:hover > .maincard:not(:hover) {
-    filter: blur(10px);
     transform: scale(0.9);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
@@ -52,6 +51,19 @@ body {
     transform: scale(1.1);
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
     background-color: rgba(196, 141, 0, 0.9);
-    border:  #c48d00;
+    border: #c48d00;
     color: #e7e7e7;
+}
+
+@media (min-width: 320px) and (max-width: 450px) {
+    .cards {
+        flex-direction: column;
+        align-items: center; /* Center the cards horizontally */
+    }
+
+    .cards .maincard {
+        width: 80%; /* Adjust the width to be responsive */
+        height: 00px; /* Decrease height for mobile */
+        margin: 10px 0;
+    }
 }

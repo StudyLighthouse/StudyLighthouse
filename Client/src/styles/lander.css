@@ -2,6 +2,10 @@ body{
   overflow-x: hidden;
   padding: 0px 20px 20px 20px;
 }
+
+body::-webkit-scrollbar {
+  display: none;
+}
 .shine {
   font-weight: 900;
   color: rgba(255, 255, 255, 0.3);
@@ -43,6 +47,7 @@ body{
 
 /* Introduction */
 .intro-circle1{
+  
   height: 350px;
   width: 350px;
   background-color: #0039a6;
@@ -51,19 +56,18 @@ body{
   position: absolute;
   /* z-index: -1; */
   right: 60px;
-  top: 200px;
+  top: 280px;
 }
 .intro-text{
-  margin-top: 70px;
+  margin-top: -15%;
   margin-left: 20px;
 }
-@media only screen and (max-width:780px){
+@media only screen and (max-width:850px){
   .intro-text{
-    margin-top: 50px;
     margin-left: 0;
   }
   .intro-circle1{
-    visibility: hidden;
+    display: none;
   }
   .intro-circle2{
     left: -100px;

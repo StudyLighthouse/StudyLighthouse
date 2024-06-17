@@ -54,7 +54,7 @@ export default function TextGpt() {
       };
 
     return (
-        <div className="textGpt w-full h-screen pt-4 ml-0 flex flex-col">
+        <div className="textGpt w-full h-screen ml-0 flex flex-col">
             <Header setMessages={setMessages} onMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} currentPage="textGpt"/>
             <img className="img1 absolute" src="Text,Speech Human.png" alt="Human" />
             <img className="img2 absolute" src="Text,Speech Robot.png" alt="Robot" />
