@@ -59,10 +59,10 @@ export default function TextGpt() {
             <img className="img1 absolute" src="Text,Speech Human.png" alt="Human" />
             <img className="img2 absolute" src="Text,Speech Robot.png" alt="Robot" />
             <div className="content flex-grow flex h-full">
-                <div className={`h-full w-1/5 flex flex-shrink sidebar-container ${isMenuOpen ? "open" : ""}`}>
+                <div className={`h-full lg:w-1/5 md:w-1/4 sm:w-1/2 md:h-full flex flex-shrink sidebar-container ${isMenuOpen ? "open" : ""}`}>
                 <ChatComponent onChatSaved={fetchMessages} onChatSelected={setMessages} /> {/* Pass onChatSaved and onChatSelected callbacks */}
                 </div>
-                <div className={`communication w-full h-full pb-2 ${isMenuOpen ? "shifted" : ""}`}>
+                <div className={`communication lg:w-4/5 md:w-full h-full pb-2 ${isMenuOpen ? "shifted" : ""}`}>
                 <div className="user_bot w-full">
                         {messages.map((msg, index) => (
                             <div key={index}>

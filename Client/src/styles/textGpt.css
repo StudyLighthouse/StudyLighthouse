@@ -78,7 +78,7 @@
     .sidebar-container {
         position: fixed;
         left: 0;
-        width: 50%;
+        /* width: 50%; */
         height: 100%;
         background-color: black;
         z-index: 10;
@@ -98,11 +98,15 @@
     .sidebar-container {
         position: fixed;
         left: 0;
-        width: 30%;
+        /* width: 30%; */
         height: 100%;
         background-color: black;
         z-index: 10;
         transform: translateX(-100%);
+    }
+
+    .chatComponent {
+        top: 0;
     }
 
     .sidebar-container.open {
