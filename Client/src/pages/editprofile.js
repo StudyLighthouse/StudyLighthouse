@@ -44,28 +44,27 @@ export default function Editprofile() {
   };
 
   return (
-    <div className="text-white dark:text-black p-4">
+    <div className="text-white dark:text-black w-screen h-screen">
       <Header />
-      <h1 className="text-3xl font-bold mt-4 text-white">Edit Profile</h1>
+      <h1 className="lg:text-3xl font-bold mt-4 text-white flex justify-center md:text-xl sm:text-lg">Edit Profile</h1>
       <div className="mt-4 w-full flex flex-col items-center">
-        <img src={user.profileImage || "https://placehold.co/100x100"} alt="Profile Image" className="rounded-full h-32 w-32" /><br />
-        <input type="file" name="profileImage" onChange={handleInputChange} className="" id="profileImage" />
-        <label htmlFor="profileImage" className="bg-blue-600 text-white px-4 py-2 w-40 mt-2 rounded-lg cursor-pointer">UPLOAD IMAGE</label>
-        <button onClick={() => handleSubmit('profileImage')} className="bg-blue-600 text-white px-4 py-2 w-40 mt-2 rounded-lg">SUBMIT IMAGE</button>
+        <img src={user.profileImage || "https://placehold.co/100x100"} alt="Profile Image" className="rounded-full lg:h-32 md:h-28 sm:h-24" /><br />
+        <input type="file" name="profileImage" onChange={handleInputChange} className="mt-1 cursor-pointer lg:w-[20%] md:w-[30%] sm:w-[40%]" id="profileImage" />
+        <label htmlFor="profileImage" className="text-white text-center sm:text-xs md:text-base lg:text-lg px-4 py-2 w-40 mt-2">UPLOAD IMAGE</label>
+        <button onClick={() => handleSubmit('profileImage')} className="bg-blue-600 text-white px-4 py-2 lg:w-40 md:w-36 sm:w-32 mt-2 sm:text-xs md:text-base lg:text-lg rounded-lg cursor-pointer">SUBMIT IMAGE</button>
       </div>
-      
-      <div className='flex flex-row'>
-        <div className="flex flex-col md:flex-row mt-6 w-2/4">
-          <div className="flex-1 p-4">
-            <div className="mb-4 flex flex-row w-1/2 justify-between">
+      <div className='flex lg:flex-row md:flex-col sm:flex-col md:items-center sm:items-center'>
+        <div className="flex mt-6 lg:w-2/4 md:w-full sm:w-full lg:pl-48 md:pl-0 sm:pl-16">
+          <div className="flex flex-col w-full md:items-center lg:items-start sm:items-start p-4">
+            <div className="mb-4 flex flex-row lg:w-[50%] md:w-[40%] sm:w-[80%] justify-between">
               <label className="block text-zinc-400">Username:</label>
               <span className="text-blue-400">{user.name}</span>
             </div>
-            <div className="mb-4 flex flex-row w-1/2 justify-between">
+            <div className="mb-4 flex flex-row lg:w-[50%] md:w-[40%] sm:w-[80%] justify-between">
               <label className="block text-zinc-400">Contact:</label>
               <span className="text-blue-400">{user.newContact}</span>
             </div>
-            <div className="mb-4 flex flex-row w-1/2 justify-between">
+            <div className="lg:mb-48 md:mb-4 sm:mb-4 flex flex-row lg:w-[50%] md:w-[40%] sm:w-[80%] justify-between">
               <label className="block text-zinc-400">E-Mail:</label>
               <span className="text-blue-400">{user.email}</span>
             </div>
@@ -78,17 +77,17 @@ export default function Editprofile() {
                 <center><button onClick={() => handleSubmit('password')} className="bg-blue-600 text-white rounded-lg h-8 w-24">Submit</button></center>
               </div>
             </div> */}
-            <div className="mb-4 flex flex-row w-1/2 justify-between">
+            <div className="mb-4 flex flex-row w-[80%] justify-between">
               <label className="block text-zinc-400">GitHub URL:</label>
-              <a href={user.github} className="text-blue-400">{user.newGithub}</a>
+              <a href={user.newGithub} className="text-blue-400 cursor-pointer">{user.newGithub}</a>
             </div>
-            <div className="mb-4 flex flex-row w-1/2 justify-between">
+            <div className="mb-4 flex flex-row w-[80%] justify-between">
               <label className="block text-zinc-400">LinkedIn URL:</label>
-              <a href={user.linkedin} className="text-blue-400">{user.newLinkedin}</a>
+              <a href={user.newLinkedin} className="text-blue-400 cursor-pointer">{user.newLinkedin}</a>
             </div>
           </div>
         </div>
-        <div className="flex-1 pr-20 mt-6 w-1/2">
+        <div className="flex flex-col items-center pr-20 mt-6 lg:w-1/2 md:w-full sm:w-full">
           <div className="mb-4">
             <div className='w-full flex flex-row items-center gap-4'>
               <div className="wave-group">
@@ -96,20 +95,20 @@ export default function Editprofile() {
                 <span className="editbar"></span>
                 <label className="editlabel">
                   <span className="label-char" style={{ "--index": 0 }}>N</span>
-                  <span className="label-char" style={{ "--index": 0 }}>e</span>
-                  <span className="label-char" style={{ "--index": 0 }}>w</span>
-                  <span className="label-char mr-2" style={{ "--index": 0 }}></span>
-                  <span className="label-char" style={{ "--index": 0 }}>U</span>
-                  <span className="label-char" style={{ "--index": 0 }}>s</span>
-                  <span className="label-char" style={{ "--index": 0 }}>e</span>
-                  <span className="label-char" style={{ "--index": 0 }}>r</span>
-                  <span className="label-char" style={{ "--index": 0 }}>n</span>
-                  <span className="label-char" style={{ "--index": 1 }}>a</span>
-                  <span className="label-char" style={{ "--index": 2 }}>m</span>
-                  <span className="label-char" style={{ "--index": 3 }}>e</span>
+                  <span className="label-char" style={{ "--index": 1 }}>e</span>
+                  <span className="label-char" style={{ "--index": 2 }}>w</span>
+                  <span className="label-char mr-2" style={{ "--index": 3 }}></span>
+                  <span className="label-char" style={{ "--index": 4 }}>U</span>
+                  <span className="label-char" style={{ "--index": 5 }}>s</span>
+                  <span className="label-char" style={{ "--index": 6 }}>e</span>
+                  <span className="label-char" style={{ "--index": 7 }}>r</span>
+                  <span className="label-char" style={{ "--index": 8 }}>n</span>
+                  <span className="label-char" style={{ "--index": 9 }}>a</span>
+                  <span className="label-char" style={{ "--index": 10 }}>m</span>
+                  <span className="label-char" style={{ "--index": 11 }}>e</span>
                 </label>
               </div>
-              <button onClick={() => handleSubmit('newUsername')} className="bg-blue-600 text-white rounded-lg h-8 w-24">Submit</button>
+              <button onClick={() => handleSubmit('newUsername')} className="bg-blue-600 text-white rounded-lg lg:h-8 lg:w-24 sm:w-16 sm:h-10 md:w-20 md:h-10">Submit</button>
             </div>
           </div>
           <div className="mb-4">
@@ -119,19 +118,19 @@ export default function Editprofile() {
                 <span className="editbar"></span>
                 <label className="editlabel">
                   <span className="label-char" style={{ "--index": 0 }}>N</span>
-                  <span className="label-char" style={{ "--index": 0 }}>e</span>
-                  <span className="label-char" style={{ "--index": 0 }}>w</span>
-                  <span className="label-char mr-2" style={{ "--index": 0 }}></span>
-                  <span className="label-char" style={{ "--index": 0 }}>C</span>
-                  <span className="label-char" style={{ "--index": 0 }}>o</span>
-                  <span className="label-char" style={{ "--index": 0 }}>n</span>
-                  <span className="label-char" style={{ "--index": 0 }}>t</span>
-                  <span className="label-char" style={{ "--index": 0 }}>a</span>
-                  <span className="label-char" style={{ "--index": 1 }}>c</span>
-                  <span className="label-char" style={{ "--index": 2 }}>t</span>
+                  <span className="label-char" style={{ "--index": 1 }}>e</span>
+                  <span className="label-char" style={{ "--index": 2 }}>w</span>
+                  <span className="label-char mr-2" style={{ "--index": 3 }}></span>
+                  <span className="label-char" style={{ "--index": 4 }}>C</span>
+                  <span className="label-char" style={{ "--index": 5 }}>o</span>
+                  <span className="label-char" style={{ "--index": 6 }}>n</span>
+                  <span className="label-char" style={{ "--index": 7 }}>t</span>
+                  <span className="label-char" style={{ "--index": 8 }}>a</span>
+                  <span className="label-char" style={{ "--index": 9 }}>c</span>
+                  <span className="label-char" style={{ "--index": 10 }}>t</span>
                 </label>
               </div>
-              <button onClick={() => handleSubmit('newContact')} className="bg-blue-600 text-white rounded-lg h-8 w-24">Submit</button>
+              <button onClick={() => handleSubmit('newContact')} className="bg-blue-600 text-white rounded-lg lg:h-8 lg:w-24 sm:w-16 sm:h-10 md:w-20 md:h-10">Submit</button>
             </div>
           </div>
           <div className="mt-7">
@@ -144,22 +143,22 @@ export default function Editprofile() {
                 <span className="editbar"></span>
                 <label className="editlabel">
                   <span className="label-char" style={{ "--index": 0 }}>N</span>
-                  <span className="label-char" style={{ "--index": 0 }}>e</span>
-                  <span className="label-char" style={{ "--index": 0 }}>w</span>
-                  <span className="label-char mr-2" style={{ "--index": 0 }}></span>
-                  <span className="label-char" style={{ "--index": 0 }}>G</span>
-                  <span className="label-char" style={{ "--index": 0 }}>i</span>
-                  <span className="label-char" style={{ "--index": 0 }}>t</span>
-                  <span className="label-char" style={{ "--index": 0 }}>H</span>
-                  <span className="label-char" style={{ "--index": 0 }}>u</span>
-                  <span className="label-char" style={{ "--index": 1 }}>b</span>
-                  <span className="label-char mr-2" style={{ "--index": 2 }}></span>
-                  <span className="label-char" style={{ "--index": 3 }}>U</span>
-                  <span className="label-char" style={{ "--index": 3 }}>R</span>
-                  <span className="label-char" style={{ "--index": 3 }}>L</span>
+                  <span className="label-char" style={{ "--index": 1 }}>e</span>
+                  <span className="label-char" style={{ "--index": 2 }}>w</span>
+                  <span className="label-char mr-2" style={{ "--index": 3 }}></span>
+                  <span className="label-char" style={{ "--index": 4 }}>G</span>
+                  <span className="label-char" style={{ "--index": 5 }}>i</span>
+                  <span className="label-char" style={{ "--index": 6 }}>t</span>
+                  <span className="label-char" style={{ "--index": 7 }}>H</span>
+                  <span className="label-char" style={{ "--index": 8 }}>u</span>
+                  <span className="label-char" style={{ "--index": 9 }}>b</span>
+                  <span className="label-char mr-2" style={{ "--index": 10 }}></span>
+                  <span className="label-char" style={{ "--index": 11 }}>U</span>
+                  <span className="label-char" style={{ "--index": 12 }}>R</span>
+                  <span className="label-char" style={{ "--index": 13 }}>L</span>
                 </label>
               </div>
-              <button onClick={() => handleSubmit('newGithub')} className="bg-blue-600 text-white rounded-lg h-8 w-24">Submit</button>
+              <button onClick={() => handleSubmit('newGithub')} className="bg-blue-600 text-white rounded-lg lg:h-8 lg:w-24 sm:w-16 sm:h-10 md:w-20 md:h-10">Submit</button>
             </div>
           </div>
           <div className="mb-4 flex flex-row items-center justify-between">
@@ -169,24 +168,24 @@ export default function Editprofile() {
                 <span className="editbar"></span>
                 <label className="editlabel">
                   <span className="label-char" style={{ "--index": 0 }}>N</span>
-                  <span className="label-char" style={{ "--index": 0 }}>e</span>
-                  <span className="label-char" style={{ "--index": 0 }}>w</span>
-                  <span className="label-char mr-2" style={{ "--index": 0 }}></span>
-                  <span className="label-char" style={{ "--index": 0 }}>L</span>
-                  <span className="label-char" style={{ "--index": 0 }}>i</span>
-                  <span className="label-char" style={{ "--index": 0 }}>n</span>
-                  <span className="label-char" style={{ "--index": 0 }}>k</span>
-                  <span className="label-char" style={{ "--index": 0 }}>e</span>
-                  <span className="label-char" style={{ "--index": 1 }}>d</span>
-                  <span className="label-char" style={{ "--index": 1 }}>I</span>
-                  <span className="label-char" style={{ "--index": 1 }}>n</span>
-                  <span className="label-char mr-2" style={{ "--index": 2 }}></span>
-                  <span className="label-char" style={{ "--index": 3 }}>U</span>
-                  <span className="label-char" style={{ "--index": 3 }}>R</span>
-                  <span className="label-char" style={{ "--index": 3 }}>L</span>
+                  <span className="label-char" style={{ "--index": 1 }}>e</span>
+                  <span className="label-char" style={{ "--index": 2 }}>w</span>
+                  <span className="label-char mr-2" style={{ "--index": 3 }}></span>
+                  <span className="label-char" style={{ "--index": 4 }}>L</span>
+                  <span className="label-char" style={{ "--index": 5 }}>i</span>
+                  <span className="label-char" style={{ "--index": 6 }}>n</span>
+                  <span className="label-char" style={{ "--index": 7 }}>k</span>
+                  <span className="label-char" style={{ "--index": 8 }}>e</span>
+                  <span className="label-char" style={{ "--index": 9 }}>d</span>
+                  <span className="label-char" style={{ "--index": 10 }}>I</span>
+                  <span className="label-char" style={{ "--index": 11 }}>n</span>
+                  <span className="label-char mr-2" style={{ "--index": 12 }}></span>
+                  <span className="label-char" style={{ "--index": 13 }}>U</span>
+                  <span className="label-char" style={{ "--index": 14 }}>R</span>
+                  <span className="label-char" style={{ "--index": 15 }}>L</span>
                 </label>
               </div>
-              <button onClick={() => handleSubmit('newLinkedin')} className="bg-blue-600 text-white rounded-lg h-8 w-24">Submit</button>
+              <button onClick={() => handleSubmit('newLinkedin')} className="bg-blue-600 text-white rounded-lg lg:h-8 lg:w-24 sm:w-16 sm:h-10 md:w-20 md:h-10">Submit</button>
             </div>
           </div>
         </div>

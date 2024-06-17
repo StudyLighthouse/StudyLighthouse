@@ -14,9 +14,9 @@ const Introduction = function (){
                     <img src="https://i.ibb.co/XX4yXpv/4-removebg-preview-2.png" alt="Logo" className="w-24 h-24 mr-10"/>
                     {/* <span className="text-lg font-bold">STUDY PARTNER</span> */}
                     <div className="hidden space-x-8 md:flex">
-                        <a href="" className="hover:text-zinc-300">About Us</a>
-                        <a href="" className="hover:text-zinc-300">Features</a>
-                        <a href="" className="hover:text-zinc-300">Contact Us</a>
+                        <a href="#About" className="hover:text-zinc-300">About Us</a>
+                        <a href="#Features" className="hover:text-zinc-300">Features</a>
+                        <a href="#Contact" className="hover:text-zinc-300">Contact Us</a>
                     </div>
                 </div>
                 <div className="space-x-4">
@@ -46,7 +46,7 @@ const Introduction = function (){
 // About-Second
 const About = ()=>{
     return (
-        <div>
+        <div id="About">
         <div className="flex flex-col items-center justify-center text-white rounded-lg md:flex-row about">
           <div className="p-4 md:w-1/2">
             <img
@@ -74,7 +74,7 @@ const About = ()=>{
 // Features-Third
 const Features =  function () {
     return (
-      <div className="p-8 text-center text-white">
+      <div className="p-8 text-center text-white" id="Features">
         <div className="flex flex-wrap gap-8 mb-8 justify-evenly">
           <div className="relative w-64 p-6 feature-cards">
             <div className="absolute top-0 p-2 transform -translate-x-1/2 -translate-y-1/2 rounded-full left-1/2 feature-circle1"> 
@@ -129,7 +129,7 @@ const Features =  function () {
         <img src="https://i.ibb.co/KbwrNN7/welcoming-robot.png" alt="welcoming-robot" border="0" className="robot"/>
         
         {/* Footer */}
-        <div className="flex flex-col items-center justify-between pt-8 mt-10 border-t md:flex-row border-zinc-700">
+        <div className="flex flex-col items-center justify-between pt-8 mt-10 border-t md:flex-row border-zinc-700" id="Contact">
           <div className="flex">
           <img src="https://i.ibb.co/XX4yXpv/4-removebg-preview-2.png" alt="Logo" className="w-48 h-48 mr-10"/>
           </div>
@@ -168,7 +168,7 @@ const Features =  function () {
 
 export default function Lander() {
     return(
-        <div>
+        <div className="p-4 pr-6">
             <Introduction/>
             <About/>
             <Features/>

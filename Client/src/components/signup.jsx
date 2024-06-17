@@ -71,7 +71,6 @@ export default function Signup({ onClose }) {
                         <input required className="input" type="email" name="email" placeholder="E-mail" onChange={handleChange} value={formData.email} />
                         <input required className="input" type="password" name="password" placeholder="Password" onChange={handleChange} value={formData.password} />
                         <input required className="input" type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} value={formData.confirmPassword} />
-                        <span className="forgot-password"><a href="/">Forgot Password?</a></span>
                         <input className="login-button" type="submit" value="Sign Up" />
                     </form>
                     <div className="social-account-container">

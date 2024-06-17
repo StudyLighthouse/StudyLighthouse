@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/todolist.css';
-import { useSession } from '../contexts/SessionContext'; 
+import { useSession } from '../contexts/SessionContext';
 import Header from '../components/Navbar';
 
 function ToDo() {
@@ -12,49 +14,48 @@ function ToDo() {
     const [editingTodo, setEditingTodo] = useState(null); // New state for tracking the todo being edited
     const { user } = useSession();
 
-    const fetchTodos= async ()=>{
+    const fetchTodos = async () => {
         try {
             const response = await axios.post("http://127.0.0.1:5000/get_todos", { 'cred': user });
             const todos = response.data;
             console.log(todos);
             setTodos(todos);
-          } catch (e) {
+        } catch (e) {
             console.log(`error: ${e}`);
-            alert("error");
-          }
+            toast.error("Error fetching todos");
+        }
     }
-    useEffect(
-        ()=>{
-            fetchTodos()
-        },[]
-    )
-    const addNewTodo=async ()=> {
+
+    useEffect(() => {
+        fetchTodos();
+    }, []);
+
+    const addNewTodo = async () => {
         if (todoInput === '') {
-            alert('Add some task');
+            toast.error('Please add a task');
         } else {
-            let newTodos ={
-                    task: todoInput,
-                    startOn: startOnInput,
-                    endBy: endByInput,
+            let newTodos = {
+                task: todoInput,
+                startOn: startOnInput,
+                endBy: endByInput,
             }
-            try{
-                const response=await axios.post("http://127.0.0.1:5000/add_todo", { 'cred': user,'todo':newTodos });
-                alert(response.data.message)
-                updateInput('')
-                updateStartOnInput('')
-                updateEndByInput('')
-                fetchTodos()
-            }
-            catch(e){
-                console.log(e)
-                
+            try {
+                const response = await axios.post("http://127.0.0.1:5000/add_todo", { 'cred': user, 'todo': newTodos });
+                toast.success(response.data.message);
+                updateInput('');
+                updateStartOnInput('');
+                updateEndByInput('');
+                fetchTodos();
+            } catch (e) {
+                console.log(e);
+                toast.error('Error adding todo');
             }
         }
     }
 
     const updateTodo = async (id) => {
         if (todoInput === '') {
-            alert('Task cannot be empty');
+            toast.error('Task cannot be empty');
             return;
         }
         let updatedTodo = {
@@ -64,7 +65,7 @@ function ToDo() {
         }
         try {
             const response = await axios.post("http://127.0.0.1:5000/update_todo", { 'cred': user, 'id': id, 'todo': updatedTodo });
-            alert(response.data.message);
+            toast.success(response.data.message);
             updateInput('');
             updateStartOnInput('');
             updateEndByInput('');
@@ -72,16 +73,18 @@ function ToDo() {
             fetchTodos();
         } catch (e) {
             console.log(e);
+            toast.error('Error updating todo');
         }
     }
 
     const deleteTodo = async (id) => {
         try {
             const response = await axios.post("http://127.0.0.1:5000/delete_todo", { 'cred': user, 'id': id });
-            alert(response.data.message);
+            toast.success(response.data.message);
             fetchTodos();
         } catch (e) {
             console.log(e);
+            toast.error('Error deleting todo');
         }
     }
 
@@ -93,56 +96,64 @@ function ToDo() {
     }
 
     return (
-        
-        <div className="todo-container mt-5 w-50">
-            <Header/>
-            <h3 className="text-center">Todo App using React</h3>
-            <div className="input-group">
-                <input
-                    className="form-control"
-                    onChange={(e) => updateInput(e.target.value)}
-                    placeholder="Add a task"
-                    type="text"
-                    value={todoInput}
-                />
-                <input
-                    className="form-control"
-                    onChange={(e) => updateStartOnInput(e.target.value)}
-                    placeholder="To Start On"
-                    type="date"
-                    value={startOnInput}
-                />
-                <input
-                    className="form-control"
-                    onChange={(e) => updateEndByInput(e.target.value)}
-                    placeholder="To End By"
-                    type="date"
-                    value={endByInput}
-                />
-                {editingTodo ? (
-                    <button className="btn btn-primary" onClick={() => updateTodo(editingTodo)}>
-                        Update
-                    </button>
-                ) : (
-                    <button className="btn btn-primary" onClick={addNewTodo}>
-                        Add
-                    </button>
-                )}
+        <div>
+            <Header />
+            <div className="main-content">
+                <div className="todo-container mt-5 w-50 custom-container">
+                    <h1 className="text-center font-bold ">STUDY LIGHTHOUSE's TO-DO-LIST</h1>
+                    <div className="input-group custom-input-group">
+                        <label className="form-label">Task</label>
+                        <input
+                            className="form-control"
+                            onChange={(e) => updateInput(e.target.value)}
+                            placeholder="Add a task"
+                            type="text"
+                            value={todoInput}
+                        />
+                        <h3 className='form-label'>TO START ON</h3>
+                        <input
+                            className="form-control"
+                            onChange={(e) => updateStartOnInput(e.target.value)}
+                            type="date"
+                            value={startOnInput}
+                        />
+                        <h3 className='form-label'>TO END BY</h3>
+                        <input
+                            className="form-control"
+                            onChange={(e) => updateEndByInput(e.target.value)}
+                            type="date"
+                            value={endByInput}
+                        />
+                        <center>
+                        {editingTodo ? (
+                            <button className="add-button" onClick={() => updateTodo(editingTodo)}>
+                                Update
+                            </button>
+                        ) : (
+                            <button className="add-button" onClick={addNewTodo}>
+                                Add
+                            </button>
+                        )}
+                        </center>
+                    </div>
+                    <ul className="list-group mt-4 custom-list-group">
+                        {todoList.map((todo, index) => (
+                            <form key={index} className="list-group-item d-flex justify-content-between align-items-center mb-3 border-white border-2 custom-list-group-item">
+                                <div>
+                                    <p className='text-black custom-list-group-item p'>{todo['task']}</p>
+                                    <small className='text-black custom-list-group-item small'>Start on: {todo['start_date']} | End by: {todo['end_date']} |<br></br> Added on: {todo['timestamp']}</small>
+                                </div>
+                                <div>
+                                    <button type="button" className="btn btn-secondary btn-sm me-2 custom-list-group-item button" onClick={() => startEditing(todo)}>Edit</button>
+                                    <br></br>
+                                    <button type="button" className="btn btn-sm custom-list-group-item button delete-button" onClick={() => deleteTodo(todo.id)}>❌</button>
+                                </div>
+                            </form>
+                        ))}
+                    </ul>
+                </div>
             </div>
-            <ul className="list-group mt-4">
-                {todoList.map((todo, index) => (
-                    <form key={index} className="list-group-item d-flex justify-content-between align-items-center mb-3 border-white border-2">
-                        <div>
-                            <p className='text-white'>{todo['task']}</p>
-                            <small className='text-white'>Start on: {todo['start_date']} | End by: {todo['end_date']} | Added on: {todo['timestamp']}</small>
-                        </div>
-                        <div>
-                            <button type="button" className="btn btn-secondary btn-sm me-2" onClick={() => startEditing(todo)}>Edit</button>
-                            <button type="button" className="btn btn-sm" onClick={() => deleteTodo(todo.id)}>❌</button>
-                        </div>
-                    </form>
-                ))}
-            </ul>
+            <ToastContainer />
         </div>
     );
 }

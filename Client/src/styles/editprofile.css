@@ -41,8 +41,7 @@ body {
     transition-delay: calc(var(--index) * .05s);
   }
   
-  .wave-group .editinput:focus ~ label .label-char,
-  .wave-group .editinput:valid ~ label .label-char {
+  .wave-group .editinput:focus ~ .editlabel .label-char {
     transform: translateY(-20px);
     font-size: 14px;
     color: #5264AE;

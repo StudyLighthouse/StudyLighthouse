@@ -112,8 +112,8 @@ body {
     transition: background 4s ease-in-out;
   }
   
-  .input:focus ~ label,
-  input:valid ~ label {
+  .input:focus ~ .textUser,
+  input:valid ~ .textUser {
     /* transform: translateY(-95%) scale(0.9);
     padding: 0 0.2em;
     color: #000000be;

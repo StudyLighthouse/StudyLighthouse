@@ -105,8 +105,8 @@ export default function StudyMaterials() {
         <div className={`right-section w-screen h-full flex justify-center items-center ${isMenuOpen ? "shifted" : ""}`}>
           <div className="flex flex-wrap w-full h-full justify-start sm:gap-y-8 md:gap-y-8 lg:gap-x-32">
             {filteredStudyMaterials.map((material, index) => (
-              <div key={material.id} className={`w-full sm:w-1/2 lg:w-1/4 p-2 ${index % 2 === 0 ? "first-item" : ""}`}>
-                <StudyMaterialCard material_name={material.material_name} />
+              <div key={material.material_id} className={`w-full sm:w-1/2 lg:w-1/4 p-2 ${index % 2 === 0 ? "first-item" : ""}`}>
+                <StudyMaterialCard material_name={material.material_name} fileUrl={material.file_url} filename={material.filename} />
               </div>
             ))}
           </div>
