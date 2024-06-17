@@ -1,4 +1,3 @@
-// StudyMaterials.js
 import React, { useState, useEffect } from "react";
 import "../styles/studymaterials.css";
 import Header from "../components/Navbar";
@@ -14,16 +13,10 @@ export default function StudyMaterials() {
   const [studyMaterials, setStudyMaterials] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [rightSectionHeight, setRightSectionHeight] = useState(0); // State to store the height of the right section
 
   useEffect(() => {
     fetchStudyMaterials();
   }, []);
-
-  useEffect(() => {
-    // Update the height of the right section whenever studyMaterials change
-    updateRightSectionHeight();
-  }, [studyMaterials]);
 
   const fetchStudyMaterials = async () => {
     try {
@@ -58,16 +51,14 @@ export default function StudyMaterials() {
     formData.append("materialName", materialName);
     try {
       await axios.post("http://localhost:5000/post_study_material", formData, {
-        withCredentials: true, // Ensure cookies are sent with the request
+        withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      // Clear the form and error state on successful posting
       setFile(null);
       setMaterialName("");
       setError("");
-      // Fetch and update the study materials list
       fetchStudyMaterials();
     } catch (error) {
       console.error("Error posting study material:", error.response);
@@ -75,30 +66,20 @@ export default function StudyMaterials() {
     }
   };
 
-  // Update the height of the right section
-  const updateRightSectionHeight = () => {
-    const rightSection = document.querySelector(".right-section");
-    if (rightSection) {
-      setRightSectionHeight(rightSection.clientHeight);
-    }
-  };
 
-  // Filter study materials based on search term
-  const filteredStudyMaterials = studyMaterials.filter(material =>
+  const filteredStudyMaterials = studyMaterials.filter((material) =>
     material.material_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
-    // Update the height of the right section after a small delay to ensure DOM is updated
-    setTimeout(updateRightSectionHeight, 100);
   };
 
   return (
-    <div className="s_material">
+    <div className="s_material w-screen">
       <Header onMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} currentPage="StudyMaterials" />
-      <div className="studyMaterialsContent">
-        <div className={`left-section ${isMenuOpen ? "open" : ""}`} style={{ height: isMenuOpen ? rightSectionHeight + "px" : "auto" }}>
+      <div className="studyMaterialsContent w-full h-full flex flex-row">
+        <div className={`left-section w-1/5 ${isMenuOpen ? "open" : ""}`} style={{ height: isMenuOpen ? "100%" : "auto" }}>
           <input
             type="text"
             className="search-bar"
@@ -108,12 +89,12 @@ export default function StudyMaterials() {
           />
           <input
             type="file"
-            className="file-upload"
+            className="file-upload mb-3"
             onChange={handleFileChange}
           />
           <input
             type="text"
-            className="material-name"
+            className="material-name mb-3 h-10 text-black"
             placeholder="Material Name"
             value={materialName}
             onChange={handleMaterialNameChange}
@@ -121,12 +102,15 @@ export default function StudyMaterials() {
           <button className="postMaterialButton text-white border border-white" onClick={handlePostMaterial}>Post Material</button>
           {error && <div className="error">{error}</div>}
         </div>
-        <div className={`right-section ${isMenuOpen ? "shifted" : ""}`}>
-          <div className="study-materials">
-            {filteredStudyMaterials.map((material) => (
-              <StudyMaterialCard key={material.id} material_name={material.material_name} />
+        <div className={`right-section w-screen h-full flex justify-center items-center ${isMenuOpen ? "shifted" : ""}`}>
+          <div className="flex flex-wrap w-full h-full justify-start sm:gap-y-8 md:gap-y-8 lg:gap-x-32">
+            {filteredStudyMaterials.map((material, index) => (
+              <div key={material.id} className={`w-full sm:w-1/2 lg:w-1/4 p-2 ${index % 2 === 0 ? "first-item" : ""}`}>
+                <StudyMaterialCard material_name={material.material_name} />
+              </div>
             ))}
           </div>
+        
         </div>
       </div>
     </div>

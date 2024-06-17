@@ -71,39 +71,42 @@ const Show = () => {
   }
 
   return (
-    <div>
+    <div className="w-screen h-screen">
       <Header />
-      <div>
-        {/* Render question details here */}
+      <div className="w-full h-1/2">
+        <div className="h-full w-full flex flex-col items-center p-4">
+          {/* Render question details here */}
         {question.file_url && question.question && ( // Check if question has both text and file URL (image)
-          <div>
-            <img src={question.file_url} alt="Question" style={{ maxWidth: "100%" }} />
+          <div className="h-full w-full flex flex-col items-center">
+            <img src={question.file_url} alt="Question" style={{  width: "fit-content" ,height:"80%" }}  />
             <h2 className="text-white">{question.question}</h2>
           </div>
         )}
         {question.file_url && !question.question && ( // Check if question has only file URL (image)
-          <img src={question.file_url} alt="Question" style={{ maxWidth: "100%" }} />
+          <img src={question.file_url} alt="Question" style={{ width: "fit-content" ,height:"100%"}}  />
         )}
         {!question.file_url && question.question && ( // Check if question has only text
           <h2 className="text-white">{question.question}</h2>
         )}
+        </div>
         
-        {/* Render solutions here */}
+        <div className="overflow-y-auto w-full flex flex-col justify-center items-center gap-5">
+          {/* Render solutions here */}
         {solutions.map((solution) => (
-          <div key={solution.solution_id}>
+          <div key={solution.solution_id} className="w-3/5 flex flex-col justify-center align-center items-center overflow-auto border-white border-2 p-4 gap-2" >
             {solution.file_url && solution.solution && ( // Check if solution has both text and file URL (image)
-              <div>
-                <img src={solution.file_url} alt="Solution" style={{ maxWidth: "100%" }} />
-                <p className="text-white">{solution.solution}</p>
+              <div className="flex flex-col justify-center items-center gap-2">
+                <img src={solution.file_url} alt="Solution" style={{ width:"50%",height:"50%" }} />
+                <p className="text-white lg:text-base md:text-sm sm:text-xs">{solution.solution}</p>
               </div>
             )}
             {solution.file_url && !solution.solution && ( // Check if solution has only file URL (image)
-              <img src={solution.file_url} alt="Solution" style={{ maxWidth: "100%" }} />
+              <img src={solution.file_url} alt="Solution" style={{ width:"50%",height:"50%" }}/>
             )}
             {!solution.file_url && solution.solution && ( // Check if solution has only text
-              <p className="text-white">{solution.solution}</p>
+              <p className="text-white lg:text-base md:text-sm sm:text-xs">{solution.solution}</p>
             )}
-            <p className="text-white" onClick={() => handleFriendProfile(solution.userId)}>Posted by: {solution.username}</p>
+            <p className="text-white lg:text-base md:text-sm sm:text-xs" onClick={() => handleFriendProfile(solution.userId)}>Posted by: {solution.username}</p>
             <div className="likes" onClick={() => handleLikeSolution(id, solution.solution_id)}>
               <svg viewBox="-2 0 105 92" className="likes_svg">
                 <path d="M85.24 2.67C72.29-3.08 55.75 2.67 50 14.9 44.25 2 27-3.8 14.76 2.67 1.1 9.14-5.37 25 5.42 44.38 13.33 58 27 68.11 50 86.81 73.73 68.11 87.39 58 94.58 44.38c10.79-18.7 4.32-35.24-9.34-41.71Z"></path>
@@ -112,6 +115,7 @@ const Show = () => {
             </div>
           </div>
         ))}
+        </div>
       </div>
     </div>
   );

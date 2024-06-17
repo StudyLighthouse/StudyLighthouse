@@ -70,7 +70,7 @@ const Header = ({ onMenuToggle, isMenuOpen, currentPage }) => {
             )}
           </div>
           {isDropdownOpen && (
-            <div className="absolute mt-2 w-48 bg-zinc-800 text-white rounded-lg shadow-lg flex flex-col items-center right-0 border border-gray-700" ref={dropdownRef}>
+            <div className="absolute mt-2 w-48 bg-zinc-800 text-white rounded-lg shadow-lg flex flex-col items-center right-0 border border-gray-700 z-10" ref={dropdownRef}>
               <a href='/profile'><button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out">Profile</button></a>
               <a href='/editprofile'><button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700">Edit Profile</button></a>
               <a href='/studymaterials'><button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700">Study Materials</button></a>

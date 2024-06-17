@@ -12,11 +12,11 @@ body {
     flex-direction: column;
   }
   
-  .posting {
+  .solution_posting {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50%; /* Make this half the height of the viewport */
+     /* Make this half the height of the viewport */
     width: 100%;
     border: 1px solid white;
     padding-bottom: 10px; /* Adjust padding to ensure no extra space at bottom */
@@ -32,20 +32,13 @@ body {
     margin-left: 10px;
   }
   
-  .file-upload-form {
-    width: fit-content;
-    height: fit-content;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
   
   .file-upload-label input {
     display: none;
   }
   
   .file-upload-label svg {
-    height: 50px;
+    /* height: 50px; */
     fill: rgb(82, 82, 82);
     margin-bottom: 20px;
   }
@@ -53,7 +46,6 @@ body {
   .file-upload-label {
     cursor: pointer;
     background-color: #ddd;
-    padding: 30px 70px;
     border-radius: 40px;
     border: 2px dashed rgb(82, 82, 82);
     box-shadow: 0px 0px 200px -50px rgba(0, 0, 0, 0.719);
@@ -61,11 +53,13 @@ body {
   
   .file-upload-design {
     display: flex;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 5px;
   }
+  
   
   .browse-button {
     background-color: rgb(82, 82, 82);
@@ -93,6 +87,7 @@ body {
     color: #000000;
     /* transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1); */
     width: 100%;
+    resize: none;
   }
   
   .textUser {

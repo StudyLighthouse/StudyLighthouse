@@ -65,7 +65,7 @@ export default function Profile() {
                     key={problem.solution_id}
                     userId={user.uid}
                     solutionId={problem.solution_id}
-                    question={problem.question}
+                    question={problem.question ? problem.question : "Click here to view question"}
                     solution={problem.solution}
                     likes={problem.likes}
                   />

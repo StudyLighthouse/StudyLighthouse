@@ -5,9 +5,6 @@
   }
   
   .studyMaterialsContent {
-    display: grid;
-    grid-template-columns: 1fr 3fr; /* Adjust the ratio as needed */
-    height: calc(100vh - 60px); /* Assuming header height is 60px */
     overflow: hidden;
     position: relative;
   }
@@ -28,7 +25,7 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
-    border-right: 1px solid #ddd;
+    /* border-right: 1px solid #ddd; */
     transition: transform 0.3s ease, height 0.3s ease; /* Add height transition */
     z-index: 1000; /* Ensure left-section stays below navbar */
   }
@@ -43,17 +40,21 @@
     width: 100%;
     box-sizing: border-box;
   }
-  
+  .material-name:focus,.search-bar:focus{
+    color: black;
+  }
   .file-upload input {
     padding: 5px;
   }
   
   .right-section {
     padding: 20px;
-    overflow-y: auto;
+    overflow-y: scroll;
     transition: transform 0.3s ease;
   }
-  
+  .right-section::-webkit-scrollbar{
+    display: none;
+  }
   .study-materials {
     display: flex;
     flex-direction: column;
@@ -80,7 +81,7 @@
       /* top: 0; */
       left: 0;
       height: 100%; /* Full height when open */
-      width: 250px;
+      width: 40%;
       background: #fff;
       transform: translateX(-100%);
       z-index: 1000;
@@ -92,6 +93,7 @@
     }
   
     .right-section.shifted {
-      transform: translateX(250px);
+      
+      transform: translateX(40%);
     }
   }
