@@ -6,10 +6,9 @@ body {
     flex-direction: column;
   }
   .q_feed {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; */
     overflow-y: scroll;
-    height:84vh;
   }

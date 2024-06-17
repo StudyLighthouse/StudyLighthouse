@@ -73,10 +73,9 @@ const CardComponent = ({ question }) => {
   });
 
   return (
-    <div>
-      <div className="que_container">
-        <div className="main">
-          <div className="quest_card" onClick={handleCardClick}>
+      <div className="que_container w-full">
+        <div className="main w-full">
+          <div className="quest_card w-full" onClick={handleCardClick}>
             <div className="card_content h-full">
               {question.question ? (
                 <p className="text_m">{question.question}</p>
@@ -84,7 +83,7 @@ const CardComponent = ({ question }) => {
                 <div className="click_to_show">Click to show the question</div>
               )}
             </div>
-              <div className="quest_card_back">
+              <div className="quest_card_back w-full">
               </div>
           </div>
           <div className="btns">
@@ -102,7 +101,6 @@ const CardComponent = ({ question }) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

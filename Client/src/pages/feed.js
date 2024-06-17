@@ -46,14 +46,10 @@ const Feed = () => {
   console.log("Questions:", questions);
 
   return (
-    <div className="mainfeed">
+    <div className="mainfeed h-screen w-screen">
       <Header />
-    <div
-      className="q_feed bg-black justify-between flex flex-col"
-      style={{ height: "100vh", border: "none" }}
-    >
-      
-      <div>
+    <div className="q_feed bg-black h-full flex justify-center pt-10"> 
+      <div className="items-center flex flex-col gap-10 lg:w-1/2 md:w-3/4 sm:w-3/4">
         {questions.map((question, index) => (
           <CardComponent key={index} question={question} />
         ))}

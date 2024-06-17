@@ -1,5 +1,5 @@
 .quest_card {
-  width: 15cm;
+  /* width: 15cm; */
   height: 7cm;
   background: linear-gradient(270deg, #09378c, #c48d00, #866000);
   background-size: 800% 800%;
@@ -16,16 +16,13 @@
   align-items: center;
   justify-content: center;
   height: 60vh;
-  width: 100%;
 }
 
 .quest_card_back {
-  width: 38em;
   height: 19em;
   background-color: rgba(30, 31, 38, 0.1);
   border-radius: 7px;
   margin-top: -17.7em;
-  margin-left: -1.3em;
   transition: 0.2s ease-in-out;
   z-index: -1;
 }
@@ -36,16 +33,7 @@
   background-color: rgba(44, 45, 51, 0.4);
   scale: 1.1;
   height: 21em;
-  width: 36em;
   cursor: pointer;
-}
-
-.img {
-  width: 2.25em;
-  height: 2.25em;
-  background-color: #252525;
-  border-radius: 5px;
-  overflow: hidden;
 }
 
 .text {
