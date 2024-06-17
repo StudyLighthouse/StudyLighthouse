@@ -20,7 +20,6 @@
   height: 80px;
   display: flex;
   position: relative;
-  bottom: 10px;
   right: 23px;
   z-index: -1; /* Display when active */
 }
@@ -28,10 +27,8 @@
 .loader:before {
   content: "";
   position: absolute;
-  top: -10px;
   left: -10px;
   right: -10px;
-  bottom: -10px;
   border-radius: 50%;
 }
 
@@ -40,7 +37,6 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  top: 10px;
 }
 
 .loader-block {
@@ -261,12 +257,10 @@
 }
 
 .mic-on {
-  
   z-index: 1;
 }
 
 .mic-off {
-  
   z-index: 0;
   opacity: 0;
 }
@@ -277,7 +271,7 @@
 
 .switch.active {
   position: relative;
-  top: 2px;
+  top: 15px;
   left: 40px;
   bottom: 20px;
   background-color: red;
@@ -285,7 +279,6 @@
 
 .switch.active .mic-off {
   position: relative;
-  
   z-index: 1;
   opacity: 1;
   
@@ -294,15 +287,18 @@
 .switch.active .mic-on {
   z-index: 0;
   opacity: 0;
-  
 }
 
 .switch:active {
   scale: 1.2;
 }
+
 .ooutt{
-  
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.microphone path {
+  fill: aliceblue;
 }

@@ -40,12 +40,9 @@
 } */
 .user_bot{
     overflow-y: auto;
-    
+    overflow-x: hidden;
 }
-.user_bot{
-    height:85%;
-    
-}
+
 .bot{
    
     display: flex;
