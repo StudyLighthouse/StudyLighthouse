@@ -10,7 +10,7 @@ export default function ProblemsSolved({ solutionId, userId, question, solution,
   };
 
   return (
-    <div className="card" onClick={handleCardClick}>
+    <div className="card lg:h-80 lg:w-60 md:h-60 md:w-48 sm:h-40 sm:w-40" onClick={handleCardClick}>
       <div className="card-info flex flex-col p-2">
         <p className="title p-2">{question}</p>
         <div className="text-down">

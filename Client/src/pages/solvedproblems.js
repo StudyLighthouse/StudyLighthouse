@@ -44,7 +44,7 @@ const ShowSolved = () => {
   }
 
   return (
-    <div>
+    <div className="w-screen h-screen">
       <Header />
       <div>
         {/* Render question details here */}

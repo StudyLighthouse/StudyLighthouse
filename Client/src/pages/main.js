@@ -26,7 +26,7 @@ export default function Main() {
     }
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-screen w-screen">
             <img src={robo2} alt='pic'  className='absolute top-1/2 -left-40 opacity-45 h-1/2 -z-10'/>
             <img src={robo1} alt='pic'  className='absolute -right-1.5 opacity-45 h-1/2 -z-10'/>
             <Header />

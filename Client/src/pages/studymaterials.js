@@ -76,7 +76,7 @@ export default function StudyMaterials() {
   };
 
   return (
-    <div className="s_material w-screen">
+    <div className="s_material w-screen h-screen">
       <Header onMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} currentPage="StudyMaterials" />
       <div className="studyMaterialsContent w-full h-full flex flex-row">
         <div className={`left-section w-1/5 ${isMenuOpen ? "open" : ""}`} style={{ height: isMenuOpen ? "100%" : "auto" }}>

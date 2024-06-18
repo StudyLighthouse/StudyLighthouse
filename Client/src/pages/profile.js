@@ -32,7 +32,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="bg-black text-white min-h-screen flex flex-col">
+    <div className="bg-black text-white min-h-screen w-screen flex flex-col">
       <Header />
       <h1 className="text-2xl font-bold mb-6 pt-4 italic text-center">Profile</h1>
       {userData && (
@@ -48,12 +48,12 @@ export default function Profile() {
             </div>
           </div>
           <div className="details flex flex-col md:flex-row md:justify-center items-center m-4 md:m-12">
-            <div className="m-4 text-center md:text-left space-y-4 flex flex-col justify-center">
+            <div className="m-4 text-center md:text-left sm:text-left space-y-4 flex flex-col justify-center">
               <p><strong>Username  :</strong> <a href="/main" className="text-blue-800 ">{userData.name}</a></p>
               <p><strong>Contact  :</strong> <span className="text-blue-600">{userData.mobile}</span></p>
               <p><strong>E-Mail  :</strong> <a href={`mailto:${userData.email}`} className="text-blue-600">{userData.email}</a></p>
-              <p><strong>GitHub URL  :</strong> <a href={userData.github} className="text-blue-600">{userData.newGithub}</a></p>
-              <p><strong>LinkedIn URL  :</strong> <a href={userData.linkedin} className="text-blue-600">{userData.newLinkedin}</a></p>
+              <p><strong>GitHub URL  :</strong> <a href={userData.newGithub} className="text-blue-600">{userData.newGithub}</a></p>
+              <p><strong>LinkedIn URL  :</strong> <a href={userData.newLinkedin} className="text-blue-600">{userData.newLinkedin}</a></p>
             </div>
           </div>
           <div className="flex-1">

@@ -96,7 +96,7 @@ function ToDo() {
     }
 
     return (
-        <div>
+        <div className='h-screen w-screen'>
             <Header />
             <div className="main-content">
                 <div className="todo-container mt-5 w-50 custom-container">

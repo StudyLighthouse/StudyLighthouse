@@ -58,7 +58,7 @@ const SolveProblem = () => {
   };
 
   return (
-    <div className="max-h-screen border m-0 flex flex-col">
+    <div className="max-h-screen w-screen border m-0 flex flex-col">
       <Header />
       <div className="h-1/2 w-full ">
         <div className="h-full w-full flex flex-col items-center p-4" style={{ border: "2px solid white" }}>

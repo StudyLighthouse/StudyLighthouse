@@ -168,7 +168,7 @@ const Features =  function () {
 
 export default function Lander() {
     return(
-        <div className="p-4 pr-6">
+        <div className="p-4 pr-6 w-screen">
             <Introduction/>
             <About/>
             <Features/>

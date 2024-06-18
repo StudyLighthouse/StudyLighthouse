@@ -42,10 +42,10 @@ const Header = ({ onMenuToggle, isMenuOpen, currentPage }) => {
   }, [isDropdownOpen]);
 
   return (
-    <div className="bg-black">
+    <div className="bg-black w-screen">
       <div className="bg-zinc-800 text-white flex items-center justify-between p-4 relative">
         <div className="flex items-center space-x-4">
-          <img src="https://placehold.co/40x40" alt="Logo" className="h-10 w-10" />
+          <img src="https://placehold.co/40x40" alt="Logo" className="lg:h-10 lg:w-10 md:h-8 md:w-8 sm:h-6 sm:w-6" />
           {(isStudyMaterialsPage || isTextGPTPage) && (
             <button className="menu-toggle" onClick={onMenuToggle}>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" className="icon-xl-heavy">
@@ -53,17 +53,17 @@ const Header = ({ onMenuToggle, isMenuOpen, currentPage }) => {
               </svg>
             </button>
           )}
-          <a href='/todolist'><button className="bg-zinc-700 text-white py-2 px-4 rounded">To-Do List</button></a>
+          <a href='/todolist'><button className="lg:block md:block sm:hidden bg-zinc-700 text-white py-2 px-4 rounded lg:text-lg md:text-sm">To-Do List</button></a>
         </div>
         <div className="relative">
           <div className="flex items-center space-x-4">
             {user && !loading && (
               <>
-                <span>{user.name}</span> 
+                <span className='lg:text-lg md:text-sm sm:text-xs'>{user.name}</span> 
                 <img
                   src={user.profileImage}
                   alt="User Avatar"
-                  className="h-10 w-10 rounded-full cursor-pointer"
+                  className="lg:h-10 lg:w-10 md:h-8 md:w-8 sm:h-6 sm:w-6 rounded-full cursor-pointer"
                   onClick={toggleDropdown}
                 />
               </>
@@ -73,6 +73,7 @@ const Header = ({ onMenuToggle, isMenuOpen, currentPage }) => {
             <div className="absolute mt-2 w-48 bg-zinc-800 text-white rounded-lg shadow-lg flex flex-col items-center right-0 border border-gray-700 z-10" ref={dropdownRef}>
               <a href='/profile'><button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out">Profile</button></a>
               <a href='/editprofile'><button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700">Edit Profile</button></a>
+              <a href='/todolist'><button className="lg:hidden md:hidden sm:block px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700">To-DO List</button></a>
               <a href='/studymaterials'><button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700">Study Materials</button></a>
               <button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out" onClick={handleLogout}>Logout</button>
             </div>
