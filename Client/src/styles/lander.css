@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body{
   overflow-x: hidden;
   padding: 0px 20px 20px 20px;

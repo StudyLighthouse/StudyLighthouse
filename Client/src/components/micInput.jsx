@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/micInput.css';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SpeechToTextToSpeech = ({ setMessages }) => {
     const [responseText, setResponseText] = useState('');
@@ -9,7 +11,7 @@ const SpeechToTextToSpeech = ({ setMessages }) => {
     const [listening, setListening] = useState(false);
 
     if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
-        alert("Your browser does not support speech recognition.");
+        toast.error("Your browser does not support speech recognition.");
     }
 
     const handleStartListening = () => {
@@ -27,6 +29,7 @@ const SpeechToTextToSpeech = ({ setMessages }) => {
         try {
             const nextIndex = sessionStorage.length;
             const response = await axios.post('http://127.0.0.1:5000/api/cohorequest_audio', { text, index: nextIndex });
+            toast.success("Prompt Posted Successfully.")
             const newUserMessage = {
                 usr: text,
                 response_parts: response.data.response_parts,
@@ -35,12 +38,12 @@ const SpeechToTextToSpeech = ({ setMessages }) => {
     
             // Update sessionStorage
             sessionStorage.setItem(`message_${nextIndex}`, JSON.stringify(newUserMessage));
-    
             // Update messages state
             setResponseText(response.data.response_text);
             setMessages(prevMessages => [...prevMessages, newUserMessage]);
         } catch (error) {
             console.error("Error sending text to backend:", error);
+            toast.error("Error sending text to backend.");
         }
     };
     
@@ -74,6 +77,7 @@ const SpeechToTextToSpeech = ({ setMessages }) => {
                     ))}
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

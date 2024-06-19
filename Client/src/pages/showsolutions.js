@@ -4,7 +4,10 @@ import { useNavigate } from "react-router-dom"
 import Header from "../components/Navbar";
 import axios from "axios";
 import { useSession } from "../contexts/SessionContext";
-import "../styles/showsolutions.css"
+import "../styles/showsolutions.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Show = () => {
   const { id } = useParams();
@@ -43,13 +46,14 @@ const Show = () => {
       setSolutions(solutionsResponse.data);
     } catch (error) {
       console.error("Error liking solution:", error);
+      toast.error("Error liking solution.");
       // Handle error
     }
   };
 
   const handleFriendProfile = async (user_id) => {
     if (!user) {
-      alert("Please log in to view solutions.");
+      toast.error("Please log in to view solutions.");
       return;
     }
   
@@ -116,6 +120,7 @@ const Show = () => {
           </div>
         ))}
         </div>
+        <ToastContainer />
       </div>
     </div>
   );

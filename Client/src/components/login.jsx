@@ -37,7 +37,6 @@ export default function Login({ onClose }) {
                 setUser(response.data.user); // Set the user data and persist it in session storage
                 onClose();
                 navigate('/main');
-                alert("Logged in successfully!");
             } else {
                 setError(response.data.message || 'Error logging in');
             }

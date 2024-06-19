@@ -3,6 +3,8 @@ import '../styles/editprofile.css';
 import Header from '../components/Navbar';
 import { useSession } from '../contexts/SessionContext';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Editprofile() {
     const { user, updateUserField } = useSession();
@@ -36,10 +38,10 @@ export default function Editprofile() {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       updateUserField(field, response.data.user[field === 'newUsername' ? 'name' : field]);
-      alert('Profile updated successfully!');
+      toast.success(`${field} updated successfully!`);
     } catch (error) {
       console.error(error);
-      alert('Failed to update profile');
+      toast.error(`Failed to update ${field}`);
     }
   };
 
@@ -188,6 +190,7 @@ export default function Editprofile() {
               <button onClick={() => handleSubmit('newLinkedin')} className="bg-blue-600 text-white rounded-lg lg:h-8 lg:w-24 sm:w-16 sm:h-10 md:w-20 md:h-10">Submit</button>
             </div>
           </div>
+          <ToastContainer />
         </div>
       </div>
     </div>

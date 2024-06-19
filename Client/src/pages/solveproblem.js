@@ -4,6 +4,8 @@ import axios from "axios";
 import Header from "../components/Navbar";
 import { useSession } from "../contexts/SessionContext";
 import "../styles/solveproblem.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SolveProblem = () => {
   const { user } = useSession();
@@ -17,7 +19,7 @@ const SolveProblem = () => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
     if (selectedFile) {
-      alert(`Selected file: ${selectedFile.name}`);
+      toast.info(`Selected file: ${selectedFile.name}`);
     }
   };
 
@@ -25,7 +27,8 @@ const SolveProblem = () => {
     event.preventDefault();
 
     if (!user) {
-      alert("Please log in to post your solution.");
+      toast.error("Please log in to post your solution.");
+
       return;
     }
 
@@ -48,7 +51,7 @@ const SolveProblem = () => {
         },
       });
 
-      alert("Solution posted successfully.");
+      toast.success("Solution posted successfully.");
       setSolutionText(""); // Clear the text area
       setFile(null); // Clear the file input
     } catch (error) {
@@ -113,8 +116,8 @@ const SolveProblem = () => {
               />
             </label>
           </div>
+          <ToastContainer />
         </div>
-
         {/* </form> */}
         <button className="submit-button lg:ml-3 md:mt-3 sm:mt-3" type="submit" onClick={handleSubmit}>Submit</button>
       </div>

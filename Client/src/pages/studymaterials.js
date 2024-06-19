@@ -3,6 +3,8 @@ import "../styles/studymaterials.css";
 import Header from "../components/Navbar";
 import StudyMaterialCard from "../components/studymaterialcard";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useSession } from "../contexts/SessionContext";
 
 export default function StudyMaterials() {
@@ -24,6 +26,7 @@ export default function StudyMaterials() {
       setStudyMaterials(response.data);
     } catch (error) {
       console.error("Error fetching study materials:", error.response);
+      toast.error("Error fetching study materials:", error.response);
     }
   };
 
@@ -38,7 +41,7 @@ export default function StudyMaterials() {
   const handlePostMaterial = async (event) => {
     event.preventDefault();
     if (!user) {
-      alert("Please log in to post your doubt.");
+      toast.error("Please log in to post your doubt.");
       return;
     }
     if (!file || !materialName) {
@@ -60,8 +63,10 @@ export default function StudyMaterials() {
       setMaterialName("");
       setError("");
       fetchStudyMaterials();
+      toast.success(`${materialName} Posted Successfully.`);
     } catch (error) {
       console.error("Error posting study material:", error.response);
+      toast.error("Error posting study material:", error.response);
       setError("Failed to post study material. Please try again later.");
     }
   };
@@ -110,7 +115,7 @@ export default function StudyMaterials() {
               </div>
             ))}
           </div>
-        
+          <ToastContainer />
         </div>
       </div>
     </div>

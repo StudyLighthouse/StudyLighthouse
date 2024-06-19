@@ -3,6 +3,8 @@ import Header from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import '../styles/main.css';
 import { useSession } from '../contexts/SessionContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const robo1 = 'robot assistant.png'
 const robo2 = 'robot.png'
@@ -14,6 +16,8 @@ export default function Main() {
     useEffect(() => {
         if (!loading && !user) {
             navigate('/signin');
+        } else {
+            toast.success("Logged In Successfully.");
         }
     }, [loading, user, navigate]);
 
@@ -34,6 +38,17 @@ export default function Main() {
                 <div className=' maincard blue sm:h-60 w-80 md:h-96 md:w-[32rem] lg:w-[22rem]' onClick={() => handleNavigation('/speechgpt')}><p>Speech Generator</p></div>
                 <div className=' maincard gold sm:h-60 w-80 md:h-96 md:w-[32rem] lg:w-[22rem]' onClick={() => handleNavigation('/textgpt')}><p>Text Generator</p></div>
                 <div className=' maincard blue sm:h-60 w-80 md:h-96 md:w-[32rem] lg:w-[22rem]' onClick={() => handleNavigation('/questionsfeed')}><p>Solve Problems</p></div>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={2000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
             </div>
         </div>
     );
