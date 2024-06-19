@@ -61,10 +61,11 @@ const SolveProblem = () => {
   };
 
   return (
-    <div className="max-h-screen w-screen border m-0 flex flex-col">
+    <div className="max-h-screen w-screen m-0 flex flex-col">
       <Header />
       <div className="h-1/2 w-full ">
-        <div className="h-full w-full flex flex-col items-center p-4" style={{ border: "2px solid white" }}>
+      <p className="text-white lg:text-base md:text-sm sm:text-xs ml-5">Question</p>
+        <div className="h-full w-full flex flex-col items-center p-4" >
           {questionDetails.file_url && questionDetails.question && ( // Check if question has both text and file URL (image)
             <div className="h-full w-full flex flex-col items-center">
               <img src={questionDetails.file_url} alt="Question" style={{  width: "fit-content" ,height:"80%" }} />
@@ -79,6 +80,7 @@ const SolveProblem = () => {
           )}
         </div>
       </div>
+      <p className="text-white lg:text-base md:text-sm sm:text-xs ml-5">Post Your Solution</p>
       <div className="solution_posting flex-grow flex items-end justify-center w-full lg:flex-row md:flex-col sm:flex-col p-4">
         {/* <form className="file-upload-form" onSubmit={handleSubmit}> */}
         <div className="textArea flex-grow-0">

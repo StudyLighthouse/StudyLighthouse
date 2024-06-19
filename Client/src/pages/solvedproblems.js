@@ -53,6 +53,8 @@ const ShowSolved = () => {
     <div className="w-screen h-screen">
       <Header />
       <div className="w-full h-1/2">
+      <p className="text-white lg:text-base md:text-sm sm:text-xs ml-5">Question</p>
+
         <div className="h-full w-full flex flex-col items-center p-4">
           {/* Render question details here */}
           {question?.file_url && question?.question && (
@@ -76,6 +78,7 @@ const ShowSolved = () => {
             <h2 className="text-white">{question.question}</h2>
           )}
         </div>
+        <p className="text-white lg:text-base md:text-sm sm:text-xs ml-5">solution</p>
 
         <div className="overflow-y-auto w-full flex flex-col justify-center items-center gap-5">
           {/* Render solution here */}

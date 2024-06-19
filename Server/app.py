@@ -891,6 +891,15 @@ def get_solution():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/postQuery',methods=['POST'])
+def postQuery():
+    data = request.json
+    query = data.get('query')
+    print(query)
+    uid=str(uuid.uuid4())
+    db.collection("userQueries").document(uid).set({'query':query,'uid':uid,'timeStamp':firestore.SERVER_TIMESTAMP})
+    return jsonify({'message':'query posted ssuccessfully'})
+
 
 @socketio.on('connect')
 def handle_connect():

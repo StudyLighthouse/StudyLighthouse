@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import "../styles/lander.css"
 import Signup from "../components/signup.jsx"
 import Login from "../components/login.jsx"
+import axios from "axios";
 
 // Introduction - First
 const Introduction = function (){
@@ -73,6 +74,21 @@ const About = ()=>{
 
 // Features-Third
 const Features =  function () {
+  const [query,setQuery]=useState("");
+  const postQuery=async (e)=>{
+    e.preventDefault();
+    if(query===""){
+      alert("please Provide context of ytour query");
+    }else{
+      try {
+         const response=await axios.post('http://127.0.0.1:5000/postQuery', { query });
+         alert(response.data.message);
+         
+      } catch (error) {
+        alert(error)
+      }
+    }
+  }
     return (
       <div className="p-8 text-center text-white" id="Features">
         <div className="flex flex-wrap gap-8 mb-8 justify-evenly">
@@ -157,8 +173,9 @@ const Features =  function () {
               type="text"
               placeholder="Enter queries"
               className="p-2 text-white border rounded-l-lg bg-zinc-800 border-zinc-700 query"
+              onChange={(e)=>setQuery(e.target.value)}
             />
-            <button className="p-2 text-white bg-blue-500 border border-blue-700 rounded-r-lg query-submit">Submit</button>
+            <button className="p-2 text-white bg-blue-500 border border-blue-700 rounded-r-lg query-submit" onClick={postQuery}>Submit</button>
           </div>
         </div>
       </div>

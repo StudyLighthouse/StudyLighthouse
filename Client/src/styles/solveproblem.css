@@ -18,7 +18,7 @@ body {
     justify-content: center;
      /* Make this half the height of the viewport */
     width: 100%;
-    border: 1px solid white;
+    
     padding-bottom: 10px; /* Adjust padding to ensure no extra space at bottom */
   }
   
