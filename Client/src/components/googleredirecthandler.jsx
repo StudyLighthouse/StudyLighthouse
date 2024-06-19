@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSession } from '../contexts/SessionContext';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function GoogleRedirectHandler() {
     const navigate = useNavigate();
@@ -19,7 +21,7 @@ export default function GoogleRedirectHandler() {
             setUser(user);
             navigate('/main');
         } else {
-            alert("Error logging in with Google");
+            toast.error("Error logging in with Google");
             navigate('/login');
         }
     }, [location, navigate, setUser]);

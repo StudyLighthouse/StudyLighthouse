@@ -11,7 +11,7 @@ function ToDo() {
     const [startOnInput, updateStartOnInput] = useState('');
     const [endByInput, updateEndByInput] = useState('');
     const [todoList, setTodos] = useState([]);
-    const [editingTodo, setEditingTodo] = useState(null); // New state for tracking the todo being edited
+    const [editingTodo, setEditingTodo] = useState(null);
     const { user } = useSession();
 
     const fetchTodos = async () => {

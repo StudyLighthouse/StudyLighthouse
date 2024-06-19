@@ -6,6 +6,7 @@ import { useSession } from "../contexts/SessionContext";
 import "../styles/solveproblem.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { MessageCircle } from "lucide-react";
 
 const SolveProblem = () => {
   const { user } = useSession();
@@ -19,7 +20,7 @@ const SolveProblem = () => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
     if (selectedFile) {
-      toast.info(`Selected file: ${selectedFile.name}`);
+      alert(`Selected file: ${selectedFile.name}`);
     }
   };
 
@@ -28,7 +29,6 @@ const SolveProblem = () => {
 
     if (!user) {
       toast.error("Please log in to post your solution.");
-
       return;
     }
 
@@ -51,7 +51,7 @@ const SolveProblem = () => {
         },
       });
 
-      toast.success("Solution posted successfully.");
+      alert("Solution posted successfully.");
       setSolutionText(""); // Clear the text area
       setFile(null); // Clear the file input
     } catch (error) {

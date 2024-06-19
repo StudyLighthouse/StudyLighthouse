@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSession } from "../contexts/SessionContext";
-import { ToastContainer, toast } from "react-toastify"; // Import ToastContainer and toast
-import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 import "../styles/sidebar.css";
 
 const inputClasses =
@@ -32,7 +32,7 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
       setSavedChats(chats);
     } catch (e) {
       console.log(`error: ${e}`);
-      toast.error("Error fetching saved chats.");
+      alert("Error fetching saved chats.");
     }
   };
 
@@ -46,7 +46,7 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
       onChatSelected(messages);
     } catch (e) {
       console.log(`error: ${e}`);
-      toast.error("Error fetching chat messages.");
+      alert("Error fetching chat messages.");
     }
   };
 
@@ -57,7 +57,7 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
   const saveChat = async () => {
     try {
       if (chatName === "") {
-        toast.error("Please provide the name.");
+        alert("Please provide the name.");
       } else {
         const storedMessages = [];
         var i = 0;
@@ -90,14 +90,14 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
           });
           fetchSavedChats();
           onChatSaved();
-          toast.success(response.data.message);
+          alert(response.data.message);
         } else {
-          toast.error(response.data.message);
+          alert(response.data.message);
         }
       }
     } catch (e) {
       console.log("error : ", e);
-      toast.error("Error in saving chat.");
+      alert("Error in saving chat.");
     }
     setChatName("");
   };
@@ -129,7 +129,7 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
     e.preventDefault();
     try {
       if (!user) {
-        toast.error("Please log in to post your doubt.");
+        alert("Please log in to post your doubt.");
         return;
       }
 
@@ -149,11 +149,11 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
         }
       );
       console.log("Response from backend:", response.data.message);
-      toast.success(response.data.message);
+      alert(response.data.message);
       setDoubt("");
     } catch (error) {
       console.error("Error posting doubt to backend:", error);
-      toast.error("Error posting doubt. Please try again.");
+      alert("Error posting doubt. Please try again.");
     }
   };
 
@@ -161,7 +161,7 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
     if (file) {
       setImageUploaded(true);
       setFile(file);
-      toast.info("Image uploaded successfully!");
+      alert("Image uploaded successfully!");
       // Perform upload logic here if needed
     }
   };
@@ -305,21 +305,6 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
           </div>
         </div>
       </div>
-
-      {/* Toast Container for notifications */}
-      <ToastContainer
-        position="top-right"
-        autoClose={3000} // Auto close after 3 seconds
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        toastClassName="toast-container"
-      />
-            <ToastContainer />
     </div>
   );
 };

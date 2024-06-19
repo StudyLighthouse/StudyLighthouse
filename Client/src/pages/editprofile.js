@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Editprofile() {
-    const { user, updateUserField } = useSession();
+  const { user, updateUserField } = useSession();
   const [formData, setFormData] = useState({
     newUsername: '',
     newContact: '',
@@ -39,6 +39,8 @@ export default function Editprofile() {
       });
       updateUserField(field, response.data.user[field === 'newUsername' ? 'name' : field]);
       toast.success(`${field} updated successfully!`);
+      // Clear the form field after successful submission
+      setFormData((prevFormData) => ({ ...prevFormData, [field]: '' }));
     } catch (error) {
       console.error(error);
       toast.error(`Failed to update ${field}`);
@@ -93,7 +95,7 @@ export default function Editprofile() {
           <div className="mb-4">
             <div className='w-full flex flex-row items-center gap-4'>
               <div className="wave-group">
-                <input type="text" name="newUsername" className="editinput" onChange={handleInputChange} />
+                <input type="text" name="newUsername" value={formData.newUsername} className="editinput" onChange={handleInputChange} />
                 <span className="editbar"></span>
                 <label className="editlabel">
                   <span className="label-char" style={{ "--index": 0 }}>N</span>
@@ -116,7 +118,7 @@ export default function Editprofile() {
           <div className="mb-4">
             <div className='w-full flex flex-row items-center gap-4'>
               <div className="wave-group">
-                <input type="text" name="newContact" className="editinput" onChange={handleInputChange} />
+                <input type="text" name="newContact" value={formData.newContact} className="editinput" onChange={handleInputChange} />
                 <span className="editbar"></span>
                 <label className="editlabel">
                   <span className="label-char" style={{ "--index": 0 }}>N</span>
@@ -141,7 +143,7 @@ export default function Editprofile() {
           <div className="mb-4 mt-7 flex flex-row items-center justify-between">
             <div className='w-full flex flex-row items-center gap-4'>
               <div className="wave-group">
-                <input type="text" name="newGithub" className="editinput" onChange={handleInputChange} />
+                <input type="text" name="newGithub" value={formData.newGithub} className="editinput" onChange={handleInputChange} />
                 <span className="editbar"></span>
                 <label className="editlabel">
                   <span className="label-char" style={{ "--index": 0 }}>N</span>
@@ -166,7 +168,7 @@ export default function Editprofile() {
           <div className="mb-4 flex flex-row items-center justify-between">
             <div className='w-full flex flex-row items-center gap-4'>
               <div className="wave-group">
-                <input type="text" name="newLinkedin" className="editinput" onChange={handleInputChange} />
+                <input type="text" name="newLinkedin" value={formData.newLinkedin} className="editinput" onChange={handleInputChange} />
                 <span className="editbar"></span>
                 <label className="editlabel">
                   <span className="label-char" style={{ "--index": 0 }}>N</span>

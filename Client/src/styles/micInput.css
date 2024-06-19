@@ -271,9 +271,9 @@
 
 .switch.active {
   position: relative;
-  top: 15px;
+  top: 1px;
   left: 40px;
-  bottom: 20px;
+  /* bottom: 20px; */
   background-color: red;
 }
 

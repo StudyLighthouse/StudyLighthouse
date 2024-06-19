@@ -42,7 +42,7 @@ const SpeechToTextToSpeech = ({ setMessages }) => {
             setMessages(prevMessages => [...prevMessages, newUserMessage]);
         } catch (error) {
             console.error("Error sending text to backend:", error);
-            toast.error("Error sending text to backend.");
+            alert("Error sending text to backend.");
         }
     };
     
