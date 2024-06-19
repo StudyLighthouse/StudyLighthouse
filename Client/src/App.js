@@ -17,13 +17,10 @@ import ProtectedRoute from './components/protectedRoute';
 import { SessionProvider } from './contexts/SessionContext';
 import ForgotPassword from './pages/forgetPassword';
 import ShowSolved from './pages/solvedproblems';
-import ToastProvider from './contexts/ToastContext';
-
 
 function App() {
   return (
     <SessionProvider>
-      <ToastProvider>
       <Router>
         <div className="App">
           <Routes>
@@ -45,7 +42,6 @@ function App() {
           </Routes>
         </div>
       </Router>
-      </ToastProvider>
     </SessionProvider>
   );
 }
