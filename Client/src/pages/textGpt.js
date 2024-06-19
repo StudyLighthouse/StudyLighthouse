@@ -33,7 +33,7 @@ export default function TextGpt() {
     useEffect(() => {
         document.body.classList.add("textGptBody");
         return () => {
-            document.body.classList.remove("textGptBody");
+          document.body.classList.remove("textGptBody");
         };
     }, []);
 
@@ -43,18 +43,26 @@ export default function TextGpt() {
         }
     }, [loading, user, navigate]);
 
+    if (loading) {
+        return <div>Loading...</div>; // Show loading state while session is being validated
+    }
+
+
     const handleMenuToggle = () => {
         setIsMenuOpen(!isMenuOpen);
-    };
+        // Update the height of the right section after a small delay to ensure DOM is updated
+      };
+
 
     return (
         <div className="textGpt w-screen h-screen ml-0 flex flex-col">
             <Header setMessages={setMessages} onMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} currentPage="textGpt"/>
+            <img className="img1 absolute" src="Text,Speech Human.png" alt="Human" />
+            <img className="img2 absolute" src="Text,Speech Robot.png" alt="Robot" />
             <div className="content flex-grow flex h-full">
                 <div className={`h-screen lg:w-1/5 md:w-1/4 sm:w-1/2 md:h-screen flex flex-shrink sidebar-container ${isMenuOpen ? "open" : ""}`}>
-                    <ChatComponent onChatSaved={fetchMessages} onChatSelected={setMessages} /> {/* Pass onChatSaved and onChatSelected callbacks */}
+                <ChatComponent onChatSaved={fetchMessages} onChatSelected={setMessages} /> {/* Pass onChatSaved and onChatSelected callbacks */}
                 </div>
-                
                 <div className={`communication lg:w-4/5 md:w-full sm:w-full h-screen pb-2 ${isMenuOpen ? "shifted" : ""}`}>
                     <div className="user_bot w-full h-4/5">
                         {messages.map((msg, index) => (
@@ -62,12 +70,20 @@ export default function TextGpt() {
                                 <div className="flex justify-end">
                                     <div className="usr p-4 w-1/2 rounded-lg flex items-center gap-2 space-x-2">
                                         <h3 className="text-black p-4 bg-gray-100">{msg.usr}</h3>
-                                        {/* Remove img tag with src links */}
+                                        <img
+                                            src={user.profileImage}
+                                            alt="User Avatar"
+                                            className="h-10 w-10 rounded-full cursor-pointer"
+                                        />
                                     </div>
                                 </div>
                                 <div className="flex justify-start mt-2">
                                     <div className="p-4 rounded-lg flex items-center gap-2 w-2/3">
-                                        {/* Replace img tag with user profile image */}
+                                        <img
+                                            src={user.profileImage}
+                                            alt="User Avatar"
+                                            className="h-10 w-10 rounded-full cursor-pointer"
+                                        />
                                         <div className="flex flex-col bg-gray-200 p-4 space-y-2 w-full">
                                             {msg.response_parts.map((part, idx) => (
                                                 part.is_code ? (
@@ -78,17 +94,16 @@ export default function TextGpt() {
                                                     <p key={idx} className="text-black">{part.text}</p>
                                                 )
                                             ))}
-                                        </div>
+                                        </div>}
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
                     <div className="text_inn w-full flex items-start h-1/5">
-                        <InputBar setMessages={setMessages} /> {/* Pass showLoadingToast and dismissAllToasts */}
+                        <InputBar setMessages={setMessages}/> {/* Pass setMessages as a prop */}
                     </div>
                 </div>
-               
             </div>
         </div>
     );

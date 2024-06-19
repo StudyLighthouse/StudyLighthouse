@@ -25,7 +25,7 @@ const InputBar = ({ setMessages }) => {
         };
 
         const nextIndex = sessionStorage.length - 1;
-        sessionStorage.setItem(`message_${nextIndex}, JSON.stringify(newUserMessage)`);
+        sessionStorage.setItem(`message_${nextIndex}`, JSON.stringify(newUserMessage));
 
         setMessages(prevMessages => [...prevMessages, newUserMessage]);
         setText('');
