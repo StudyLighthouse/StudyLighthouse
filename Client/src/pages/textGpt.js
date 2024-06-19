@@ -87,7 +87,7 @@ export default function TextGpt() {
                                         <div className="flex flex-col bg-gray-200 p-4 space-y-2 w-full">
                                             {msg.response_parts.map((part, idx) => (
                                                 part.is_code ? (
-                                                    <pre key={idx} className="bg-gray-800 text-white p-2 rounded-lg w-full">
+                                                    <pre key={idx} className="bg-gray-800 text-white p-2 rounded-lg w-full overflow-x-auto">
                                                         <code dangerouslySetInnerHTML={{ __html: hljs.highlightAuto(part.text).value }} />
                                                     </pre>
                                                 ) : (

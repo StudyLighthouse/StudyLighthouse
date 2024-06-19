@@ -124,7 +124,7 @@ const play_audio=async ()=>{
                                             {msg.response_parts.map((part, idx) => (
                                                 <React.Fragment key={idx}>
                                                     {part.is_code ? (
-                                                        <pre key={idx} className="bg-gray-800 text-white p-2 rounded-lg w-full">
+                                                        <pre key={idx} className="bg-gray-800 text-white p-2 rounded-lg w-full overflow-x-auto">
                                                             <code dangerouslySetInnerHTML={{ __html: hljs.highlightAuto(part.text).value }} />
                                                         </pre>
                                                     ) : (

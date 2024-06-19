@@ -112,7 +112,7 @@ export default function StudyMaterials() {
               </svg>
             </div>
           </div>
-          <div className="middle-content">
+          <div className="middle-content  md:pb-10 sm:pb-10 lg:pb-0 flex flex-col items-center justify-end">
             <input
               type="file"
               className="file-upload mb-3 w-10/12"
