@@ -5,13 +5,12 @@ const searchInputClasses = "bg-transparent flex-grow outline-none text-white px-
 const searchButtonClasses = "bg-zinc-900 text-white rounded-full p-2 ml-2";
 const imageSizeClasses = "w-8 h-8";
 
-const InputBar = ({ setMessages, getDataFromPromptInput }) => {
+const InputBar = ({ setMessages }) => {
   const [text, setText] = useState("");
 
   const handleButtonClick = async () => {
     if (text === "") {
       toast.error("Please Provide a Prompt.");
-      setLoading(false)
     } else {
 
       try {
@@ -24,7 +23,7 @@ const InputBar = ({ setMessages, getDataFromPromptInput }) => {
         };
 
         const nextIndex = sessionStorage.length - 1;
-        sessionStorage.setItem(message_${nextIndex}, JSON.stringify(newUserMessage));
+        sessionStorage.setItem(`message_${nextIndex}, JSON.stringify(newUserMessage)`);
 
         setMessages(prevMessages => [...prevMessages, newUserMessage]);
         setText('');
