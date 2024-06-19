@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSession } from '../contexts/SessionContext';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function GoogleRedirectHandler() {
     const navigate = useNavigate();
@@ -20,7 +18,6 @@ export default function GoogleRedirectHandler() {
         if (user.name && user.email && user.uid) {
             setUser(user);
             navigate('/main');
-            toast.success("Logged In Successfully.");
         } else {
             alert("Error logging in with Google");
             navigate('/login');
