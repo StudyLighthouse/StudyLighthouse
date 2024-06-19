@@ -60,7 +60,6 @@ export default function TextGpt() {
                         {messages.map((msg, index) => (
                             <div key={index} className="mb-4">
                                 <div className="flex justify-end">
-                                <TestingToast setMessages={setMessages}/>
                                     <div className="usr p-4 w-1/2 rounded-lg flex items-center gap-2 space-x-2">
                                         <h3 className="text-black p-4 bg-gray-100">{msg.usr}</h3>
                                         {/* Remove img tag with src links */}
