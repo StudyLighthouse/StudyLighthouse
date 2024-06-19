@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const searchInputClasses = "bg-transparent flex-grow outline-none text-white px-4";
 const searchButtonClasses = "bg-zinc-900 text-white rounded-full p-2 ml-2";
