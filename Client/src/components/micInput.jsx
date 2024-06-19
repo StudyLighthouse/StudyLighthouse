@@ -29,7 +29,6 @@ const SpeechToTextToSpeech = ({ setMessages }) => {
         try {
             const nextIndex = sessionStorage.length;
             const response = await axios.post('http://127.0.0.1:5000/api/cohorequest_audio', { text, index: nextIndex });
-            toast.success("Prompt Posted Successfully.")
             const newUserMessage = {
                 usr: text,
                 response_parts: response.data.response_parts,
@@ -50,8 +49,10 @@ const SpeechToTextToSpeech = ({ setMessages }) => {
     const toggleListening = () => {
         if (!listening) {
             handleStartListening();
+            toast.info("Listening");
         } else {
             handleStopListening();
+            toast.info("Stopped listening");
         }
         setListening(!listening);
     };

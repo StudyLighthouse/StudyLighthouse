@@ -94,7 +94,7 @@ export default function TextGpt() {
                                                     <p key={idx} className="text-black">{part.text}</p>
                                                 )
                                             ))}
-                                        </div>}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
