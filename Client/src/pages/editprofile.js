@@ -55,7 +55,7 @@ export default function Editprofile() {
         <img src={user.profileImage || "https://placehold.co/100x100"} alt="Profile Image" className="rounded-full lg:h-32 md:h-28 sm:h-24" /><br />
         <input type="file" name="profileImage" onChange={handleInputChange} className="mt-1 cursor-pointer lg:w-[20%] md:w-[30%] sm:w-[40%]" id="profileImage" />
         <label htmlFor="profileImage" className="text-white text-center sm:text-xs md:text-base lg:text-lg px-4 py-2 w-40 mt-2">UPLOAD IMAGE</label>
-        <button onClick={() => handleSubmit('profileImage')} className="bg-blue-600 text-white px-4 py-2 lg:w-40 md:w-36 sm:w-32 mt-2 sm:text-xs md:text-base lg:text-lg rounded-lg cursor-pointer">SUBMIT IMAGE</button>
+        <button onClick={() => handleSubmit('profileImage')} className="bg-blue-600 hover:bg-[#c48d00] hover:text-black text-white px-4 py-2 lg:w-40 md:w-36 sm:w-32 mt-2 sm:text-xs md:text-base lg:text-lg rounded-lg cursor-pointer">SUBMIT IMAGE</button>
       </div>
       <div className='flex lg:flex-row md:flex-col sm:flex-col md:items-center sm:items-center'>
         <div className="flex mt-6 lg:w-2/4 md:w-full sm:w-full lg:pl-48 md:pl-0 sm:pl-16">
@@ -68,9 +68,9 @@ export default function Editprofile() {
               <label className="block text-zinc-400">Contact:</label>
               <span className="text-blue-400">{user.newContact}</span>
             </div>
-            <div className="lg:mb-48 md:mb-4 sm:mb-4 flex flex-row lg:w-[50%] md:w-[40%] sm:w-[80%] justify-between">
+            <div className="lg:mb-72 md:mb-4 sm:mb-4 flex flex-row lg:w-[50%] md:w-[40%] sm:w-[80%] justify-between">
               <label className="block text-zinc-400">E-Mail:</label>
-              <span className="text-blue-400">{user.email}</span>
+              <span className="text-blue-400 hover:underline cursor-pointer">{user.email}</span>
             </div>
             {/* <div className="mb-4 flex flex-row w-1/2 justify-between">
               <label className="block text-zinc-400">Password:</label><br />
@@ -83,11 +83,11 @@ export default function Editprofile() {
             </div> */}
             <div className="mb-4 flex flex-row w-[80%] justify-between">
               <label className="block text-zinc-400">GitHub URL:</label>
-              <a href={user.newGithub} className="text-blue-400 cursor-pointer">{user.newGithub}</a>
+              <a href={user.newGithub} className="text-blue-400 hover:underline cursor-pointer">{user.newGithub}</a>
             </div>
             <div className="mb-4 flex flex-row w-[80%] justify-between">
               <label className="block text-zinc-400">LinkedIn URL:</label>
-              <a href={user.newLinkedin} className="text-blue-400 cursor-pointer">{user.newLinkedin}</a>
+              <a href={user.newLinkedin} className="text-blue-400 hover:underline cursor-pointer">{user.newLinkedin}</a>
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@ export default function Editprofile() {
                   <span className="label-char" style={{ "--index": 11 }}>e</span>
                 </label>
               </div>
-              <button onClick={() => handleSubmit('newUsername')} className="bg-blue-600 text-white rounded-lg lg:h-8 lg:w-24 sm:w-16 sm:h-10 md:w-20 md:h-10">Submit</button>
+              <button onClick={() => handleSubmit('newUsername')} className="bg-blue-600 hover:bg-[#c48d00] hover:text-black text-white rounded-lg lg:h-8 lg:w-24 sm:w-16 sm:h-10 md:w-20 md:h-10">Submit</button>
             </div>
           </div>
           <div className="mb-4">
@@ -134,11 +134,11 @@ export default function Editprofile() {
                   <span className="label-char" style={{ "--index": 10 }}>t</span>
                 </label>
               </div>
-              <button onClick={() => handleSubmit('newContact')} className="bg-blue-600 text-white rounded-lg lg:h-8 lg:w-24 sm:w-16 sm:h-10 md:w-20 md:h-10">Submit</button>
+              <button onClick={() => handleSubmit('newContact')} className="bg-blue-600 hover:bg-[#c48d00] hover:text-black text-white rounded-lg lg:h-8 lg:w-24 sm:w-16 sm:h-10 md:w-20 md:h-10">Submit</button>
             </div>
           </div>
           <div className="mt-7">
-            <img src="https://placehold.co/300x300" alt="Illustration" className="h-32 w-96" />
+            <img src="https://firebasestorage.googleapis.com/v0/b/study-lighthouse.appspot.com/o/project%20photoes%2FEdit%20Profile%20Human.png?alt=media&token=407679e2-c520-4a7d-a113-f35d455530e1" alt="Illustration" className="h-52 w-96" />
           </div>
           <div className="mb-4 mt-7 flex flex-row items-center justify-between">
             <div className='w-full flex flex-row items-center gap-4'>
@@ -162,7 +162,7 @@ export default function Editprofile() {
                   <span className="label-char" style={{ "--index": 13 }}>L</span>
                 </label>
               </div>
-              <button onClick={() => handleSubmit('newGithub')} className="bg-blue-600 text-white rounded-lg lg:h-8 lg:w-24 sm:w-16 sm:h-10 md:w-20 md:h-10">Submit</button>
+              <button onClick={() => handleSubmit('newGithub')} className="bg-blue-600 hover:bg-[#c48d00] hover:text-black text-white rounded-lg lg:h-8 lg:w-24 sm:w-16 sm:h-10 md:w-20 md:h-10">Submit</button>
             </div>
           </div>
           <div className="mb-4 flex flex-row items-center justify-between">
@@ -189,7 +189,7 @@ export default function Editprofile() {
                   <span className="label-char" style={{ "--index": 15 }}>L</span>
                 </label>
               </div>
-              <button onClick={() => handleSubmit('newLinkedin')} className="bg-blue-600 text-white rounded-lg lg:h-8 lg:w-24 sm:w-16 sm:h-10 md:w-20 md:h-10">Submit</button>
+              <button onClick={() => handleSubmit('newLinkedin')} className="bg-blue-600 hover:bg-[#c48d00] hover:text-black text-white rounded-lg lg:h-8 lg:w-24 sm:w-16 sm:h-10 md:w-20 md:h-10">Submit</button>
             </div>
           </div>
           <ToastContainer />

@@ -146,7 +146,7 @@
   }
 }
 
-button:active {
+.bb:active {
   scale: 1.1;
   opacity: 1;
   color: transparent;
@@ -157,7 +157,7 @@ button:active {
   animation: AnimationName 1s ease infinite;
 }
 
-button:active::before {
+.bb:active::before {
   color: white;
   opacity: 1;
 }

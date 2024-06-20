@@ -6,10 +6,10 @@ import { useSession } from "../contexts/SessionContext";
 import "../styles/sidebar.css";
 
 const inputClasses =
-  "w-[100%] p-2 mb-2 bg-zinc-800 text-white rounded border border-white";
+  "w-[100%] p-2 mb-2 bg-black text-white rounded border border-white";
 const buttonClasses = "w-full mb-2 bg-600 text-white rounded";
 const thickBorderButtonClasses =
-  "w-[40%]  mb-2 bg-gray-800 rounded-xl text-white text-xs rounded p-2 border-4 border-black";
+  "w-[40%]  mb-2 bg-gray-800 rounded-xl text-white text-xs rounded p-2 border-2 border-black";
 const activeButtonClasses =
   "w-[90%] mb-2 bg-600 text-white rounded border border-white";
 const hoverActiveButtonClasses = "hover:bg-black active:bg-black";
@@ -171,8 +171,8 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
   }
 
   return (
-    <div className="chatComponent bg-black w-full h-full">
-      <div className="bg-black p-2 text-white flex flex-shrink-0 flex-col justify-center items-center md:w-full">
+    <div className="chatComponent bg-zinc-800 w-full h-full">
+      <div className="bg-zinc-800 p-2 text-white flex flex-shrink-0 flex-col justify-center items-center md:w-full">
         <button
           className="w-full flex flex-shrink justify-end pr-2 pt-3"
           onClick={handleNewChat}
@@ -206,7 +206,7 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
         <div className="flex flex-col items-center w-full">
           <h2 className="text-white mb-2">Chat History:</h2>
           <div
-            className=" bg-gray-800 mb-4 overflow-y-auto flex flex-col align-middle w-4/5"
+            className=" bg-gray-800 mb-4 overflow-y-auto flex flex-col align-middle w-4/5 savedChats"
             style={{ height: "35vh" }}
           >
             {savedChats.map((c, index) => (
@@ -230,11 +230,11 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
             ))}
           </div>
         </div>
-        <div className=" bg-black flex flex-col justify-center items-center p-2 w-full">
+        <div className="flex flex-col justify-center items-center p-2 w-full">
           <h3 className="text-white font-bold p-3 md:font-semibold md:text-sm">
             Post your DOUBT
           </h3>
-          <div className="messageBox w-full">
+          <div className="messageBox w-full bg-black">
             <div className="fileUploadWrapper">
               <label htmlFor="file">
                 <svg

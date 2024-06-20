@@ -53,11 +53,11 @@ const Friendprofile = () => {
             </div>
           </div>
           <div className="mb-4 pl-10 text-left space-y-4 flex flex-col justify-center text-sm md:text-lg lg:text-xl">
-            <p><strong>E-Mail:</strong> <a href={`mailto:${userData.email}`} className="text-blue-600 ml-4">{userData.email}</a></p>
+            <p><strong>E-Mail:</strong> <a href={`mailto:${userData.email}`} className="text-blue-600 ml-4 hover:underline">{userData.email}</a></p>
             <br />
-            <p><strong>GitHub URL:</strong> <a href={userData.newGithub} className="text-blue-600 ml-4">{userData.newGithub}</a></p>
+            <p><strong>GitHub URL:</strong> <a href={userData.newGithub} className="text-blue-600 ml-4 hover:underline">{userData.newGithub}</a></p>
             <br />
-            <p><strong>LinkedIn URL:</strong> <a href={userData.newLinkedin} className="text-blue-600 ml-4">{userData.newLinkedin}</a></p>
+            <p><strong>LinkedIn URL:</strong> <a href={userData.newLinkedin} className="text-blue-600 ml-4 hover:underline">{userData.newLinkedin}</a></p>
           </div>
           <div className="flex-1">
             <h2 className="text-xl font-bold text-center m-8 underline">Solved Problems:</h2>

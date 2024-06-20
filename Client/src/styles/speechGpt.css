@@ -1,7 +1,7 @@
 .speechGptBody {
     padding: 0;
     margin: 0;
-    background-color: aliceblue;
+    background-color: rgb(0, 0, 0);
     overflow: hidden; /* Ensure no overflow on the TextGpt page */
 }
 

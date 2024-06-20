@@ -45,7 +45,7 @@ const Header = ({ onMenuToggle, isMenuOpen, currentPage }) => {
     <div className="bg-black w-screen">
       <div className="bg-zinc-800 text-white flex items-center justify-between p-4 relative">
         <div className="flex items-center space-x-4">
-          <img src="https://placehold.co/40x40" alt="Logo" className="lg:h-10 lg:w-10 md:h-8 md:w-8 sm:h-6 sm:w-6" />
+          <img src="https://firebasestorage.googleapis.com/v0/b/study-lighthouse.appspot.com/o/project%20photoes%2Fgray%20bg%20logo.png?alt=media&token=af88e5c7-ba78-415d-a14e-81dde1dc8311" alt="Logo" className="lg:h-10 lg:w-10 md:h-8 md:w-8 sm:h-6 sm:w-6 rounded-full" />
           {(isStudyMaterialsPage || isTextGPTPage) && (
             <button className="menu-toggle" onClick={onMenuToggle}>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" className="icon-xl-heavy">
@@ -53,7 +53,7 @@ const Header = ({ onMenuToggle, isMenuOpen, currentPage }) => {
               </svg>
             </button>
           )}
-          <a href='/todolist'><button className="lg:block md:block sm:hidden bg-zinc-700 text-white py-2 px-4 rounded lg:text-lg md:text-sm">To-Do List</button></a>
+          <a href='/todolist'><button className="lg:block md:block sm:hidden bg-gray-700 text-white py-2 px-4 rounded lg:text-lg md:text-sm">To-Do List</button></a>
         </div>
         <div className="relative">
           <div className="flex items-center space-x-4">
@@ -71,11 +71,11 @@ const Header = ({ onMenuToggle, isMenuOpen, currentPage }) => {
           </div>
           {isDropdownOpen && (
             <div className="absolute mt-2 w-48 bg-zinc-800 text-white rounded-lg shadow-lg flex flex-col items-center right-0 border border-gray-700 z-10" ref={dropdownRef}>
-              <a href='/profile'><button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out">Profile</button></a>
-              <a href='/editprofile'><button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700">Edit Profile</button></a>
-              <a href='/todolist'><button className="lg:hidden md:hidden sm:block px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700">To-DO List</button></a>
-              <a href='/studymaterials'><button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700">Study Materials</button></a>
-              <button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out" onClick={handleLogout}>Logout</button>
+              <a href='/profile' className='w-full'><button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out">Profile</button></a>
+              <a href='/editprofile' className='w-full'><button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700">Edit Profile</button></a>
+              <a href='/todolist' className='w-full'><button className="lg:hidden md:hidden sm:block px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700">To-DO List</button></a>
+              <a href='/studymaterials' className='w-full'><button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700">Study Materials</button></a>
+              <button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700" onClick={handleLogout}>Logout</button>
             </div>
           )}
         </div>

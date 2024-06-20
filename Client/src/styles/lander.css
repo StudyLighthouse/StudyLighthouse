@@ -10,6 +10,7 @@ body{
 body::-webkit-scrollbar {
   display: none;
 }
+
 .shine {
   font-weight: 900;
   color: rgba(255, 255, 255, 0.3);
@@ -141,9 +142,15 @@ body::-webkit-scrollbar {
   left: -10px;
   top: 1500px;
 }
-@media only screen and (max-width:780px){
+@media only screen and (max-width:780px) {
   .robot{
-    top: 2000px;
+    top: 1700px;
+  }
+}
+
+@media only screen and (max-width:500px) {
+  .robot{
+    top: 2500px;
   }
 }
 

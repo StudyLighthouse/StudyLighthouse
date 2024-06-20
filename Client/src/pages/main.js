@@ -6,8 +6,8 @@ import { useSession } from '../contexts/SessionContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const robo1 = 'robot assistant.png'
-const robo2 = 'robot.png'
+const robo1 = 'https://firebasestorage.googleapis.com/v0/b/study-lighthouse.appspot.com/o/project%20photoes%2Frobot%20assistant.png?alt=media&token=3fdd9d42-36fe-4821-8311-af276ee0bd0e'
+const robo2 = 'https://firebasestorage.googleapis.com/v0/b/study-lighthouse.appspot.com/o/project%20photoes%2Frobot.png?alt=media&token=19f21849-5564-44f8-805a-84e42c721b2a'
 
 export default function Main() {
     const navigate = useNavigate();

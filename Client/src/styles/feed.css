@@ -12,3 +12,7 @@ body {
     justify-content: space-between; */
     overflow-y: scroll;
   }
+
+  .q_feed::-webkit-scrollbar {
+    display: none;
+  }

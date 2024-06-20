@@ -100,7 +100,7 @@ body {
   }
   
   .input:focus,
-  input:valid {
+  .input:valid {
     color: aliceblue;
     outline: none;
     box-shadow: 1px 2px 5px rgba(133, 133, 133, 0.523);
@@ -113,7 +113,7 @@ body {
   }
   
   .input:focus ~ .textUser,
-  input:valid ~ .textUser {
+  .input:valid ~ .textUser {
     /* transform: translateY(-95%) scale(0.9);
     padding: 0 0.2em;
     color: #000000be;

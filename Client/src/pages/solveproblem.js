@@ -86,7 +86,7 @@ const SolveProblem = () => {
         <div className="textArea flex-grow-0">
           <div className="input-form w-full ">
             <textarea
-              className="input "
+              className="input"
               name="text"
               type="text"
               required
