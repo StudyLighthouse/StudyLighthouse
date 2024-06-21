@@ -83,7 +83,7 @@ const Features =  function () {
       try {
          const response=await axios.post('http://127.0.0.1:5000/postQuery', { query });
          alert(response.data.message);
-         
+         setQuery("");
       } catch (error) {
         alert(error)
       }
@@ -173,6 +173,8 @@ const Features =  function () {
               type="text"
               placeholder="Enter queries"
               className="p-2 text-white border rounded-l-lg bg-zinc-800 border-zinc-700 query w-3/5"
+              value={query}
+
               onChange={(e)=>setQuery(e.target.value)}
             />
             <button className="p-2 text-white bg-blue-500 border border-blue-700 rounded-r-lg query-submit w-2/5 lg:text-sm md:text-xs sm:text-sm" onClick={postQuery}>Submit</button>
