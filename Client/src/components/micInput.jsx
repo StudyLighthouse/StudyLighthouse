@@ -27,6 +27,7 @@ const SpeechToTextToSpeech = ({ setMessages }) => {
 
     const handleSendToBackend = async (text) => {
         try {
+            console.log(text);
             const nextIndex = sessionStorage.length;
             const response = await axios.post('https://studylighthouse.onrender.com/api/cohorequest_audio', { text, index: nextIndex });
             const newUserMessage = {
