@@ -8,3 +8,12 @@ firebase-admin
 authlib
 flask-socketio
 werkzeug==2.0.3
+
+; sys_platform == 'win32'
+pypiwin32  # Required for pyttsx3 on Windows
+
+; sys_platform == 'linux'
+espeak  # Required for pyttsx3 on Linux
+
+; sys_platform == 'darwin'
+pyobjc-framework-Speech  # Required for pyttsx3 on macOS
