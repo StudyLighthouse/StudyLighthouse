@@ -379,7 +379,7 @@ def handle_cohorequest_audio():
 
     audio_filename = f'output_{index}.mp3'  # Use the index for naming the audio file
 
-    tts_engine = pyttsx3.init()
+    tts_engine = pyttsx3.init(driverName='sapi5')
     tts_engine.save_to_file(response_text, audio_filename)
     tts_engine.runAndWait()
 
