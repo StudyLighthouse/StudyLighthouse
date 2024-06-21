@@ -80,7 +80,7 @@ export default function TextGpt() {
                                 <div className="flex justify-start mt-2">
                                     <div className="p-4 rounded-lg flex items-center gap-2 w-2/3">
                                         <img
-                                            src={user.profileImage}
+                                            src="https://firebasestorage.googleapis.com/v0/b/study-lighthouse.appspot.com/o/project%20photoes%2FChatbot.png?alt=media&token=3d4effda-1df6-4d79-acee-0b12cbf5b5d2"
                                             alt="User Avatar"
                                             className="h-10 w-10 rounded-full cursor-pointer"
                                         />
