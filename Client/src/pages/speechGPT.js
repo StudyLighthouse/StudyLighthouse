@@ -52,13 +52,13 @@ export default function SpeechGpt() {
             const lastMessage = messages[messages.length - 1];
             if (lastMessage.audio) {
                 setFile(`${lastMessage.audio}`)
-                setAudioUrl(`http://127.0.0.1:5000/audio/${lastMessage.audio}`);
+                setAudioUrl(`https://studylighthouse.onrender.com/audio/${lastMessage.audio}`);
             }
         }
     }, [messages]);
 const delete_audio=async ()=>{
     try {
-        const response=await axios.post(`http://127.0.0.1:5000/delete_audio/${file}`)
+        const response=await axios.post(`https://studylighthouse.onrender.com/delete_audio/${file}`)
         console.log(response.data.message)
     } catch (error) {
         console.log('error',error)

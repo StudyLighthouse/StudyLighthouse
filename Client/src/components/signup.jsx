@@ -43,7 +43,7 @@ export default function Signup({ onClose }) {
         }
 
         try {
-            const response = await axios.post('http://127.0.0.1:5000/signup', formData);
+            const response = await axios.post('https://studylighthouse.onrender.com/signup', formData);
             console.log(response.data);
             if (response.status === 201) {
                 // Close the signup component
@@ -66,7 +66,7 @@ export default function Signup({ onClose }) {
 
     const handleGoogleSignin = async (e) => {
         e.preventDefault();
-        window.location.href = 'http://127.0.0.1:5000/signin/google';
+        window.location.href = 'https://studylighthouse.onrender.com/signin/google';
     };
 
     return (

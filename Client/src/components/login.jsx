@@ -22,7 +22,7 @@ export default function Login({ onClose }) {
     };
     const handleGoogleSignin = async (e) => {
         e.preventDefault();
-        window.location.href = 'http://127.0.0.1:5000/signin/google';
+        window.location.href = 'https://studylighthouse.onrender.com/signin/google';
     };
     const handleForgotPassword = (e) => {
         e.preventDefault();
@@ -32,7 +32,7 @@ export default function Login({ onClose }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:5000/signin', formData, { withCredentials: true });
+            const response = await axios.post('https://studylighthouse.onrender.com/signin', formData, { withCredentials: true });
             if (response.status === 200) {
                 setUser(response.data.user); // Set the user data and persist it in session storage
                 onClose();

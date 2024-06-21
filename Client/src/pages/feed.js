@@ -18,7 +18,7 @@ const Feed = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000/get_questions", {
+        const response = await axios.get("https://studylighthouse.onrender.com/get_questions", {
           withCredentials: true,
         });
         setQuestions(response.data);
@@ -30,7 +30,7 @@ const Feed = () => {
     fetchQuestions();
 
     // Setup WebSocket connection
-    const socket = io("http://127.0.0.1:5000");
+    const socket = io("https://studylighthouse.onrender.com/");
 
     // Listen for new questions
     socket.on("new_question", (newQuestion) => {

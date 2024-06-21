@@ -11,7 +11,7 @@ const Friendprofile = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:5000/others_details?user_id=${id}`, {
+        const response = await axios.get(`https://studylighthouse.onrender.com/others_details?user_id=${id}`, {
           withCredentials: true,
         });
         console.log(response.data.user);

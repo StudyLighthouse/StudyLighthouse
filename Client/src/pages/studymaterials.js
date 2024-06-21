@@ -20,7 +20,7 @@ export default function StudyMaterials() {
 
   const fetchStudyMaterials = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/get_study_materials");
+      const response = await axios.get("https://studylighthouse.onrender.com/get_study_materials");
       setStudyMaterials(response.data);
     } catch (error) {
       console.error("Error fetching study materials:", error.response);
@@ -51,7 +51,7 @@ export default function StudyMaterials() {
     formData.append("file", file);
     formData.append("materialName", materialName);
     try {
-      await axios.post("http://localhost:5000/post_study_material", formData, {
+      await axios.post("https://studylighthouse.onrender.com/post_study_material", formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",
