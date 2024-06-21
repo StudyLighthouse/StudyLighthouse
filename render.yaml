@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: study-lighthouse-app
+    env: python
+    buildCommand: ./Server/build.sh
+    startCommand: gunicorn Server.app:app
