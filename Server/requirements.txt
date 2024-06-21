@@ -9,11 +9,11 @@ authlib
 flask-socketio
 werkzeug==2.0.3
 
-; sys_platform == 'win32'
-pypiwin32  # Required for pyttsx3 on Windows
+# Required for pyttsx3 on Windows
+pypiwin32; sys_platform == 'win32'
 
-; sys_platform == 'linux'
-espeak  # Required for pyttsx3 on Linux
+# Required for pyttsx3 on Linux
+espeak; sys_platform == 'linux'
 
-; sys_platform == 'darwin'
-pyobjc-framework-Speech  # Required for pyttsx3 on macOS
+# Required for pyttsx3 on macOS
+pyobjc-framework-Speech; sys_platform == 'darwin'
