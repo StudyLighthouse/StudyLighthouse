@@ -361,38 +361,33 @@ def handle_cohorequest():
 
 @app.route('/api/cohorequest_audio', methods=['POST'])
 def handle_cohorequest_audio():
-    try:
-        data = request.json
-        text = data.get('text', '')
-        index = data.get('index')
+    data = request.json
+    text = data.get('text', '')
+    index = data.get('index')  # Get the index from the request
 
-        if not text:
-            return jsonify({'error': 'No text provided'}), 400
+    if not text:
+        return jsonify({'error': 'No text provided'}), 400
 
-        response = co.generate(
-            model='command',
-            prompt=text,
-            max_tokens=500,
-            temperature=0.5
-        )
-        response_text = response.generations[0].text.strip()
-        parts = identify_code_snippets(response_text)
+    response = co.generate(
+        model='command',
+        prompt=text,
+        max_tokens=500,
+        temperature=0.5
+    )
+    response_text = response.generations[0].text.strip()
+    parts = identify_code_snippets(response_text)
 
-        audio_filename = f'output_{index}.mp3'
+    audio_filename = f'output_{index}.mp3'  # Use the index for naming the audio file
 
-        # Text-to-speech conversion
-        tts_engine = pyttsx3.init()
-        tts_engine.save_to_file(response_text, audio_filename)
-        tts_engine.runAndWait()
+    tts_engine = pyttsx3.init()
+    tts_engine.save_to_file(response_text, audio_filename)
+    tts_engine.runAndWait()
 
-        return jsonify({
-            'response_text': response_text,
-            'response_parts': parts,
-            'audio': audio_filename
-        })
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+    return jsonify({
+        'response_text': response_text,
+        'response_parts': parts,
+        'audio': audio_filename
+    })
 
 
 @app.route('/audio/<filename>', methods=['GET'])
