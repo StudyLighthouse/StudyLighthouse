@@ -12,8 +12,5 @@ werkzeug==2.0.3
 # Required for pyttsx3 on Windows
 pypiwin32; sys_platform == 'win32'
 
-# Required for pyttsx3 on Linux
-espeak; sys_platform == 'linux'
-
 # Required for pyttsx3 on macOS
 pyobjc-framework-Speech; sys_platform == 'darwin'
