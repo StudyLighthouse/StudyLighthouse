@@ -142,7 +142,7 @@ const Features =  function () {
             </p>
           </div>
         </div>
-        <img src="https://i.ibb.co/KbwrNN7/welcoming-robot.png" alt="welcoming-robot" border="0" className="robot"/>
+        <img src="https://i.ibb.co/KbwrNN7/welcoming-robot.png" alt="welcoming-robot" border="0" className="robot -z-20"/>
         
         {/* Footer */}
         <div className="flex flex-col items-center justify-between pt-8 mt-10 border-t md:flex-row border-zinc-700" id="Contact">

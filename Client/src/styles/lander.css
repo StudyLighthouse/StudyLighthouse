@@ -138,7 +138,6 @@ body::-webkit-scrollbar {
 
 .robot{
   position: absolute;
-  z-index: -1;
   left: -10px;
   top: 1500px;
 }
