@@ -54,16 +54,3 @@ body {
     border: #c48d00;
     color: #e7e7e7;
 }
-
-@media (min-width: 320px) and (max-width: 450px) {
-    .cards {
-        flex-direction: column;
-        align-items: center; /* Center the cards horizontally */
-    }
-
-    .cards .maincard {
-        width: 80%; /* Adjust the width to be responsive */
-        height: 00px; /* Decrease height for mobile */
-        margin: 10px 0;
-    }
-}
