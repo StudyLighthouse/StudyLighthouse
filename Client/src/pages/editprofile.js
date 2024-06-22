@@ -58,7 +58,7 @@ export default function Editprofile() {
         <button onClick={() => handleSubmit('profileImage')} className="bg-blue-600 hover:bg-[#c48d00] hover:text-black text-white px-4 py-2 lg:w-40 md:w-36 sm:w-32 mt-2 sm:text-xs md:text-base lg:text-lg rounded-lg cursor-pointer">SUBMIT IMAGE</button>
       </div>
       <div className='flex lg:flex-row md:flex-col sm:flex-col md:items-center sm:items-center'>
-        <div className="flex mt-6 lg:w-2/4 md:w-full sm:w-full lg:pl-48 md:pl-0 sm:pl-16">
+        <div className="flex mt-6 lg:w-2/4 md:w-full sm:w-full lg:pl-48 md:pl-0 sm:pl-12">
           <div className="flex flex-col w-full md:items-center lg:items-start sm:items-start p-4">
             <div className="mb-4 flex flex-row lg:w-[50%] md:w-[40%] sm:w-[80%] justify-between">
               <label className="block text-zinc-400">Username:</label>
@@ -91,7 +91,7 @@ export default function Editprofile() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center pr-20 mt-6 lg:w-1/2 md:w-full sm:w-full">
+        <div className="flex flex-col items-center lg:pr-20 sm:pr-0 md:pr-0 mt-6 lg:w-1/2 md:w-full sm:w-full">
           <div className="mb-4">
             <div className='w-full flex flex-row items-center gap-4'>
               <div className="wave-group">

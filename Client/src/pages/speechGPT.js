@@ -130,7 +130,7 @@ const play_audio=async ()=>{
                                                     ) : (
                                                         <p key={idx} className="text-white">
                                                             {part.text}
-                                                            {part.audio && <audio src={`http://127.0.0.1:5000/audio/${part.audio}`} autoPlay/>}  
+                                                            {part.audio && <audio src={`https://studylighthouse.onrender.com/audio/${part.audio}`} autoPlay/>}  
                                                         </p>
                                                     )}
                                                 </React.Fragment>

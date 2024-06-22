@@ -4,6 +4,12 @@
   command = "CI=false npm run build"
 
 [[redirects]]
+  from = "/google-redirect"
+  to = "/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
