@@ -130,16 +130,18 @@ export default function StudyMaterials() {
             {error && <div className="error">{error}</div>}
           </div>
         </div>
-        <div className="grid w-full h-full gap-2 sm:gap-y-8 md:gap-8 lg:gap-8 grid-cols-1 md:grid-cols-3">
-          {filteredStudyMaterials.map((material) => (
-            <div key={material.material_id} className="p-2 w-full flex justify-center">
-              <StudyMaterialCard 
-                material_name={material.material_name} 
-                fileUrl={material.file_url} 
-                filename={material.filename} 
-              />
-            </div>
-          ))}
+        <div className={`right-section w-screen h-full flex justify-center items-center ${isMenuOpen ? "shifted" : ""}`}>
+          <div className="grid w-full h-full gap-2 sm:gap-y-8 md:gap-8 lg:gap-8 grid-cols-1 md:grid-cols-3">
+            {filteredStudyMaterials.map((material) => (
+              <div key={material.material_id} className="p-2 w-full flex justify-center">
+                <StudyMaterialCard 
+                  material_name={material.material_name} 
+                  fileUrl={material.file_url} 
+                  filename={material.filename} 
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
