@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const Header = ({ onMenuToggle, isMenuOpen, currentPage }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
   const { user, loading, signOut } = useSession();
   const isStudyMaterialsPage = currentPage === "StudyMaterials";
   const isTextGPTPage = currentPage === "textGpt";
