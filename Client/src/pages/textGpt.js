@@ -57,8 +57,8 @@ export default function TextGpt() {
     return (
         <div className="textGpt w-screen h-screen ml-0 flex flex-col">
             <Header setMessages={setMessages} onMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} currentPage="textGpt"/>
-            <img className="img1 absolute" src="https://firebasestorage.googleapis.com/v0/b/study-lighthouse.appspot.com/o/project%20photoes%2FText%2CSpeech%20Human.png?alt=media&token=7889f4e1-9c23-47bd-a82f-df84712fd786" alt="Human" />
-            <img className="img2 absolute" src="https://firebasestorage.googleapis.com/v0/b/study-lighthouse.appspot.com/o/project%20photoes%2FText%2CSpeech%20Robot.png?alt=media&token=60d9463a-69e0-4f18-9dfd-48d687d671ad" alt="Robot" />
+            <img className="img1 absolute lg:h-[70%] md:h-[70%] sm:h-1/2 -bottom-[30%] -right-[5%] sm:-bottom-[20%] md:-bottom-[30%] lg:-bottom-[30%] sm:-right-[10%] md:-right-[5%] lg:-right-[5%] -z-10 opacity-50" src="https://firebasestorage.googleapis.com/v0/b/study-lighthouse.appspot.com/o/project%20photoes%2FText%2CSpeech%20Human.png?alt=media&token=7889f4e1-9c23-47bd-a82f-df84712fd786" alt="Human" />
+            <img className="img2 absolute sm:h-[30%] md:h-[40%] lg:h-[40%] sm:-left-[15%] md:-left-[15%] lg:left-[11%] top-[10%] left-[11%] h-2/5 -z-10 opacity-50" src="https://firebasestorage.googleapis.com/v0/b/study-lighthouse.appspot.com/o/project%20photoes%2FText%2CSpeech%20Robot.png?alt=media&token=60d9463a-69e0-4f18-9dfd-48d687d671ad" alt="Robot" />
             <div className="content flex-grow flex h-full">
                 <div className={`h-screen lg:w-1/5 md:w-1/4 sm:w-1/2 md:h-screen flex flex-shrink sidebar-container ${isMenuOpen ? "open" : ""}`}>
                 <ChatComponent onChatSaved={fetchMessages} onChatSelected={setMessages} /> {/* Pass onChatSaved and onChatSelected callbacks */}

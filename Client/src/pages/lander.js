@@ -20,7 +20,7 @@ const Introduction = function (){
                         <a href="#Contact" className="hover:text-zinc-300">Contact Us</a>
                     </div>
                 </div>
-                <div className="space-x-4">
+                <div className="flex gap-5">
                     <button onClick={() => setShowSignup(true)} className="px-3 py-2 font-bold text-white bg-blue-600 rounded hover:bg-blue-700">Signup</button>
                     <button onClick={() => setShowLogin(true)} className="border border-#c48d00 hover:bg-zinc-700 text-#c48d00 font-bold py-2 px-4 rounded login">Login</button>
                     {showSignup && <Signup onClose={()=> {setShowSignup(false)}}/>}
@@ -91,7 +91,7 @@ const Features =  function () {
   }
     return (
       <div className="p-8 text-center text-white" id="Features">
-        <div className="flex flex-wrap gap-8 mb-8 justify-evenly z-10 relative">
+        <div className="flex flex-wrap gap-8 mb-8 justify-evenly -z-10 relative">
           <div className="relative w-64 p-6 feature-cards">
             <div className="absolute top-0 p-2 transform -translate-x-1/2 -translate-y-1/2 rounded-full left-1/2 feature-circle1"> 
             </div>

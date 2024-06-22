@@ -31,8 +31,8 @@ export default function Main() {
 
     return (
         <div className="flex flex-col h-screen w-screen">
-            <img src={robo2} alt='pic'  className='absolute top-1/2 -left-40 opacity-45 h-1/2 -z-10'/>
-            <img src={robo1} alt='pic'  className='absolute -right-1.5 opacity-45 h-1/2 -z-10'/>
+            <img src={robo2} alt='pic'  className='absolute lg:top-1/2 md:top-1/2 top-1/2 -left-40 opacity-45 h-1/2 sm:h-1/4 sm:top-3/4 sm:-left-16 -z-10'/>
+            <img src={robo1} alt='pic'  className='absolute top-0 lg:top-0 md:top-0 lg:-right-1.5 md:-right-20 opacity-45 h-1/2 sm:h-1/4 sm:top-12 sm:-right-8 -z-10'/>
             <Header />
             <div className="flex flex-col items-center justify-around h-full gap-4 pt-8 sm:overflow-y-scroll cards sm:no-scrollbar lg:flex-row md:flex-col xl:flex-row">
                 <div className=' maincard blue sm:h-60 w-80 md:h-96 md:w-[32rem] lg:w-[22rem]' onClick={() => handleNavigation('/speechgpt')}><p>Speech Generator</p></div>

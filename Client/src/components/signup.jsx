@@ -70,7 +70,7 @@ export default function Signup({ onClose }) {
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center m-0">
+        <div className="fixed inset-0 w-screen h-full z-10 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center sm:items-start m-0">
             {loading ? (
                 <div className="loading-spinner">
                     <div className="spinner"></div>

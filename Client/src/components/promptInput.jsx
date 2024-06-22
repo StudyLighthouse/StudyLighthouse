@@ -49,8 +49,8 @@ const InputBar = ({ setMessages }) => {
   
 
   return (
-    <div className="inputBar flex flex-col justify-end pb-4 overflow-hidden">
-      <div className="flex items-center bg-zinc-800 rounded-full p-2 mt-0 ml-10 w-11/12">
+    <div className="inputBar flex justify-center pb-4 overflow-hidden">
+      <div className="flex items-center bg-zinc-800 rounded-full p-2 mt-0 w-11/12">
         <input
           type="text"
           className={searchInputClasses}
