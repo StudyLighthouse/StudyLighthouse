@@ -122,7 +122,7 @@ const Features =  function () {
             </p>
           </div>
         </div><br></br>
-        <div className="flex flex-wrap justify-center gap-8 mb-8 relative z-10">
+        <div className="flex flex-wrap justify-center gap-8 mb-8 relative -z-10">
           <div className="relative w-64 p-6 rounded-lg shadow-lg bg-zinc-800 feature-cards md:mr-7">
             <div className="absolute top-0 p-2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-500 rounded-full left-1/2 feature-circle2">
             </div>
