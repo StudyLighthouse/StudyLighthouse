@@ -2,7 +2,7 @@ import os
 import json  # Add this import
 import cohere
 import re
-import pyttsx3
+from gtts import gTTS
 from flask import Flask, request, redirect, url_for, session, jsonify, send_from_directory, current_app, send_file
 import pyrebase
 from firebase_admin import firestore
@@ -377,12 +377,10 @@ def handle_cohorequest_audio():
     response_text = response.generations[0].text.strip()
     parts = identify_code_snippets(response_text)
 
-    audio_filename = f'output_{index}.mp3'  # Use the index for naming the audio file
-
-    tts_engine = pyttsx3.init(driverName='sapi5')
-    tts_engine.save_to_file(response_text, audio_filename)
-    tts_engine.runAndWait()
-
+    audio_filename = f'output_{index}.mp3'
+    tts = gTTS(text=response_text, lang='en')
+    tts.save(audio_filename)
+    
     return jsonify({
         'response_text': response_text,
         'response_parts': parts,
