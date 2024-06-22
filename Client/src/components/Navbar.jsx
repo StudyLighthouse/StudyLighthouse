@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useSession } from "../contexts/SessionContext";
+import { useNavigate } from 'react-router-dom';
 
 const Header = ({ onMenuToggle, isMenuOpen, currentPage }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -29,6 +30,10 @@ const Header = ({ onMenuToggle, isMenuOpen, currentPage }) => {
     }
   };
 
+  const handleNavigation = (route) => {
+    navigate(route);
+  };
+
   useEffect(() => {
     if (isDropdownOpen) {
       document.addEventListener('mousedown', handleClickOutside);
@@ -53,7 +58,7 @@ const Header = ({ onMenuToggle, isMenuOpen, currentPage }) => {
               </svg>
             </button>
           )}
-          <a href='/todolist'><button className="lg:block md:block sm:hidden bg-gray-700 text-white py-2 px-4 rounded lg:text-lg md:text-sm">To-Do List</button></a>
+          <button className="lg:block md:block sm:hidden bg-gray-700 text-white py-2 px-4 rounded lg:text-lg md:text-sm" onClick={() => handleNavigation('/todolist')}>To-Do List</button>
         </div>
         <div className="relative">
           <div className="flex items-center space-x-4">
@@ -71,10 +76,10 @@ const Header = ({ onMenuToggle, isMenuOpen, currentPage }) => {
           </div>
           {isDropdownOpen && (
             <div className="absolute mt-2 w-48 bg-zinc-800 text-white rounded-lg shadow-lg flex flex-col items-center right-0 border border-gray-700 z-10" ref={dropdownRef}>
-              <a href='/profile' className='w-full'><button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out">Profile</button></a>
-              <a href='/editprofile' className='w-full'><button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700">Edit Profile</button></a>
-              <a href='/todolist' className='w-full'><button className="lg:hidden md:hidden sm:block px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700">To-DO List</button></a>
-              <a href='/studymaterials' className='w-full'><button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700">Study Materials</button></a>
+              <button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out" onClick={() => handleNavigation('/profile')}>Profile</button>
+              <button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700" onClick={() => handleNavigation('/editprofile')}>Edit Profile</button>
+              <button className="lg:hidden md:hidden sm:block px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700" onClick={() => handleNavigation('/todolist')}>To-DO List</button>
+              <button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700" onClick={() => handleNavigation('/studymaterials')}>Study Materials</button>
               <button className="px-4 py-2 hover:bg-zinc-700 hover:text-yellow-300 w-full text-center transition duration-200 ease-in-out border-t border-gray-700" onClick={handleLogout}>Logout</button>
             </div>
           )}
