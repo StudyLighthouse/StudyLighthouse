@@ -69,9 +69,9 @@ const CardComponent = ({ question }) => {
     }
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
   // Format the timestamp
   const formattedDate = new Date(question.timestamp).toLocaleDateString("en-GB", {
