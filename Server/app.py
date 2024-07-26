@@ -21,7 +21,7 @@ from werkzeug.utils import secure_filename
 co = cohere.Client('4aYW0bLEV3UQvVuFwgqma9mNuS61i7uECkTWsBp1')
 
 app = Flask(__name__, static_folder='../Client/build', static_url_path='/')
-CORS(app, resources={r"/*": {"origins": "https://studylighthouse.vercel.app"}}, supports_credentials=True)  # Enable CORS
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)  # Enable CORS
 
 # Initialize SocketIO
 socketio = SocketIO(app, cors_allowed_origins="*")
@@ -141,14 +141,14 @@ def signin():
 
         session['user'] = user_data
         response = jsonify({"message": "Sign in successful", "user": user_data})
-        response.headers.add('Access-Control-Allow-Origin', 'https://studylighthouse.vercel.app')
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
         response.headers.add('Access-Control-Allow-Credentials', 'true')
         return response, 200
     except Exception as e:
         return jsonify({"message": "Invalid email or password"}), 401
 
 @app.route('/signin/google', methods=['GET'])
-@cross_origin(origin='https://studylighthouse.vercel.app', headers=['Content-Type', 'Authorization'])
+@cross_origin(origin='http://localhost:3000', headers=['Content-Type', 'Authorization'])
 def signin_google():
     redirect_uri = url_for('authorized_google', _external=True)
     return oauth.myApp.authorize_redirect(redirect_uri)
@@ -185,11 +185,11 @@ def authorized_google():
     current_app.logger.info(f"Redirecting to React app with user data: {user}")
 
     # Redirect to React app with user data as query parameters
-    redirect_url = f"https://studylighthouse.vercel.app/google-redirect?name={user['name']}&email={user['email']}&uid={user['uid']}"
+    redirect_url = f"http://localhost:3000/google-redirect?name={user['name']}&email={user['email']}&uid={user['uid']}"
     current_app.logger.info(f"Redirect URL: {redirect_url}")
 
     response = redirect(redirect_url)
-    response.headers.add('Access-Control-Allow-Origin', 'https://studylighthouse.vercel.app')
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
     response.headers.add('Access-Control-Allow-Credentials', 'true')
     return response
 
@@ -215,7 +215,7 @@ def logout():
     return redirect(url_for('index'))
 
 @app.route('/post_question', methods=['POST'])
-@cross_origin(origin='https://studylighthouse.vercel.app', headers=['Content-Type', 'Authorization'], supports_credentials=True)
+@cross_origin(origin='http://localhost:3000', headers=['Content-Type', 'Authorization'], supports_credentials=True)
 def post_question():
     try:
         user_json = request.form.get('user')
@@ -373,6 +373,7 @@ def handle_cohorequest():
 def handle_cohorequest_audio():
     data = request.json
     text = data.get('text', '')
+    print(text)
     index = data.get('index')  # Get the index from the request
 
     if not text:
@@ -489,7 +490,7 @@ def get_question(question_id):
         return jsonify({"message": str(e)}), 500
 
 @app.route('/post_solution', methods=['POST'])
-@cross_origin(origin='https://studylighthouse.vercel.app', headers=['Content-Type', 'Authorization'], supports_credentials=True)
+@cross_origin(origin='http://localhost:3000', headers=['Content-Type', 'Authorization'], supports_credentials=True)
 def post_solution():
     try:
         data = request.form.to_dict()

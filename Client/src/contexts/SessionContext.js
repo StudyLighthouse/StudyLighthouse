@@ -9,6 +9,7 @@ export const useSession = () => useContext(SessionContext);
 export const SessionProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    
 
     useEffect(() => {
         console.log("Fetching user data from session storage...");

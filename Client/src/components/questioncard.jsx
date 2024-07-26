@@ -17,7 +17,7 @@ const CardComponent = ({ question }) => {
 
     try {
       // Fetch the question details
-      const response = await axios.get(`https://studylighthouse.onrender.com/get_question/${question.id}`, {
+      const response = await axios.get(`http://127.0.0.1:5000/get_question/${question.id}`, {
         withCredentials: true,
       });
       const questionDetails = response.data;

@@ -21,6 +21,7 @@
   display: flex;
   position: relative;
   right: 23px;
+
   z-index: -1; /* Display when active */
 }
 
@@ -242,7 +243,7 @@
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-  scale 0.3s;
+    scale 0.3s;
 }
 
 .mic-on,
@@ -281,7 +282,6 @@
   position: relative;
   z-index: 1;
   opacity: 1;
-  
 }
 
 .switch.active .mic-on {
@@ -293,7 +293,7 @@
   scale: 1.2;
 }
 
-.ooutt{
+.ooutt {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -301,4 +301,8 @@
 
 .microphone path {
   fill: aliceblue;
+}
+
+.loader .off {
+  display: none;
 }

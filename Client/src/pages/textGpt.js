@@ -7,12 +7,14 @@ import { useSession } from '../contexts/SessionContext'; // Import useSession ho
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark.css';
+import Spinner from "../components/spinner";
 
 export default function TextGpt() {
     const { user, loading } = useSession(); // Get user and loading state from session context
     const navigate = useNavigate(); // Initialize the navigate function
     const [messages, setMessages] = useState([]);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [load, setLoad] = useState(false);
 
     const fetchMessages = () => {
         const storedMessages = [];
@@ -99,9 +101,13 @@ export default function TextGpt() {
                                 </div>
                             </div>
                         ))}
+                        { load && <div className="text-white flex flex-1 items-center justify-center">
+                            <Spinner />
+                        
+                        </div>}
                     </div>
                     <div className="text_inn w-full flex items-start h-1/5">
-                        <InputBar setMessages={setMessages}/> {/* Pass setMessages as a prop */}
+                        <InputBar setMessages={setMessages} load={load} setLoad={setLoad}  /> {/* Pass setMessages as a prop */}
                     </div>
                 </div>
             </div>

@@ -23,7 +23,7 @@ const ShowSolved = () => {
             user_id: userId,
           });
           const response = await axios.get(
-            "https://studylighthouse.onrender.com/get_solution",
+            "http://127.0.0.1:5000/get_solution",
             {
               params: { solution_id: solutionId, user_id: userId },
             }

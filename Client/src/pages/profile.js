@@ -3,20 +3,25 @@ import Header from '../components/Navbar';
 import axios from 'axios';
 import ProblemsSolved from '../components/studycard';
 import { useSession } from "../contexts/SessionContext";
+import Loading from "../components/Loading";
 
 export default function Profile() {
   const { user } = useSession();
   const [userData, setUserData] = useState(null);
+  const [load, setLoad] = useState(true);
+
 
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get(`https://studylighthouse.onrender.com/user_details?user_id=${user.uid}`, {
+        const response = await axios.get(`http://127.0.0.1:5000/user_details?user_id=${user.uid}`, {
           withCredentials: true,
         });
         setUserData(response.data.user);
+        setLoad(false);
       } catch (error) {
         console.error("Error fetching user details:", error);
+        setLoad(false);
       }
     };
 
@@ -30,6 +35,10 @@ export default function Profile() {
     const emptyStars = "☆".repeat(5 - cappedLevel);
     return filledStars + emptyStars;
   };
+
+  if(load) {
+    return <Loading />
+  }
 
   return (
     <div className="bg-black text-white min-h-screen w-screen flex flex-col">

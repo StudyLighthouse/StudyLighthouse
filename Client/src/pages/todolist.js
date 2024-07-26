@@ -16,7 +16,7 @@ function ToDo() {
 
     const fetchTodos = async () => {
         try {
-            const response = await axios.post("https://studylighthouse.onrender.com/get_todos", { 'cred': user });
+            const response = await axios.post("http://127.0.0.1:5000/get_todos", { 'cred': user });
             const todos = response.data;
             console.log(todos);
             setTodos(todos);
@@ -40,7 +40,7 @@ function ToDo() {
                 endBy: endByInput,
             }
             try {
-                const response = await axios.post("https://studylighthouse.onrender.com/add_todo", { 'cred': user, 'todo': newTodos });
+                const response = await axios.post("http://127.0.0.1:5000/add_todo", { 'cred': user, 'todo': newTodos });
                 toast.success(response.data.message);
                 updateInput('');
                 updateStartOnInput('');
@@ -64,7 +64,7 @@ function ToDo() {
             endBy: endByInput,
         }
         try {
-            const response = await axios.post("https://studylighthouse.onrender.com/update_todo", { 'cred': user, 'id': id, 'todo': updatedTodo });
+            const response = await axios.post("http://127.0.0.1:5000/update_todo", { 'cred': user, 'id': id, 'todo': updatedTodo });
             toast.success(response.data.message);
             updateInput('');
             updateStartOnInput('');
@@ -79,7 +79,7 @@ function ToDo() {
 
     const deleteTodo = async (id) => {
         try {
-            const response = await axios.post("https://studylighthouse.onrender.com/delete_todo", { 'cred': user, 'id': id });
+            const response = await axios.post("http://127.0.0.1:5000/delete_todo", { 'cred': user, 'id': id });
             toast.success(response.data.message);
             fetchTodos();
         } catch (e) {

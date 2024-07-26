@@ -17,7 +17,7 @@ const Header = ({ onMenuToggle, isMenuOpen, currentPage }) => {
 
   const handleLogout = async () => {
     try {
-      await axios.get('https://studylighthouse.onrender.com/logout');
+      await axios.get('http://127.0.0.1:5000/logout');
       signOut();
       window.location.href = '/'; 
     } catch (error) {
