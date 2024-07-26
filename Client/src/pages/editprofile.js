@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/editprofile.css';
 import Header from '../components/Navbar';
 import { useSession } from '../contexts/SessionContext';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loading from '../components/Loading';
 
 export default function Editprofile() {
+  const [load, setLoad] = useState(true)
   const { user, updateUserField } = useSession();
   const [formData, setFormData] = useState({
     newUsername: '',
@@ -15,6 +17,16 @@ export default function Editprofile() {
     newLinkedin: '',
     profileImage: null,
   });
+
+  useEffect(() => {
+    setTimeout(() => {
+        setLoad(false)
+    }, 1000)
+  }, []);
+
+  if(load) {
+    return <Loading />
+  } 
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
@@ -34,7 +46,7 @@ export default function Editprofile() {
     }
 
     try {
-      const response = await axios.post(`https://studylighthouse.onrender.com/update_profile/${field}`, data, {
+      const response = await axios.post(`http://127.0.0.1:5000/update_profile/${field}`, data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       updateUserField(field, response.data.user[field === 'newUsername' ? 'name' : field]);

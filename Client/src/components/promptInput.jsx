@@ -3,19 +3,20 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const searchInputClasses = "bg-transparent flex-grow outline-none text-white px-4";
-const searchButtonClasses = "bg-zinc-900 text-white rounded-full p-2 ml-2";
+const searchInputClasses = "bg-transparent flex-grow outline-none text-white px-4 disabled:opacity-10";
+const searchButtonClasses = "bg-zinc-900 text-white rounded-full p-2 ml-2 disabled:opacity-10";
 const imageSizeClasses = "w-8 h-8";
 
-const InputBar = ({ setMessages }) => {
+const InputBar = ({ setMessages, load, setLoad }) => {
   const [text, setText] = useState("");
 
   const handleButtonClick = async () => {
+    setLoad(true)
     if (text === "") {
       toast.error("Please Provide a Prompt.");
     } else {
       try {
-        const response = await axios.post('https://studylighthouse.onrender.com/api/cohorequest_text', { text });
+        const response = await axios.post('http://127.0.0.1:5000/api/cohorequest_text', { text });
         console.log('Response from backend:', response.data);
 
         const newUserMessage = {
@@ -30,6 +31,8 @@ const InputBar = ({ setMessages }) => {
         setText('');
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoad(false)
       }
     }
   };
@@ -52,6 +55,7 @@ const InputBar = ({ setMessages }) => {
     <div className="inputBar flex justify-center pb-4 overflow-hidden">
       <div className="flex items-center bg-zinc-800 rounded-full p-2 mt-0 w-11/12">
         <input
+        disabled={load}
           type="text"
           className={searchInputClasses}
           placeholder="Search..."
@@ -59,7 +63,7 @@ const InputBar = ({ setMessages }) => {
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
         />
-        <button className={searchButtonClasses} onClick={handleButtonClick}>
+        <button className={searchButtonClasses} disabled={load} onClick={handleButtonClick}>
           <img
             aria-hidden="true"
             alt="arrow"

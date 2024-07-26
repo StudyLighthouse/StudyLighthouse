@@ -81,7 +81,7 @@ const Features =  function () {
       alert("please Provide context of ytour query");
     }else{
       try {
-         const response=await axios.post('https://studylighthouse.onrender.com/postQuery', { query });
+         const response=await axios.post('http://127.0.0.1:5000/postQuery', { query });
          alert(response.data.message);
          setQuery("");
       } catch (error) {
