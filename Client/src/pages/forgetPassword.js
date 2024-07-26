@@ -9,7 +9,7 @@ export default function ForgotPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://127.0.0.1:5000/forgot_password", { email });
+      const response = await axios.post("https://studylighthouse.onrender.com/forgot_password", { email });
       setMessage(response.data.message);
       setEmail("");
     } catch (error) {

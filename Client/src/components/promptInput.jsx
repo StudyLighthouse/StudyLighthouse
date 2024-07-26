@@ -16,7 +16,7 @@ const InputBar = ({ setMessages, load, setLoad }) => {
       toast.error("Please Provide a Prompt.");
     } else {
       try {
-        const response = await axios.post('http://127.0.0.1:5000/api/cohorequest_text', { text });
+        const response = await axios.post('https://studylighthouse.onrender.com/api/cohorequest_text', { text });
         console.log('Response from backend:', response.data);
 
         const newUserMessage = {

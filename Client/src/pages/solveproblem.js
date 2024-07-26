@@ -57,7 +57,7 @@ const SolveProblem = () => {
         formData.append("file", file);
       }
 
-      await axios.post("http://127.0.0.1:5000/post_solution", formData, {
+      await axios.post("https://studylighthouse.onrender.com/post_solution", formData, {
         withCredentials: true,
         headers: {
           "Content-Type": "multipart/form-data",

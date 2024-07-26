@@ -25,7 +25,7 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
   const fetchSavedChats = async () => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:5000/get_saved_chats",
+        "https://studylighthouse.onrender.com/get_saved_chats",
         { cred: user }
       );
       const chats = response.data;
@@ -39,7 +39,7 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
   const fetchChatMessages = async (chatId) => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:5000/get_chat_messages",
+        "https://studylighthouse.onrender.com/get_chat_messages",
         { id: chatId, cred: user }
       );
       const messages = response.data;
@@ -67,7 +67,7 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
           i++;
         }
         const response = await axios.post(
-          "http://127.0.0.1:5000/save_chat",
+          "https://studylighthouse.onrender.com/save_chat",
           {
             name: chatName,
             chat: storedMessages,
@@ -139,7 +139,7 @@ const ChatComponent = ({ onChatSaved, onChatSelected }) => {
       formData.append("question", doubt);
       formData.append("image", file);
       const response = await axios.post(
-        "http://127.0.0.1:5000/post_question",
+        "https://studylighthouse.onrender.com/post_question",
         formData,
         {
           withCredentials: true,

@@ -46,7 +46,7 @@ export default function Editprofile() {
     }
 
     try {
-      const response = await axios.post(`http://127.0.0.1:5000/update_profile/${field}`, data, {
+      const response = await axios.post(`https://studylighthouse.onrender.com/update_profile/${field}`, data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       updateUserField(field, response.data.user[field === 'newUsername' ? 'name' : field]);

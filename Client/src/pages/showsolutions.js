@@ -23,12 +23,12 @@ const Show = () => {
     const fetchQuestionAndSolutions = async () => {
       try {
         const questionResponse = await axios.get(
-          `http://127.0.0.1:5000/get_question/${id}`
+          `https://studylighthouse.onrender.com/get_question/${id}`
         );
         setQuestion(questionResponse.data);
 
         const solutionsResponse = await axios.get(
-          `http://127.0.0.1:5000/get_solutions/${id}`
+          `https://studylighthouse.onrender.com/get_solutions/${id}`
         );
         setSolutions(solutionsResponse.data);
 
@@ -51,14 +51,14 @@ const Show = () => {
 
   const handleLikeSolution = async (questionId, solutionId) => {
     try {
-      await axios.post("http://127.0.0.1:5000/like_solution", {
+      await axios.post("https://studylighthouse.onrender.com/like_solution", {
         questionId,
         solutionId,
         userId: user.uid,
       });
       // Fetch updated solutions after liking
       const solutionsResponse = await axios.get(
-        `http://127.0.0.1:5000/get_solutions/${questionId}`
+        `https://studylighthouse.onrender.com/get_solutions/${questionId}`
       );
       setSolutions(solutionsResponse.data);
     } catch (error) {
