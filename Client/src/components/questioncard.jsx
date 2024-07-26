@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSession } from "../contexts/SessionContext";
 import "../styles/questioncard.css";
+import Loading from "./Loading";
 
 const CardComponent = ({ question }) => {
   const navigate = useNavigate();
   const { user, loading } = useSession();
   const [error, setError] = useState("");
+  const [load, setLoad] = useState(false);
 
   const handleCardClick = async () => {
     if (!user) {
@@ -17,6 +19,7 @@ const CardComponent = ({ question }) => {
 
     try {
       // Fetch the question details
+      setLoad(true)
       const response = await axios.get(`https://studylighthouse.onrender.com/get_question/${question.id}`, {
         withCredentials: true,
       });
@@ -27,8 +30,14 @@ const CardComponent = ({ question }) => {
     } catch (error) {
       console.error("Error logging question view or fetching question details:", error);
       setError("Failed to log question view or fetch question details.");
+    } finally {
+      setLoad(false)
     }
   };
+
+  if(load) {
+    return <Loading />
+  }
 
   const handleSolutionsClick = async () => {
     if (!user) {

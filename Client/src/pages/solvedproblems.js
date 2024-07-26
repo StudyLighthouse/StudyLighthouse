@@ -4,6 +4,7 @@ import Header from "../components/Navbar";
 import axios from "axios";
 import "../styles/showsolutions.css";
 import { useSession } from "../contexts/SessionContext";
+import Loading from "../components/Loading";
 
 const ShowSolved = () => {
   const { solutionId, userId } = useParams();
@@ -11,11 +12,13 @@ const ShowSolved = () => {
   const [question, setQuestion] = useState(null);
   const [solution, setSolution] = useState(null);
   const [error, setError] = useState(null);
+  const[load, setLoad] = useState(false)
 
   console.log("userId:", userId, "solution_id:", solutionId);
 
   useEffect(() => {
     const fetchQuestionAndSolution = async () => {
+      setLoad(true)
       if (userId && solutionId) {
         try {
           console.log("Fetching data with:", {
@@ -34,15 +37,21 @@ const ShowSolved = () => {
         } catch (error) {
           console.error("Error fetching data:", error);
           setError("Failed to fetch data.");
+        } finally {
+          setLoad(false)
         }
-      }
+      } 
     };
 
     fetchQuestionAndSolution();
   }, [solutionId, userId]);
 
-  if (loading) {
-    return <div>Loading...</div>;
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
+  if(load || loading) {
+    return <Loading />
   }
 
   if (error) {

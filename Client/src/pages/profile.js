@@ -8,20 +8,23 @@ import Loading from "../components/Loading";
 export default function Profile() {
   const { user } = useSession();
   const [userData, setUserData] = useState(null);
-  const [load, setLoad] = useState(true);
+  const [load, setLoad] = useState(false);
 
 
   useEffect(() => {
     const fetchUserDetails = async () => {
+      setLoad(true)
       try {
         const response = await axios.get(`https://studylighthouse.onrender.com/user_details?user_id=${user.uid}`, {
           withCredentials: true,
         });
         setUserData(response.data.user);
-        setLoad(false);
+        // setLoad(false);
       } catch (error) {
         console.error("Error fetching user details:", error);
-        setLoad(false);
+        // setLoad(false);
+      } finally {
+        setLoad(false)
       }
     };
 

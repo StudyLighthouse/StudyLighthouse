@@ -7,7 +7,7 @@ import "../styles/solveproblem.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MessageCircle } from "lucide-react";
-import Loading from "../components/Loading";
+// import Loading from "../components/Loading";
 
 const SolveProblem = () => {
   const { user } = useSession();
@@ -17,17 +17,17 @@ const SolveProblem = () => {
   const [solutionText, setSolutionText] = useState("");
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
-  const [load, setLoad] = useState(true);
+  // const [load, setLoad] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoad(false);
-    }, 1000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setLoad(false);
+  //   }, 1000);
+  // }, []);
 
-  if (load) {
-    return <Loading />;
-  }
+  // if (load) {
+  //   return <Loading />;
+  // }
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];

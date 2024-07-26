@@ -8,10 +8,11 @@ import Loading from "../components/Loading";
 const Friendprofile = () => {
   const { id } = useParams();
   const [userData, setUserData] = useState(null);
-  const [load, setLoad] = useState(true);
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
+      setLoad(true)
       try {
         const response = await axios.get(
           `https://studylighthouse.onrender.com/others_details?user_id=${id}`,
@@ -21,10 +22,12 @@ const Friendprofile = () => {
         );
         console.log(response.data.user);
         setUserData(response.data.user);
-        setLoad(false);
+        // setLoad(false);
       } catch (error) {
         console.error("Error fetching user details:", error);
-        setLoad(false);
+        // setLoad(false);
+      } finally {
+        setLoad(false)
       }
     };
 

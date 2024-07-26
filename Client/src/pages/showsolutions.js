@@ -17,10 +17,11 @@ const Show = () => {
   const [solutions, setSolutions] = useState([]);
   const [componentLoading, setComponentLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [load, setLoad] = useState(true);
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
     const fetchQuestionAndSolutions = async () => {
+      setLoad(true)
       try {
         const questionResponse = await axios.get(
           `https://studylighthouse.onrender.com/get_question/${id}`
@@ -33,12 +34,14 @@ const Show = () => {
         setSolutions(solutionsResponse.data);
 
         setComponentLoading(false);
-        setLoad(false);
+        // setLoad(false);
       } catch (error) {
         console.error("Error fetching data:", error);
         setError("Failed to fetch data.");
         setComponentLoading(false);
-        setLoad(false);
+        // setLoad(false);
+      } finally {
+        setLoad(false)
       }
     };
 
